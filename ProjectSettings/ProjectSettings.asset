@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 24
-  productGUID: 74666feed14fccd4c9b684b2cd9df52e
+  productGUID: d9596dda8c32d64458350bd9ce4b8d4f
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: _Ieye
+  productName: IEye
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -884,10 +884,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 872f91a0-889b-414c-b6da-ec55c476018e
+  cloudProjectId: 7758da2e-acde-4f19-abfb-a73a886118f1
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: _Ieye
+  projectName: IEye 2024-10-12_12-42-33
   organizationId: bjh1750
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
