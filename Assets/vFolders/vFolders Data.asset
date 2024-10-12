@@ -50,4 +50,6 @@ MonoBehaviour:
       colorIndex: 5
       isIconRecursive: 0
       isColorRecursive: 0
-  bookmarks: []
+  bookmarks:
+  - guid: d4b49d815a68cb741bf04d8bdfcd7a25
+  - guid: cd115a0a41acda84ea52bfa5ac523acd
