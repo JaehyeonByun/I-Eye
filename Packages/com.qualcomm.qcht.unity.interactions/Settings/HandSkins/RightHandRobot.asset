@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1f0b05ae3e346fabb75b31bca2cf8a, type: 3}
+  m_Name: RightHandRobot
+  m_EditorClassIdentifier: 
+  MainMesh: {fileID: -8309722063319918327, guid: cdc5aac7042d3904aab8c5ae19c37a61, type: 3}
+  MainMaterial: {fileID: 2100000, guid: cec84984c9903274f987de70ed0cce60, type: 2}
+  GhostMesh: {fileID: -8309722063319918327, guid: cdc5aac7042d3904aab8c5ae19c37a61, type: 3}
+  GhostMaterial: {fileID: 2100000, guid: 6c05f4a63d172470b80d36964d91f630, type: 2}
+  hasFeedbacks: 1
+  <Idle>k__BackingField:
+  - HandPart: 0
+    Color: {r: 1, g: 0.38500333, b: 0, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 1
+    Color: {r: 1, g: 0.38431373, b: 0, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 2
+    Color: {r: 1, g: 0.38431373, b: 0, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 3
+    Color: {r: 1, g: 0.38431373, b: 0, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 4
+    Color: {r: 1, g: 0.38431373, b: 0, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 5
+    Color: {r: 1, g: 0.38431373, b: 0, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  <Hovered>k__BackingField:
+  - HandPart: 0
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 1
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 2
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 3
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 4
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 5
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 1
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  <Selected>k__BackingField:
+  - HandPart: 0
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 0
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 1
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 0
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 2
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 0
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 3
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 0
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 4
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 0
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2
+  - HandPart: 5
+    Color: {r: 0.039546248, g: 0.5840786, b: 0.93011117, a: 1}
+    AnimType: 0
+    IntensityRange: {x: 0, y: 2}
+    AnimDuration: 2

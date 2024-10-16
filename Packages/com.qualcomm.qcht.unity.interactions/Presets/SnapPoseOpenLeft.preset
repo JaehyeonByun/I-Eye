@@ -1,0 +1,739 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SnapPoseOpenLeft
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 87612d093dd943918dd1394d12132414, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Handedness
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Space
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.IsRoot
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.UpdatePosition
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Position.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Position.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Position.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Rotation.x
+    value: -0.70710677
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Rotation.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Rotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Root.Rotation.w
+    value: 0.70710677
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.IsThumb
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Position.x
+    value: -0.008445263
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Position.y
+    value: -0.020144578
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Position.z
+    value: 0.0185379
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Rotation.x
+    value: -0.14927098
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Rotation.y
+    value: 0.2500491
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Rotation.z
+    value: -0.7251576
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.BaseData.Rotation.w
+    value: 0.6239712
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.IsThumb
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Position.x
+    value: -0.0016759811
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Position.y
+    value: 0.022979584
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Position.z
+    value: 0.039527074
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Rotation.x
+    value: 0.038553968
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Rotation.y
+    value: 0.086090565
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Rotation.z
+    value: -0.000000059604645
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.MiddleData.Rotation.w
+    value: 0.9955411
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.IsThumb
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Position.x
+    value: 0.0112
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Position.y
+    value: 0.0006999993
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Position.z
+    value: 0.029499996
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Rotation.x
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Rotation.y
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Rotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Thumb.TopData.Rotation.w
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Position.x
+    value: -0.015407303
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Position.y
+    value: 0.086152524
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Position.z
+    value: -0.0047881007
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Rotation.x
+    value: 0.041516215
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Rotation.y
+    value: 0.09743836
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Rotation.z
+    value: -0.0046003163
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.BaseData.Rotation.w
+    value: 0.9943646
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Position.x
+    value: 0.006362889
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Position.y
+    value: 0.03213789
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Position.z
+    value: 0.0027390544
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Rotation.x
+    value: 0.00045673782
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Rotation.y
+    value: -0.0000025629997
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Rotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.MiddleData.Rotation.w
+    value: 0.9999998
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Position.x
+    value: -0.000058222282
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Position.y
+    value: -0.00022454676
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Position.z
+    value: 0.0225584
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Rotation.x
+    value: 0.0007323581
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Rotation.y
+    value: -0.000000078231096
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Rotation.z
+    value: -0.0000000037252903
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Index.TopData.Rotation.w
+    value: 0.99999976
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Position.x
+    value: -0.00018460484
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Position.y
+    value: 0.08295839
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Position.z
+    value: -0.0020388777
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Rotation.x
+    value: 0.030166328
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Rotation.y
+    value: 0.043796945
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Rotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.BaseData.Rotation.w
+    value: 0.9985849
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Position.x
+    value: 0.003268492
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Position.y
+    value: 0.038076356
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Position.z
+    value: 0.0023067417
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Rotation.x
+    value: 0.0015630969
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Rotation.y
+    value: 0.000017544255
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Rotation.z
+    value: -0.0000000037252903
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.MiddleData.Rotation.w
+    value: 0.9999988
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Position.x
+    value: -0.00015241865
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Position.y
+    value: -0.0003789469
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Position.z
+    value: 0.026080117
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Rotation.x
+    value: 0.0018593452
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Rotation.y
+    value: 0.000010056421
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Rotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Middle.TopData.Rotation.w
+    value: 0.9999983
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Position.x
+    value: 0.0029110159
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Position.y
+    value: 0.078354076
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Position.z
+    value: -0.0017569466
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Rotation.x
+    value: 0.02946791
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Rotation.y
+    value: -0.067636386
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Rotation.z
+    value: 0.0027473085
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.BaseData.Rotation.w
+    value: 0.99727094
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Position.x
+    value: -0.004656582
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Position.y
+    value: 0.03277771
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Position.z
+    value: 0.00088291825
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Rotation.x
+    value: 0.031490337
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Rotation.y
+    value: 0.000028584152
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Rotation.z
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.MiddleData.Rotation.w
+    value: 0.99950415
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Position.x
+    value: -0.00032211796
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Position.y
+    value: -0.0013038325
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Position.z
+    value: 0.025741454
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Rotation.x
+    value: 0.031499356
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Rotation.y
+    value: 0.000022999942
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Rotation.z
+    value: -0.0000000018626451
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Ring.TopData.Rotation.w
+    value: 0.99950397
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Position.x
+    value: 0.0070699938
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Position.y
+    value: 0.072224796
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Position.z
+    value: -0.004705837
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Rotation.x
+    value: 0.12815404
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Rotation.y
+    value: -0.21727756
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Rotation.z
+    value: 0.028963506
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.BaseData.Rotation.w
+    value: 0.967227
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Position.x
+    value: -0.010925043
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Position.y
+    value: 0.024047295
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Position.z
+    value: 0.007050423
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Rotation.x
+    value: 0.06941082
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Rotation.y
+    value: -0.0000032484531
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Rotation.z
+    value: 0.000000022351742
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.MiddleData.Rotation.w
+    value: 0.99758816
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.IsRoot
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.IsThumb
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.UpdatePosition
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.UpdateRotation
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Position.x
+    value: 0.00009815124
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Position.y
+    value: -0.0025376268
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Position.z
+    value: 0.018343097
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Rotation.x
+    value: 0.069413096
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Rotation.y
+    value: -0.0000051036477
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Rotation.z
+    value: -0.000000022351742
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: handData.Pinky.TopData.Rotation.w
+    value: 0.9975882
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

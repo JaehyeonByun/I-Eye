@@ -1,0 +1,25 @@
+{
+    "name": "Snapdragon.Spaces.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.XR.OpenXR",
+        "Unity.XR.OpenXR.Editor",
+        "Unity.XR.Management",
+        "Unity.XR.Management.Editor",
+        "Snapdragon.Spaces.Runtime",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.ARSubsystems",
+        "Snapdragon.Spaces.Fusion.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

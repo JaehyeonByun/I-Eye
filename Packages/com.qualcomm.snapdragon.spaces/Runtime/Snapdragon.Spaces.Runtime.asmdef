@@ -1,0 +1,40 @@
+{
+    "name": "Snapdragon.Spaces.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "Unity.XR.OpenXR",
+        "Unity.XR.OpenXR.Editor",
+        "Unity.XR.ARSubsystems",
+        "Unity.XR.Management",
+        "Unity.XR.Management.Editor",
+        "Unity.InputSystem",
+        "Unity.XR.ARFoundation",
+        "Unity.XR.CoreUtils",
+        "Unity.XR.Interaction.Toolkit",
+        "UnityEngine.SpatialTracking",
+        "Unity.XR.OpenXR.Features.MetaQuestSupport"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.xr.arfoundation",
+            "expression": "5.0.0",
+            "define": "AR_FOUNDATION_5_0_OR_NEWER"
+        },
+        {
+            "name": "com.unity.xr.openxr",
+            "expression": "1.9.1",
+            "define": "OPENXR_1_9_1_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}

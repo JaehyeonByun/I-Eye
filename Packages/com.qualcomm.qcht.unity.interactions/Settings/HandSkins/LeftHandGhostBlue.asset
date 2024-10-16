@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1f0b05ae3e346fabb75b31bca2cf8a, type: 3}
+  m_Name: LeftHandGhostBlue
+  m_EditorClassIdentifier: 
+  MainMesh: {fileID: 3342554514662406140, guid: 2c9340c6c24484cde8a139d528cc77f5, type: 3}
+  MainMaterial: {fileID: 2100000, guid: 73ec500cc8d454be3aab3c63f039f3f8, type: 2}
+  GhostMesh: {fileID: 3342554514662406140, guid: 2c9340c6c24484cde8a139d528cc77f5, type: 3}
+  GhostMaterial: {fileID: 2100000, guid: 6c05f4a63d172470b80d36964d91f630, type: 2}
+  hasFeedbacks: 0
+  <Idle>k__BackingField: []
+  <Hovered>k__BackingField: []
+  <Selected>k__BackingField: []

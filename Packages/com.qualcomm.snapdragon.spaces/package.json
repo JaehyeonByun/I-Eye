@@ -1,0 +1,34 @@
+{
+  "name": "com.qualcomm.snapdragon.spaces",
+  "displayName": "Snapdragon Spaces",
+  "description": "Snapdragon Spaces™ is an XR Developer platform for developers to create headworn XR experiences that adapt to the spaces around us.",
+  "version": "0.23.0",
+  "unity": "2021.3",
+  "unityRelease": "16f1",
+  "type": "library",
+  "documentationUrl": "https://docs.spaces.qualcomm.com/",
+  "changelogUrl": "https://docs.spaces.qualcomm.com/common/about/CHANGELOG.html",
+  "license": "See NOTICE.txt",
+  "author": {
+    "name": "Qualcomm Technologies, Inc",
+    "email": "support@spaces.qualcomm.com",
+    "url": "https://spaces.qualcomm.com/"
+  },
+  "dependencies": {
+    "com.unity.xr.openxr": "1.8.2",
+    "com.unity.xr.arfoundation": "4.2.7",
+    "com.unity.xr.interaction.toolkit": "2.3.2"
+  },
+  "samples": [
+    {
+    "displayName": "Core Samples",
+    "description": "Samples demonstrating how to work with the Snapdragon Spaces SDK.",
+    "path": "Samples~/Core Samples"
+    },
+    {
+    "displayName": "Fusion Samples",
+    "description": "Samples demonstrating how to work with Dual Render Fusion and the Snapdragon Spaces SDK.",
+    "path": "Samples~/Fusion Samples"
+    }
+  ]
+}

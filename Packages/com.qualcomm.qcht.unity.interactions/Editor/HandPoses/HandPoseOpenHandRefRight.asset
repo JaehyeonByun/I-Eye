@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a106efaac73a469f8bfe72d6d1ab65a4, type: 3}
+  m_Name: HandPoseOpenHandRefRight
+  m_EditorClassIdentifier: 
+  handedness: 1
+  space: 1
+  Scale: {x: 1, y: 1, z: 1}
+  Root:
+    IsRoot: 1
+    IsThumb: 0
+    UpdatePosition: 1
+    UpdateRotation: 1
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: -0.70710677, y: 0, z: 0, w: 0.70710677}
+  Palm:
+    IsRoot: 0
+    IsThumb: 0
+    UpdatePosition: 0
+    UpdateRotation: 1
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+  Thumb:
+    BaseData:
+      IsRoot: 0
+      IsThumb: 1
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.027038043, y: 0.0048110643, z: 0.0056729456}
+      Rotation: {x: -0.5468066, y: 0.33532888, z: 0.6899964, w: 0.33535367}
+    MiddleData:
+      IsRoot: 0
+      IsThumb: 1
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.047146052, y: 0.03700319, z: 0.013330094}
+      Rotation: {x: -0.47203702, y: 0.33156514, z: 0.72106636, w: 0.3838086}
+    TopData:
+      IsRoot: 0
+      IsThumb: 1
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.0645546, y: 0.0697536, z: 0.026540184}
+      Rotation: {x: -0.47203702, y: 0.33156526, z: 0.72106624, w: 0.38380867}
+  Index:
+    BaseData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.031138746, y: 0.08192066, z: -0.0013967454}
+      Rotation: {x: -0.6734276, y: -0.066082105, z: 0.07271236, w: 0.73269475}
+    MiddleData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.037536677, y: 0.114049405, z: 0.0013679266}
+      Rotation: {x: -0.673093, y: -0.066047, z: 0.07274079, w: 0.73300236}
+    TopData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.041983563, y: 0.1360653, z: 0.0034800556}
+      Rotation: {x: -0.672556, y: -0.06599366, z: 0.07278911, w: 0.7334952}
+  Middle:
+    BaseData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.0075220205, y: 0.082619056, z: -0.0019489722}
+      Rotation: {x: -0.6844679, y: -0.03139715, z: 0.031540178, w: 0.7276834}
+    MiddleData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.011005788, y: 0.12067454, z: 0.0003869925}
+      Rotation: {x: -0.68332905, y: -0.03136057, z: 0.031601224, w: 0.72875196}
+    TopData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: -0.013475738, y: 0.14656702, z: 0.0023412537}
+      Rotation: {x: -0.6819726, y: -0.031309076, z: 0.03166634, w: 0.7300209}
+  Ring:
+    BaseData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: 0.012821605, y: 0.07736226, z: -0.0012685566}
+      Rotation: {x: -0.6840956, y: 0.045486867, z: -0.049168862, w: 0.72631025}
+    MiddleData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: 0.017038096, y: 0.11019937, z: -0.00038208324}
+      Rotation: {x: -0.66088593, y: 0.04389525, z: -0.050557364, w: 0.74749374}
+    TopData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: 0.020136813, y: 0.1356306, z: 0.0024601344}
+      Rotation: {x: -0.6370137, y: 0.04226374, z: -0.05189974, w: 0.76794136}
+  Pinky:
+    BaseData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: 0.030491896, y: 0.06600916, z: -0.0012596231}
+      Rotation: {x: -0.593125, y: 0.13287924, z: -0.17345937, w: 0.7748921}
+    MiddleData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: 0.041693944, y: 0.090022616, z: 0.005463879}
+      Rotation: {x: -0.53790796, y: 0.12052121, z: -0.18226612, w: 0.8141922}
+    TopData:
+      IsRoot: 0
+      IsThumb: 0
+      UpdatePosition: 0
+      UpdateRotation: 1
+      Position: {x: 0.049052734, y: 0.10539682, z: 0.01270264}
+      Rotation: {x: -0.48009408, y: 0.10758309, z: -0.19019507, w: 0.8495655}

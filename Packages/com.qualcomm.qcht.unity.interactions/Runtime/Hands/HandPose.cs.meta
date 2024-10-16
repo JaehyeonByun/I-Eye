@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a106efaac73a469f8bfe72d6d1ab65a4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - HandPoseRefLeft: {fileID: 11400000, guid: 671e966e5faeb4a6fbca7aa80c263770, type: 2}
+  - HandPoseRefRight: {fileID: 11400000, guid: 277d70f0c3f494bbfa7ca8f5de31d499, type: 2}
+  - Ghost: {fileID: 11400000, guid: 8d2d02faccbfe477988877950cccbffa, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

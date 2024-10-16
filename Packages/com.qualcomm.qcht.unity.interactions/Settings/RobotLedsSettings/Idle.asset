@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 613b192f3f9e44d5197c943cd3cd38c4, type: 3}
+  m_Name: Idle
+  m_EditorClassIdentifier: 
+  States:
+  - Part: 0
+    Color:
+      r: 1
+      g: 0
+      b: 0
+      a: 1
+    ColorIntensity: 1
+    AnimType: 0
+    AnimRange: {x: 0, y: 0}
+    AnimDuration: 0
+    PropertyIntensity: _ThumbIntensity
+    PropertyColor: _ColorThumb

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c977e9b48460443fab53589a9ed98610, type: 3}
+  m_Name: XRHandSimulationHandPosesSettings
+  m_EditorClassIdentifier: 
+  leftOpenHand: {fileID: 11400000, guid: f8cccbf32a3c449e6a32d7a7ff458214, type: 2}
+  leftPinchHand: {fileID: 11400000, guid: 624b78e02507c4196a6dd6853ddd60a3, type: 2}
+  leftGrabHand: {fileID: 11400000, guid: 4d4bce2f45e894aa9a792b3fba035739, type: 2}
+  rightOpenHand: {fileID: 11400000, guid: b7307b6614db643a1a3bb110ed36ee06, type: 2}
+  rightPinchHand: {fileID: 11400000, guid: 719ca988d5bf747c99ae6561c3160a7d, type: 2}
+  rightGrabHand: {fileID: 11400000, guid: da0fee8d554494a09bd2c948b81ba404, type: 2}

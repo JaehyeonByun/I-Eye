@@ -1,0 +1,38 @@
+{
+  "name": "com.qualcomm.qcht.unity.interactions",
+  "displayName": "QCHT Unity Interactions",
+  "description": "Qualcomm Hand Tracking interactions package.",
+  "version": "4.1.7",
+  "unity": "2021.3",
+  "unityRelease": "16f1",
+  "type": "library",
+  "documentationUrl": "https://docs.spaces.qualcomm.com/unity/handtracking/HandTrackingOverview.html",
+  "changelogUrl": "https://docs.spaces.qualcomm.com/common/about/CHANGELOG.html",
+  "licensesUrl": "NOTICE.txt",
+  "license": "See NOTICE.txt",
+  "author": {
+    "name": "Qualcomm Technologies, Inc"
+  },
+  "keywords": [
+    "Qualcomm",
+    "Unity",
+    "Interactions",
+    "QCHT"
+  ],
+  "samples": [
+    {
+      "displayName": "Core Assets",
+      "description": "Predefined assets for interaction experiences.",
+      "path": "Samples~/QCHT Interaction Samples/Core Assets/"
+    },
+    {
+      "displayName": "QCHT Samples",
+      "description": "Samples on how to create hand tracking interaction experiences.",
+      "path": "Samples~/QCHT Interaction Samples/QCHT Samples/"
+    }
+  ],
+  "dependencies": {
+    "com.unity.xr.openxr": "1.8.2",
+    "com.unity.xr.interaction.toolkit": "2.5.1"
+  }
+}
