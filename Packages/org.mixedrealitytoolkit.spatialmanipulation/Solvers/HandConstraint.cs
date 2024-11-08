@@ -9,17 +9,10 @@ using UnityEngine.XR;
 
 namespace MixedReality.Toolkit.SpatialManipulation
 {
-    /// <summary>
-    /// Provides a solver that constrains the target to a region safe for
-    /// hand constrained interactive content. While this solver is intended
-    /// to work with articulated hands, it also works with motion controllers. 
-    /// </summary>
     [RequireComponent(typeof(HandBounds))]
     [AddComponentMenu("MRTK/Spatial Manipulation/Solvers/Hand Constraint")]
     public class HandConstraint : Solver
     {
-        // This array intentionally leaves out AtopPalm. The zones of interest reside
-        // around, not above the hand.
         private static readonly SolverSafeZone[] handSafeZonesClockWiseRightHand =
             new SolverSafeZone[]
             {
@@ -33,10 +26,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Which part of the hand to move the solver towards. The ulnar side of the hand is recommended for most situations.")]
         private SolverSafeZone safeZone = SolverSafeZone.UlnarSide;
-
-        /// <summary>
-        /// Which part of the hand to move the tracked object towards. The ulnar side of the hand is recommended for most situations.
-        /// </summary>
         public SolverSafeZone SafeZone
         {
             get => safeZone;
@@ -46,10 +35,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Additional offset to apply to the intersection point with the hand bounds along the intersection point normal.")]
         private float safeZoneBuffer = 0.15f;
-
-        /// <summary>
-        /// Additional offset to apply to the intersection point with the hand bounds.
-        /// </summary>
         public float SafeZoneBuffer
         {
             get => safeZoneBuffer;
@@ -59,10 +44,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Should the solver continue to move when the opposite hand (hand which is not being tracked) is near the tracked hand. This can improve stability when one hand occludes the other.")]
         private bool updateWhenOppositeHandNear = false;
-
-        /// <summary>
-        /// Should the solver continue to move when the opposite hand (hand which is not being tracked) is near the tracked hand. This can improve stability when one hand occludes the other."
-        /// </summary>
         public bool UpdateWhenOppositeHandNear
         {
             get => updateWhenOppositeHandNear;
@@ -72,10 +53,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("When a hand is activated for tracking, should the cursor(s) be disabled on that hand?")]
         private bool hideHandCursorsOnActivate = true;
-
-        /// <summary>
-        /// When a hand is activated for tracking, should the cursor(s) be disabled on that hand?
-        /// </summary>
         public bool HideHandCursorsOnActivate
         {
             get => hideHandCursorsOnActivate;
@@ -85,10 +62,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Specifies how the solver should rotate when tracking the hand.")]
         private SolverRotationBehavior rotationBehavior = SolverRotationBehavior.LookAtMainCamera;
-
-        /// <summary>
-        /// Specifies how the solver should rotate when tracking the hand. 
-        /// </summary>
         public SolverRotationBehavior RotationBehavior
         {
             get => rotationBehavior;
@@ -98,10 +71,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Specifies how the solver's offset relative to the hand will be computed.")]
         private SolverOffsetBehavior offsetBehavior = SolverOffsetBehavior.LookAtCameraRotation;
-
-        /// <summary>
-        /// Specifies how the solver's offset relative to the hand will be computed.
-        /// </summary>
         public SolverOffsetBehavior OffsetBehavior
         {
             get => offsetBehavior;
@@ -111,10 +80,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Additional offset to apply towards the user.")]
         private float forwardOffset = 0;
-
-        /// <summary>
-        /// Additional offset to apply towards the user.
-        /// </summary>
         public float ForwardOffset
         {
             get => forwardOffset;
@@ -125,11 +90,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [Tooltip("Additional degree offset to apply from the stated SafeZone. Ignored if Safe Zone is Atop Palm." +
         " Direction is clockwise on the left hand and anti-clockwise on the right hand.")]
         private float safeZoneAngleOffset = 0;
-
-        /// <summary>
-        /// Additional degree offset to apply clockwise from the stated SafeZone.
-        /// Direction is clockwise on the left hand and anti-clockwise on the right hand.
-        /// </summary>
         public float SafeZoneAngleOffset
         {
             get => safeZoneAngleOffset;
@@ -139,10 +99,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Event which is triggered when zero hands to one hand is tracked.")]
         private UnityEvent onFirstHandDetected = new UnityEvent();
-
-        /// <summary>
-        /// Event which is triggered when zero hands to one hand is tracked.
-        /// </summary>
         public UnityEvent OnFirstHandDetected
         {
             get => onFirstHandDetected;
@@ -152,10 +108,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Event which is triggered when all hands are lost.")]
         private UnityEvent onLastHandLost = new UnityEvent();
-
-        /// <summary>
-        /// Event which is triggered when all hands are lost.
-        /// </summary>
         public UnityEvent OnLastHandLost
         {
             get => onLastHandLost;
@@ -165,10 +117,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Event which is triggered when a hand begins being tracked.")]
         private UnityEvent onHandActivate = new UnityEvent();
-
-        /// <summary>
-        /// Event which is triggered when a hand begins being tracked.
-        /// </summary>
         public UnityEvent OnHandActivate
         {
             get => onHandActivate;
@@ -178,10 +126,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
         [SerializeField]
         [Tooltip("Event which is triggered when a hand stops being tracked.")]
         private UnityEvent onHandDeactivate = new UnityEvent();
-
-        /// <summary>
-        /// Event which is triggered when a hand stops being tracked.
-        /// </summary>
         public UnityEvent OnHandDeactivate
         {
             get => onHandDeactivate;
@@ -189,28 +133,17 @@ namespace MixedReality.Toolkit.SpatialManipulation
         }
 
         private Handedness previousHandedness = Handedness.None;
-
-        /// <summary>
-        /// Get the <see cref="MixedReality.Toolkit.Handedness">Handedness</see> value from the used input device.
-        /// </summary>
         public Handedness Handedness => previousHandedness;
 
         private XRNode? trackedNode = null;
 
         private HandBounds handBounds = null;
-
-        /// <summary>
-        /// Get the <see cref="MixedReality.Toolkit.HandBounds">HandBounds</see> component this is using to
-        /// apply the hand constraints.
-        /// </summary>
         protected HandBounds HandBounds => handBounds;
 
         private readonly Quaternion handToWorldRotation = Quaternion.Euler(-90.0f, 0.0f, 180.0f);
 
         private static readonly ProfilerMarker SolverUpdatePerfMarker =
             new ProfilerMarker("[MRTK] HandConstraint.SolverUpdate");
-
-        /// <inheritdoc />
         public override void SolverUpdate()
         {
             using (SolverUpdatePerfMarker.Auto())
@@ -218,7 +151,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (SolverHandler.TrackedTargetType != TrackedObjectType.HandJoint &&
                     SolverHandler.TrackedTargetType != TrackedObjectType.ControllerRay)
                 {
-                    // Solver HandConstraint requires TrackedObjectType of type HandJoint or Interactor (ControllerRay)
                     return;
                 }
 
@@ -281,12 +213,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 UpdateWorkingRotationToGoal();
             }
         }
-
-        /// <summary>
-        /// Determines if a hand meets the requirements for use with constraining the tracked object.
-        /// </summary>
-        /// <param name="hand">The XRNode representing the hand to check against.</param>
-        /// <returns><see langword="true"/> if this hand should be used from tracking.</returns>
         protected virtual bool IsValidController(XRNode? hand)
         {
             return (hand.HasValue &&
@@ -295,12 +221,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker CalculateGoalPositionPerfMarker =
             new ProfilerMarker("[MRTK] HandConstraint.CalculateGoalPosition");
-
-        /// <summary>
-        /// Performs a ray vs AABB test to determine where the solver can constrain the tracked object without intersection.
-        /// The "safe zone" is calculated as if projected into the horizontal and vertical plane of the camera.
-        /// </summary>
-        /// <returns>The new goal position.</returns>
         protected virtual Vector3 CalculateGoalPosition()
         {
             using (CalculateGoalPositionPerfMarker.Auto())
@@ -311,9 +231,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                     handBounds.LocalBounds.TryGetValue(trackedNode.Value.ToHandedness(), out Bounds trackedHandBounds))
                 {
                     HandJointPose? palmPose = GetPalmPose(trackedNode);
-
-                    // If we somehow were unable to obtain a palm pose, we just quit;
-                    // we require a valid palm pose to perform the hand-space transformations.
                     if (palmPose.HasValue == false)
                     {
                         return goalPosition;
@@ -327,17 +244,12 @@ namespace MixedReality.Toolkit.SpatialManipulation
                         OffsetBehavior,
                         safeZoneAngleOffset);
                     trackedHandBounds.Expand(safeZoneBuffer);
-
-                    // We need to transform the ray into hand-space before performing the AABB intersection.
                     ray.origin = Quaternion.Inverse(palmPose.Value.Rotation) * (ray.origin - palmPose.Value.Position);
                     ray.direction = Quaternion.Inverse(palmPose.Value.Rotation) * ray.direction;
 
                     if (trackedHandBounds.IntersectRay(ray, out float distance))
                     {
                         var localSpaceHit = ray.origin + ray.direction * distance;
-
-                        // As hand bounds are computed and raycasted in palm-relative space,
-                        // we must transform the hit target back into global space.
                         if (palmPose.HasValue)
                         {
                             goalPosition = palmPose.Value.Rotation * (localSpaceHit) + palmPose.Value.Position;
@@ -356,11 +268,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker CalculateGoalRotationPerfMarker =
             new ProfilerMarker("[MRTK] HandConstraint.CalculateGoalRotation");
-
-        /// <summary>
-        /// Determines the solver's goal rotation based off of the SolverRotationBehavior.
-        /// </summary>
-        /// <returns>The new goal rotation.</returns>
         protected virtual Quaternion CalculateGoalRotation()
         {
             using (CalculateGoalRotationPerfMarker.Auto())
@@ -385,8 +292,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 if (rotationBehavior != SolverRotationBehavior.None)
                 {
                     var additionalRotation = SolverHandler.AdditionalRotation;
-
-                    // Invert the yaw based on handedness to allow the rotation to look similar on both hands.
                     if (trackedNode.Value == XRNode.RightHand)
                     {
                         additionalRotation.y *= -1.0f;
@@ -401,13 +306,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker IsOppositeHandNearPerfMarker =
             new ProfilerMarker("[MRTK] HandConstraint.IsOppositeHandNear");
-
-        /// <summary>
-        /// Performs an intersection test to see if the left hand is near
-        /// the right hand or vice versa.
-        /// </summary>
-        /// <param name="hand">The hand to check against.</param>
-        /// <returns><see langword="true"/> when hands are near each other.</returns>
         protected virtual bool IsOppositeHandNear(XRNode? hand)
         {
             using (IsOppositeHandNearPerfMarker.Auto())
@@ -522,10 +420,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
                     case SolverSafeZone.AtopPalm:
                         {
-                            // This is always palm-pose dependent, as we are extruding
-                            // the up vector away from the palm pose, regardless of the desired
-                            // rotation behavior. If no palm pose is available, we use the
-                            // camera view vector as an approximation.
                             HandJointPose? palmPose = GetPalmPose(hand);
                             if (palmPose.HasValue)
                             {
@@ -545,10 +439,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker CalculateGoalPositionRayPerfMarker =
             new ProfilerMarker("[MRTK] HandConstraint.CalculateGoalPositionRay");
-
-        /// <summary>
-        /// Compute a ray from the target's previous position to its desired position
-        /// </summary>
         private Ray CalculateGoalPositionRay(
             Vector3 origin,
             Transform targetTransform,
@@ -622,15 +512,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 return new Ray(origin + direction, -direction);
             }
         }
-
-        /// <summary>
-        /// Evaluates whether or not the palm of the specified hand is facing the
-        /// camera.
-        /// </summary>
-        /// <param name="hand">The XRNode representing the hand to evaluate.</param>
-        /// <returns>
-        /// <see langword="true"/> if the palm is facing the camera, or <see langword="false"/>.
-        /// </returns>
         private bool IsPalmFacingCamera(XRNode? hand)
         {
             Debug.Assert(hand.HasValue);
@@ -647,14 +528,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
 
         private static readonly ProfilerMarker GetPalmPosePerfMarker =
             new ProfilerMarker("[MRTK] HandConstraint.GetPalmPose");
-
-        /// <summary>
-        /// Returns the pose of the palm of the specified hand.
-        /// </summary>
-        /// <param name="hand">The hand for which the palm pose is requested.</param>
-        /// <returns>
-        /// <see cref="HandJointPose"/> containing the pose of the palm, or null.
-        /// </returns>
         private HandJointPose? GetPalmPose(XRNode? hand)
         {
             using (GetPalmPosePerfMarker.Auto())
@@ -674,12 +547,6 @@ namespace MixedReality.Toolkit.SpatialManipulation
                 return jointPose;
             }
         }
-
-        /// <summary>
-        /// Returns the XRNode that matches the desired handedness.
-        /// </summary>
-        /// <param name="handedness">The handedness of the returned controller</param>
-        /// <returns>The IMixedRealityController for the desired handedness, or null if none are present.</returns>
         protected XRNode? GetControllerNode(Handedness handedness)
         {
             if (!SolverHandler.IsValidHandedness(handedness)) { return null; }
