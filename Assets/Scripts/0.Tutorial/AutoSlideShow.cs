@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoSlideShow : MonoBehaviour
 {
+    public event Action OnTutorialMode;
+
     [SerializeField, Range(1, 10)]
-    private float interval = 5f; // 기본 간격을 5초로 설정
+    private float interval = 5f; // 슬라이드 전환 간격
 
     [SerializeField]
-    private List<GameObject> slides; // 슬라이드들을 인스펙터에 추가
+    public List<GameObject> slides; // 슬라이드 리스트
+
+    [SerializeField, Range(0.1f, 2f)]
+    private float fadeDuration = 0.5f; // 페이드 인/아웃 시간
 
     private int currentSlideIndex = 0;
     private bool isPaused = false;
@@ -16,27 +22,100 @@ public class AutoSlideShow : MonoBehaviour
 
     private void Start()
     {
-        ShowSlide(currentSlideIndex); // 첫 슬라이드 활성화
-        autoSlideCoroutine = StartCoroutine(AutoNextSlide()); // 자동 슬라이드 시작
+        InitializeSlides();
+        ShowSlide(currentSlideIndex); 
+        autoSlideCoroutine = StartCoroutine(AutoNextSlide()); 
+    }
+
+    private void InitializeSlides()
+    {
+        foreach (var slide in slides)
+        {
+            // 각 슬라이드의 SpriteRenderer를 통해 시작 시 알파 값 설정
+            SpriteRenderer spriteRenderer = slide.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Color color = spriteRenderer.color;
+                color.a = 0;  // 시작 시 투명하게 설정
+                spriteRenderer.color = color;
+            }
+            slide.SetActive(false); // 시작 시 비활성화
+        }
     }
 
     private IEnumerator AutoNextSlide()
     {
         while (currentSlideIndex < slides.Count - 1)
         {
-            Debug.Log("AutoNextSlide - Current Slide: " + currentSlideIndex);
-
-            // 특정 인덱스에서 자동 슬라이드 중단
+            // 특정 슬라이드에서 일시 정지
             if ((currentSlideIndex == 7 || currentSlideIndex == 9 || currentSlideIndex == 10 || currentSlideIndex == 11) && !isPaused)
             {
                 isPaused = true;
-                Debug.Log("Paused at Slide " + (currentSlideIndex + 1) + ", waiting for manual navigation.");
-                yield break; // 코루틴 종료
+                yield break;
             }
 
             yield return new WaitForSeconds(interval);
-            ShowNextSlide();
+            yield return StartCoroutine(FadeToNextSlide());
         }
+
+        OnTutorialMode?.Invoke(); // 마지막 슬라이드 후 튜토리얼 모드로 전환
+    }
+
+    private IEnumerator FadeToNextSlide()
+    {
+        // 현재 슬라이드 페이드 아웃
+        yield return StartCoroutine(FadeOut(slides[currentSlideIndex]));
+
+        // 다음 슬라이드 활성화
+        currentSlideIndex++;
+        ShowSlide(currentSlideIndex);
+
+        // 다음 슬라이드 페이드 인
+        yield return StartCoroutine(FadeIn(slides[currentSlideIndex]));
+    }
+
+    public IEnumerator FadeOut(GameObject slide)
+    {
+        SpriteRenderer spriteRenderer = slide.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) yield break;
+
+        Color color = spriteRenderer.color;
+        float startAlpha = color.a;
+        float time = 0;
+
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, 0, time / fadeDuration);
+            spriteRenderer.color = color;
+            yield return null;
+        }
+
+        color.a = 0;
+        spriteRenderer.color = color;
+        slide.SetActive(false); // 페이드 아웃 후 슬라이드를 비활성화
+    }
+
+    public IEnumerator FadeIn(GameObject slide)
+    {
+        slide.SetActive(true);
+        SpriteRenderer spriteRenderer = slide.GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null) yield break;
+
+        Color color = spriteRenderer.color;
+        float startAlpha = color.a;
+        float time = 0;
+
+        while (time < fadeDuration)
+        {
+            time += Time.deltaTime;
+            color.a = Mathf.Lerp(startAlpha, 1, time / fadeDuration);
+            spriteRenderer.color = color;
+            yield return null;
+        }
+
+        color.a = 1;
+        spriteRenderer.color = color;
     }
 
     public void ResumeAutoSlide()
@@ -44,15 +123,10 @@ public class AutoSlideShow : MonoBehaviour
         if (isPaused)
         {
             isPaused = false;
-            Debug.Log("Resuming AutoSlide from Slide " + (currentSlideIndex + 1));
             autoSlideCoroutine = StartCoroutine(AutoNextSlide());
         }
-        else
-        {
-            Debug.LogWarning("Attempted to resume AutoSlide while it was not paused. Current slide index: " + currentSlideIndex);
-        }
     }
-    
+
     public int GetCurrentSlideIndex()
     {
         return currentSlideIndex;
@@ -61,28 +135,33 @@ public class AutoSlideShow : MonoBehaviour
     public void SetCurrentSlideIndex(int index)
     {
         currentSlideIndex = index;
-        Debug.Log("Manually set slide index to: " + currentSlideIndex);
-        ShowSlide(currentSlideIndex); // 인덱스 변경 후 슬라이드 표시
-    }
-
-    public void ShowNextSlide()
-    {
-        slides[currentSlideIndex].SetActive(false);
-        currentSlideIndex++;
         ShowSlide(currentSlideIndex);
     }
 
     public void ShowSlide(int index)
     {
-        // 모든 슬라이드 비활성화 후 현재 인덱스 슬라이드만 활성화
         foreach (var slide in slides)
         {
             slide.SetActive(false);
+            SpriteRenderer spriteRenderer = slide.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Color color = spriteRenderer.color;
+                color.a = 0;
+                spriteRenderer.color = color;
+            }
         }
 
         if (index >= 0 && index < slides.Count)
         {
             slides[index].SetActive(true);
+            SpriteRenderer spriteRenderer = slides[index].GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Color color = spriteRenderer.color;
+                color.a = 1; // 처음 나타날 때 바로 보이도록 설정
+                spriteRenderer.color = color;
+            }
             Debug.Log("Showing Slide: " + index);
         }
         else
