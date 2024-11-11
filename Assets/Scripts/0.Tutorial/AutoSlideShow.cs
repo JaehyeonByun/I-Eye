@@ -45,9 +45,8 @@ public class AutoSlideShow : MonoBehaviour
 
     private IEnumerator AutoNextSlide()
     {
-        while (currentSlideIndex < slides.Count - 1)
+        while (currentSlideIndex < slides.Count - 1 && currentSlideIndex < 13) // 최대 인덱스를 13으로 제한
         {
-            // 특정 슬라이드에서 일시 정지
             if ((currentSlideIndex == 7 || currentSlideIndex == 9 || currentSlideIndex == 10 || currentSlideIndex == 11) && !isPaused)
             {
                 isPaused = true;
@@ -58,7 +57,10 @@ public class AutoSlideShow : MonoBehaviour
             yield return StartCoroutine(FadeToNextSlide());
         }
 
-        OnTutorialMode?.Invoke(); // 마지막 슬라이드 후 튜토리얼 모드로 전환
+        if (currentSlideIndex >= 13) // 슬라이드가 13까지 완료되면 튜토리얼 모드 전환
+        {
+            OnTutorialMode?.Invoke();
+        }
     }
 
     private IEnumerator FadeToNextSlide()
@@ -66,12 +68,14 @@ public class AutoSlideShow : MonoBehaviour
         // 현재 슬라이드 페이드 아웃
         yield return StartCoroutine(FadeOut(slides[currentSlideIndex]));
 
-        // 다음 슬라이드 활성화
         currentSlideIndex++;
-        ShowSlide(currentSlideIndex);
 
-        // 다음 슬라이드 페이드 인
-        yield return StartCoroutine(FadeIn(slides[currentSlideIndex]));
+        // 인덱스를 13 이하로 유지
+        if (currentSlideIndex <= 13)
+        {
+            ShowSlide(currentSlideIndex);
+            yield return StartCoroutine(FadeIn(slides[currentSlideIndex]));
+        }
     }
 
     public IEnumerator FadeOut(GameObject slide)
