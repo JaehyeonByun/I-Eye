@@ -5,11 +5,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject tutorialCanvas; // 튜토리얼 UI 캔버스
     [SerializeField] private GameObject dialogueCanvas;
     [SerializeField] private GameObject clayPickupManagerObject; // ClayPickupManager 오브젝트
-    [SerializeField] private GameObject pageNavigationObject; // PageNavigation 오브젝트
 
     private void Start()
     {
-        // tutorialCanvas와 clayPickupManagerObject, pageNavigationObject는 처음에 비활성화
+        // tutorialCanvas와 clayPickupManagerObject는 처음에 비활성화
         tutorialCanvas.SetActive(false);
         clayPickupManagerObject.SetActive(false);
 
@@ -29,13 +28,6 @@ public class TutorialManager : MonoBehaviour
         
         // ClayPickupManager 오브젝트 활성화
         clayPickupManagerObject.SetActive(true);
-
-        // PageNavigation 오브젝트 종료 (비활성화)
-        if (pageNavigationObject != null)
-        {
-            pageNavigationObject.SetActive(false);
-            Debug.Log("PageNavigation has been disabled by TutorialManager.");
-        }
     }
 
     private void OnDestroy()
