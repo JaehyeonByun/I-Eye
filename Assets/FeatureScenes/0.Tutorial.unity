@@ -354,6 +354,7 @@ GameObject:
   - component: {fileID: 175848702}
   - component: {fileID: 175848701}
   - component: {fileID: 175848700}
+  - component: {fileID: 175848703}
   m_Layer: 5
   m_Name: Button8(Legacy)
   m_TagString: Untagged
@@ -475,6 +476,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175848698}
   m_CullTransparentMesh: 1
+--- !u!65 &175848703
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175848698}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &259907720
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,7 +699,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 282880217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84188668306634620b8d5eb456e15899, type: 3}
+  m_Script: {fileID: 0}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &282880224
@@ -1078,7 +1092,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: {fileID: 1588076292}
-  TriggerAction: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  TriggerAction: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &641744599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1973,7 +1987,6 @@ MonoBehaviour:
   tutorialCanvas: {fileID: 1267923259}
   dialogueCanvas: {fileID: 282880217}
   clayPickupManagerObject: {fileID: 46491367}
-  pageNavigationObject: {fileID: 0}
 --- !u!4 &1309497710
 Transform:
   m_ObjectHideFlags: 0
@@ -2111,7 +2124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: {fileID: 1588076292}
-  TriggerAction: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  TriggerAction: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &1405776673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2602,7 +2615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: {fileID: 1588076292}
-  TriggerAction: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  TriggerAction: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &1915796293
 GameObject:
   m_ObjectHideFlags: 0
@@ -2702,7 +2715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextPage: {fileID: 1588076292}
-  TriggerAction: {fileID: 3279264004350380116, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
+  TriggerAction: {fileID: 187161793506945269, guid: 18c412191cdc9274897f101c7fd5316f, type: 3}
 --- !u!1 &1986242828
 GameObject:
   m_ObjectHideFlags: 0
