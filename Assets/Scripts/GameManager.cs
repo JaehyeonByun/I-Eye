@@ -6,6 +6,8 @@ using System.Reflection;
 
 public class GameManager : MonoBehaviour
 {
+    //The GameManager records 18 biometric data points necessary for DSM-5 diagnosis.
+    
     public static float[] Inattention_a;
     public static float[] Inattention_b;
     public static float[] Inattention_c;
