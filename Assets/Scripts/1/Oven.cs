@@ -12,7 +12,7 @@ public class Oven : MonoBehaviour
     public int _failesCount = 0; 
 
     private bool _isShovelColliding = false; 
-    [SerializeField] private float _gazetime = 10f;
+    [SerializeField] private float _gazetime = 120f;
 
     private bool _isCounted = false;
 
