@@ -6,15 +6,19 @@ using UnityEngine;
 public class SlideData
 {
     public float interval = 2f;        // 간격
-    public bool isStop;           // 멈춰야 하는지
-    public GameObject slide;      // 슬라이드 오브젝트
-    public AudioSource Voice;  // 음성 배열
+    public bool isStop;                // 멈춰야 하는지
+    public GameObject slide;           // 슬라이드 오브젝트
+    public AudioSource Voice;          // 음성 배열
 }
+
 public class UIScenario : MonoBehaviour
 {
     [SerializeField]
-    private List<SlideData> _slides; 
+    private List<SlideData> _slides;
     
+    [SerializeField]
+    private float fadeDuration = 1f; // 페이드 인/아웃 지속 시간
+
     private int currentSlideIndex = 0;
     private bool isPaused = false;
     private Coroutine autoSlideCoroutine;
@@ -41,8 +45,50 @@ public class UIScenario : MonoBehaviour
 
             // 현재 슬라이드의 interval 값만큼 대기
             yield return new WaitForSeconds(_slides[currentSlideIndex].interval);
-            ShowNextSlide();
+
+            // 페이드 아웃 및 다음 슬라이드로 전환
+            yield return StartCoroutine(FadeToNextSlide());
         }
+    }
+
+    private IEnumerator FadeToNextSlide()
+    {
+        yield return StartCoroutine(FadeOutSlide(currentSlideIndex));
+        ShowNextSlide();
+        yield return StartCoroutine(FadeInSlide(currentSlideIndex));
+    }
+
+    private IEnumerator FadeOutSlide(int index)
+    {
+        CanvasGroup canvasGroup = _slides[index].slide.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            float startAlpha = canvasGroup.alpha;
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                canvasGroup.alpha = Mathf.Lerp(startAlpha, 0, t / fadeDuration);
+                yield return null;
+            }
+            canvasGroup.alpha = 0; // 확실히 투명하게 설정
+        }
+        _slides[index].slide.SetActive(false); // 페이드 아웃 후 비활성화
+    }
+
+    private IEnumerator FadeInSlide(int index)
+    {
+        _slides[index].slide.SetActive(true); // 페이드 인 전에 슬라이드 활성화
+        CanvasGroup canvasGroup = _slides[index].slide.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            float startAlpha = canvasGroup.alpha;
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                canvasGroup.alpha = Mathf.Lerp(0, 1, t / fadeDuration);
+                yield return null;
+            }
+            canvasGroup.alpha = 1; // 확실히 보이게 설정
+        }
+        _slides[index].Voice.Play();
     }
 
     public void ResumeAutoSlide()
@@ -73,7 +119,6 @@ public class UIScenario : MonoBehaviour
 
     public void ShowNextSlide()
     {
-        _slides[currentSlideIndex].slide.SetActive(false); // 현재 슬라이드 비활성화
         currentSlideIndex++;
         ShowSlide(currentSlideIndex); // 다음 슬라이드 활성화
     }

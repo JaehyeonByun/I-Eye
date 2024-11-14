@@ -5,15 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/__Meta Core__/SmapleScenes/01BaseScene/BaseScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Main Project/0 - Tutorial.unity
-    guid: 71db699b55a091e48981c2685dbe17dd
   - enabled: 1
-    path: Assets/FeatureScenes/0.Tutorial.unity
-    guid: 7de2f548d180f4e8894577454ba43a39
+    path: Assets/FeatureScenes/GameVideo/Video.unity
+    guid: da71d659f70c1e347a1ab1803be4c80a
+  - enabled: 1
+    path: Assets/FeatureScenes/GameVideo/Video 2.unity
+    guid: d0087446ba4796d478fdc435d56a565d
+  - enabled: 1
+    path: Assets/FeatureScenes/GameVideo/Video 1.unity
+    guid: 935cf9ab559b57a42b9caaf8f58cd045
+  - enabled: 1
+    path: Assets/FeatureScenes/GameVideo/Video 3.unity
+    guid: 762efc1c4166a714eb274a4935e73379
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 59434c10870f233449896f11841b388a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: efada534aafe3b849b6a348789da54d5, type: 2}
