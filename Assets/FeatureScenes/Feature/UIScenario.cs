@@ -26,6 +26,8 @@ public class UIScenario : MonoBehaviour
     private int currentSlideIndex = 0;
     private bool isPaused = false;
     private Coroutine autoSlideCoroutine;
+    
+    public MicrophoneRecorder microphoneRecorder;
 
     private void Start()
     {
@@ -39,12 +41,29 @@ public class UIScenario : MonoBehaviour
         {
             Debug.Log("AutoNextSlide - Current Slide: " + currentSlideIndex);
 
-            // 특정 인덱스에서 자동 슬라이드 중단
-            if ((_slides[currentSlideIndex].isStop == true) && !isPaused)
+            // 특정 슬라이드에서 녹음 시작 및 중단 조건 처리
+            if (_slides[currentSlideIndex].isStop && !isPaused)
             {
                 isPaused = true;
-                Debug.Log("Paused at Slide " + (currentSlideIndex + 1) + ", waiting for manual navigation.");
-                yield break; // 코루틴 종료
+                Debug.Log($"Paused at Slide {currentSlideIndex + 1}, waiting for voice recognition.");
+
+                if (currentSlideIndex == 3) // 예: 4번째 슬라이드에서 녹음 시작
+                {
+                    Debug.Log("[UIScenario] Starting recording for Slide 3...");
+                    microphoneRecorder.StartRecording();
+
+                    // 일정 시간 뒤 자동으로 StopRecording 호출
+                    StartCoroutine(StopRecordingAfterDelay(5f)); // 5초 뒤 녹음 중단
+
+                    // 음성 인식 완료 후 처리
+                    StartCoroutine(WaitForVoiceRecognition());
+                }
+
+                // 현재 슬라이드 상태를 유지하며 루프를 대기
+                while (isPaused)
+                {
+                    yield return null; // 음성 인식 완료를 기다림
+                }
             }
 
             // 현재 슬라이드의 interval 값만큼 대기
@@ -53,6 +72,35 @@ public class UIScenario : MonoBehaviour
             // 페이드 아웃 및 다음 슬라이드로 전환
             yield return StartCoroutine(FadeToNextSlide());
         }
+    }
+
+    
+    private IEnumerator StopRecordingAfterDelay(float delay)
+    {
+        Debug.Log($"[UIScenario] Scheduled StopRecording after {delay} seconds.");
+        yield return new WaitForSeconds(delay);
+
+        if (microphoneRecorder != null)
+        {
+            Debug.Log("[UIScenario] Stopping recording after delay.");
+            microphoneRecorder.StopRecording();
+        }
+        else
+        {
+            Debug.LogError("[UIScenario] MicrophoneRecorder is null when attempting to stop recording.");
+        }
+    }
+    
+    private IEnumerator WaitForVoiceRecognition()
+    {
+        // 음성 인식 완료될 때까지 대기
+        while (!microphoneRecorder.IsRecognitionComplete)
+        {
+            yield return null; // 매 프레임 대기
+        }
+
+        Debug.Log("Voice recognition completed. Resuming auto slide...");
+        isPaused = false; // 일시 정지 해제
     }
 
     private IEnumerator FadeToNextSlide()
@@ -147,3 +195,4 @@ public class UIScenario : MonoBehaviour
         }
     }
 }
+
