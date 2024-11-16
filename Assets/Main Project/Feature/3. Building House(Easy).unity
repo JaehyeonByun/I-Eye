@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.786608, g: 0.6652716, b: 0.5809819, a: 1}
+  m_IndirectSpecularColor: {r: 0.7865269, g: 0.6652815, b: 0.580772, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4822,7 +4822,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720334, guid: f1ae3844662414f469f1fa12c888e838, type: 3}
       propertyPath: m_Name
-      value: MRTK XR Rig
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1ae3844662414f469f1fa12c888e838, type: 3}
@@ -5086,7 +5086,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5991013e05a5a04c8a70a945c5f2f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineSize: 10
 --- !u!1001 &1389111672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5690,7 +5689,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_LocalScale.x
@@ -5746,7 +5745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_Name
-      value: 1-1
+      value: FirstPig
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_Controller
@@ -6164,7 +6163,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
       propertyPath: m_LocalScale.x
@@ -6220,7 +6219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
       propertyPath: m_Name
-      value: second_pig_basic
+      value: SecondPig
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
       propertyPath: m_Controller
@@ -7689,7 +7688,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3493013819197874656, guid: 64568f5fbde38f94db4ecd369a19bc8b, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3493013819197874656, guid: 64568f5fbde38f94db4ecd369a19bc8b, type: 3}
       propertyPath: m_LocalPosition.x
