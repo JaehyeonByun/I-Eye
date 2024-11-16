@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AutoSlideShow : MonoBehaviour
 {
     public event Action OnTutorialMode;
