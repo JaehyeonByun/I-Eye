@@ -1892,7 +1892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d36ad9968cc650d4682c6f22f67196fd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.88
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d36ad9968cc650d4682c6f22f67196fd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2074,6 +2074,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2351505566903569412, guid: f1ae3844662414f469f1fa12c888e838, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2351505567455720332, guid: f1ae3844662414f469f1fa12c888e838, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -2275,7 +2279,6 @@ MonoBehaviour:
   tutorialCanvas: {fileID: 1267923259}
   dialogueCanvas: {fileID: 282880217}
   clayPickupManagerObject: {fileID: 46491367}
-  pageNavigationObject: {fileID: 0}
 --- !u!4 &1309497710
 Transform:
   m_ObjectHideFlags: 0
@@ -2308,7 +2311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5991013e05a5a04c8a70a945c5f2f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineSize: 10
 --- !u!4 &1364710860 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2351505566771328526, guid: f1ae3844662414f469f1fa12c888e838, type: 3}
