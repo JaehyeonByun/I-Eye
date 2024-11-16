@@ -6,7 +6,7 @@ public class Brick : MonoBehaviour
 {
     private Vector3 fixedPosition;
     private Quaternion fixedRotation;
-    private bool isFixed = false; 
+    private bool isFixed = false;
 
     private void OnTriggerEnter(Collider other)
     {

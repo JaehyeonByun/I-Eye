@@ -21,7 +21,7 @@ public class UIScenario : MonoBehaviour
     private float fadeDuration = 1f; // 페이드 인/아웃 지속 시간
 
     [SerializeField]
-    private Animator animator; // Animator reference
+    private Animator animator; 
 
     private int currentSlideIndex = 0;
     private bool isPaused = false;
