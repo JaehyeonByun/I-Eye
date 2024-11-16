@@ -259,6 +259,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 109329581}
   m_CullTransparentMesh: 1
+--- !u!1 &134134331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134134333}
+  - component: {fileID: 134134332}
+  m_Layer: 0
+  m_Name: MicrophoneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &134134332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134134331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9e3978653a9f54c9e9b46119a8512a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  apiKeyId: g734sbybkg
+  apiKeySecret: LzAIYMf7yQO7aXKBFwL6evU59gjTcsS1kzGU9kSO
+  apiUrl: https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor
+  resultText: {fileID: 510744660}
+--- !u!4 &134134333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134134331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.105000496, y: 1.5370429, z: 1.2724252}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &162587109
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +354,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 53192dc398bcacf45a5b8de092b5fcd2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c11503de6b268b8438f703282782d4fa, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -947,7 +995,7 @@ GameObject:
   - component: {fileID: 510744661}
   - component: {fileID: 510744660}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text5 (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2022,43 +2070,29 @@ MonoBehaviour:
     slide: {fileID: 2075230093}
     Voice: {fileID: 1508986828}
     AnimatorCount: 0
-  - interval: 4
+  - interval: 7
     isStop: 0
     slide: {fileID: 314152882}
     Voice: {fileID: 1723841119}
     AnimatorCount: 1
-  - interval: 5
+  - interval: 4
     isStop: 0
     slide: {fileID: 702202610}
-    Voice: {fileID: 1723841119}
+    Voice: {fileID: 510923989}
     AnimatorCount: 2
   - interval: 4
-    isStop: 0
+    isStop: 1
     slide: {fileID: 1882424630}
-    Voice: {fileID: 1723841119}
+    Voice: {fileID: 1446891589}
     AnimatorCount: 3
   - interval: 4
-    isStop: 1
+    isStop: 0
     slide: {fileID: 1664265835}
-    Voice: {fileID: 1723841119}
-    AnimatorCount: 0
-  - interval: 4
-    isStop: 0
-    slide: {fileID: 0}
-    Voice: {fileID: 1723841119}
-    AnimatorCount: 0
-  - interval: 4
-    isStop: 0
-    slide: {fileID: 0}
-    Voice: {fileID: 1723841119}
-    AnimatorCount: 0
-  - interval: 4
-    isStop: 0
-    slide: {fileID: 0}
-    Voice: {fileID: 1723841119}
+    Voice: {fileID: 162587111}
     AnimatorCount: 0
   fadeDuration: 1
   animator: {fileID: 720812862}
+  microphoneRecorder: {fileID: 134134332}
 --- !u!1 &1160571082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,7 +2608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5991013e05a5a04c8a70a945c5f2f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineSize: 10
 --- !u!1 &1379881943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,7 +2798,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 53192dc398bcacf45a5b8de092b5fcd2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ceddcd2774ca365468b96614a9f3a7d1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
