@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; 
+using UnityEngine.SceneManagement;
+using MixedReality.Toolkit.UX;
 
 [System.Serializable]
 public class UIPanel
@@ -15,8 +16,10 @@ public class UIPanel
 }
 public class UI : MonoBehaviour
 {
-      public List<UIPanel> panels; // 패널 리스트
-    // public Button nextButton; // "다음" 버튼
+    private static UI instance = null;
+    
+    public List<UIPanel> panels; // 패널 리스트
+    public PressableButton nextButton; // "다음" 버튼
     // public Button backButton; // "되돌아가기" 버튼
     public float fadeDuration = 1f; // 페이드 시간
     public Animator animator; // 애니메이션 컨트롤러
@@ -25,6 +28,32 @@ public class UI : MonoBehaviour
     private int currentPanelIndex = 0;
     private bool isTransitioning = false;
 
+    void Awake()
+    {
+        if(null == instance)
+        {
+            instance = this;
+
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public static UI Instance
+    {
+        get
+        {
+            if(null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+    
     private void Start()
     {
         foreach (var panel in panels)
@@ -38,7 +67,7 @@ public class UI : MonoBehaviour
             ShowPanel(0);
         }
 
-        // nextButton.onClick.AddListener(NextButtonClicked);
+        // nextButton.OnClicked.AddListener(NextButtonClicked);
         // backButton.onClick.AddListener(PreviousPanel);
     }
 
