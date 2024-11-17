@@ -27,7 +27,61 @@ public class GameManager : MonoBehaviour
     public static List<float> HyperActivity_f = new List<float>();
     public static List<float> HyperActivity_g = new List<float>();
     public static List<float> HyperActivity_i = new List<float>();
-
+    
+    
+    /*
+    //inattentionA (Level 1)
+    public static int Ia_WrongMudCount = 0;
+    
+    //inattentionB (Level 2)
+    public static float Ib_DontSeeOven = 0f;
+    
+    //inattentionC (Level 0, Level 1, Level 2)
+    public static int Ic_SpeakAgain = 0;
+    
+    //inattentionD (Level 1)
+    public static int Id_Hint = 0;
+    
+    //inattentionE (Level 0)
+    public static int Ia_IsFun = 0;
+    
+    //inattentionF (Level 0, Level 1)
+    public static float Hd_Skip = 0f;
+    
+    //inattentionG
+    
+    //inattentionH (Level 1)
+    public static int Hh_Distracted = 0;
+    
+    //inattentionI (Level 1)
+    public static float Hh_ClearTime = 0f;
+    
+    //hyperactivityA (Level 1)
+    public static int Ia_WrongMudCount = 0;
+    
+    //hyperactivityB (Level 2)
+    public static float Ib_DontSeeOven = 0f;
+    
+    //hyperactivityC (Level 0, Level 1, Level 2)
+    public static int Ic_SpeakAgain = 0;
+    
+    //hyperactivityD (Level 1)
+    public static int Id_Hint = 0;
+    
+    //hyperactivityE (Level 0)
+    public static int Ia_IsFun = 0;
+    
+    //hyperactivityF (Level 0, Level 1)
+    public static float Hd_Skip = 0f;
+    
+    //hyperactivityG
+    
+    //hyperactivityH (Level 1)
+    public static int Hh_Distracted = 0;
+    
+    //hyperactivityI (Level 1)
+    public static float Hh_ClearTime = 0f;
+*/
 
     public static GameManager instance;
 
@@ -41,6 +95,14 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("씬에 두개 이상의 게임 매니저가 존재합니다!");
             Destroy(gameObject);
+        }
+    }
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            MakeInputTensorCSV();
         }
     }
 

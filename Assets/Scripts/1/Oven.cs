@@ -8,13 +8,18 @@ public class Oven : MonoBehaviour
 
     [SerializeField, Range(10f, 50f)] private float lineSize = 10f;
     [SerializeField] private Transform _playerGaze;
+    [SerializeField] private AudioSource _shoveSound;
+    [SerializeField] private float _gazetime = 90f;
+    
+    private bool _isShovelColliding = false;
 
-    public int _failesCount = 0; 
-
-    private bool _isShovelColliding = false; 
-    [SerializeField] private float _gazetime = 120f;
+    private int _shovelOutCount = 0; //hyperactivityD
 
     private bool _isCounted = false;
+    
+    private float _distractedTime;
+    private bool _isDistracted;
+    public bool _isGameEnd;
 
     void Update()
     {
@@ -43,7 +48,6 @@ public class Oven : MonoBehaviour
                     if (!_isCounted)
                     {
                         _gazetime = 10f;
-                        _failesCount += 1;
                         Debug.Log("오븐을 바라보세요");
                         _isCounted = true;
                     }
@@ -52,21 +56,23 @@ public class Oven : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider _collider)
+    void OnTriggerEnter(Collider _collider) //삽이 오븐으로 들어오면 시간이 줄어들기 시작
     {
         if (_collider.gameObject.CompareTag("삽"))
         {
+            _shoveSound.Play();
             _isShovelColliding = true;
             Debug.Log("진흙굽기 시작");
         }
     }
 
-    void OnTriggerExit(Collider _collider)
+    void OnTriggerExit(Collider _collider) //삽이 오븐에서 나오면 정지, hyperactivityD 측정
     {
         if (_collider.gameObject.CompareTag("삽") && _isGameClear == false)
         {
-            _failesCount += 1;
             _isShovelColliding = false;
+            _shovelOutCount += 1;
+            Debug.Log(_shovelOutCount);
             Debug.Log("삽이 벗어남");
         }
     }
