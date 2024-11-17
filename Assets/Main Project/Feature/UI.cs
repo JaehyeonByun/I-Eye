@@ -10,14 +10,14 @@ public class UIPanel
     public GameObject panelObject; // 패널 GameObject
     public float interval = 3f; // 자동 전환 시간 (초)
     public AudioSource audioSource; // 패널 별 오디오 소스
-    public int motionIndex; // 애니메이션 컨트롤러의 scenario 값
+    public string motionIndex; // 애니메이션 컨트롤러의 scenario 값
     public bool requiresButtonPress = false; // 버튼 클릭 필요 여부
 }
 public class UI : MonoBehaviour
 {
       public List<UIPanel> panels; // 패널 리스트
-    public Button nextButton; // "다음" 버튼
-    public Button backButton; // "되돌아가기" 버튼
+    // public Button nextButton; // "다음" 버튼
+    // public Button backButton; // "되돌아가기" 버튼
     public float fadeDuration = 1f; // 페이드 시간
     public Animator animator; // 애니메이션 컨트롤러
     public string tutorialSceneName = "1.Tutorial"; // 이동할 씬 이름
@@ -38,8 +38,8 @@ public class UI : MonoBehaviour
             ShowPanel(0);
         }
 
-        nextButton.onClick.AddListener(NextButtonClicked);
-        backButton.onClick.AddListener(PreviousPanel);
+        // nextButton.onClick.AddListener(NextButtonClicked);
+        // backButton.onClick.AddListener(PreviousPanel);
     }
 
     private void ShowPanel(int index)
@@ -52,7 +52,7 @@ public class UI : MonoBehaviour
         // 애니메이션 컨트롤러의 scenario 값 설정
         if (animator != null)
         {
-            animator.SetInteger("scenario", panel.motionIndex);
+            animator.SetTrigger(panel.motionIndex);
         }
 
         // 패널 보이스 재생
