@@ -11,6 +11,7 @@ public class SlideData
     public GameObject slide;           // 슬라이드 오브젝트
     public AudioSource Voice;          // 음성 배열
     public int AnimatorCount;
+    public bool triggersTutorial;
 }
 
 public class UIScenario : MonoBehaviour
@@ -23,6 +24,9 @@ public class UIScenario : MonoBehaviour
 
     [SerializeField]
     private Animator animator; // Animator reference
+    
+    [SerializeField]
+    private TutorialManager tutorialManager;
 
     private int currentSlideIndex = 0;
     public bool isPaused = false;
@@ -38,7 +42,7 @@ public class UIScenario : MonoBehaviour
 
     private IEnumerator AutoNextSlide()
     {
-        while (currentSlideIndex < _slides.Count - 1)
+        while (currentSlideIndex < _slides.Count)
         {
             Debug.Log("AutoNextSlide - Current Slide: " + currentSlideIndex);
 
@@ -60,7 +64,6 @@ public class UIScenario : MonoBehaviour
                     StartCoroutine(WaitForVoiceRecognition());
                 }
                 
-
                 // 현재 슬라이드 상태를 유지하며 루프를 대기
                 while (isPaused)
                 {
@@ -77,6 +80,13 @@ public class UIScenario : MonoBehaviour
                     yield return null; // 음성 인식 완료를 기다림
                 }
             }
+            
+            else if (_slides[currentSlideIndex].triggersTutorial && tutorialManager != null)
+            {
+                Debug.Log("Triggering Tutorial Mode from AutoNextSlide...");
+                tutorialManager.ActivateTutorialCanvas();
+                yield break; // 튜토리얼 모드 진입 시 AutoSlide 종료
+            }
 
             // 현재 슬라이드의 interval 값만큼 대기
             yield return new WaitForSeconds(_slides[currentSlideIndex].interval);
@@ -90,8 +100,17 @@ public class UIScenario : MonoBehaviour
     {
         if (isPaused)
         {
-            isPaused = false; // 버튼을 눌렀으므로 일시 정지를 해제
-            StartCoroutine(FadeToNextSlide());
+            isPaused = false;
+            _slides[currentSlideIndex].isStop = false;
+            _slides[currentSlideIndex].Voice.Stop();
+            // 버튼을 눌렀으므로 일시 정지를 해제
+            if (autoSlideCoroutine != null)
+            {
+                StopCoroutine(autoSlideCoroutine); 
+            }
+
+            autoSlideCoroutine = StartCoroutine(AutoNextSlide());
+            _slides[currentSlideIndex].isStop = true;
         }
         else
         {
@@ -210,6 +229,7 @@ public class UIScenario : MonoBehaviour
     public void ShowNextSlide()
     {
         currentSlideIndex++;
+        // 특정 슬라이드에서 튜토리얼 트리거
         ShowSlide(currentSlideIndex); 
     }
 
