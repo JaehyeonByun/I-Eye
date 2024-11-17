@@ -59,8 +59,6 @@ public class ClayPickupManager : MonoBehaviour
         clay.tag = tag;
         clay.SetActive(false);
 
-        clay.transform.localScale *= 0.1f; // 50% 크기로 축소
-
         Rigidbody rb = clay.AddComponent<Rigidbody>();
         rb.useGravity = false;
 
@@ -71,34 +69,30 @@ public class ClayPickupManager : MonoBehaviour
     }
 
     private void OnTriggerAction(InputAction.CallbackContext context)
-{
+    {
 #if UNITY_EDITOR
-    // 에디터 환경에서는 마우스 클릭 위치에서 가까운 오브젝트 감지
-    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    float maxDistance = 0.5f; // 최대 감지 거리
-
-    if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
-    {
-        if (hit.collider != null && (hit.collider.CompareTag("pink") || hit.collider.CompareTag("purple") || hit.collider.CompareTag("blue")))
+        // 에디터 환경에서는 마우스 클릭 위치에서 레이를 생성
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            AttemptPickup(hit.collider.gameObject);
+            if (hit.collider != null && (hit.collider.CompareTag("pink") || hit.collider.CompareTag("purple") || hit.collider.CompareTag("blue")))
+            {
+                AttemptPickup(hit.collider.gameObject);
+            }
         }
-    }
 #else
-    // 빌드된 환경에서는 특정 거리 내의 오브젝트만 선택
-    float maxDistance = 0.5f; // 최대 감지 거리
-    Collider[] hitColliders = Physics.OverlapSphere(transform.position, maxDistance);
-
-    foreach (var collider in hitColliders)
-    {
-        if (collider.CompareTag(pickupOrder[currentPickupIndex]))
+        // 빌드된 환경에서는 현재 위치 주변 반경 내 오브젝트 탐지
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
+        foreach (var collider in hitColliders)
         {
-            AttemptPickup(collider.gameObject);
-            break;
+            if (collider.CompareTag(pickupOrder[currentPickupIndex]))
+            {
+                AttemptPickup(collider.gameObject);
+                break;
+            }
         }
-    }
 #endif
-}
+    }
 
     private void AttemptPickup(GameObject clay)
     {

@@ -137,7 +137,11 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 2.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 59434c10870f233449896f11841b388a, type: 2}
+  - {fileID: 11400000, guid: ff438c1a16776654197f99e2ce434cc4, type: 2}
+  - {fileID: -4247393776149351881, guid: efada534aafe3b849b6a348789da54d5, type: 2}
+  - {fileID: 983640608772136669, guid: c17288da6c1e5094fa9575f7bfecbf3e, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -158,7 +162,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.metalense.IEye
-    Standalone: com.metalense.IEye
+    Standalone: com.DefaultCompany.IEye
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -241,7 +245,7 @@ PlayerSettings:
   clonedFromGUID: 21932a787546d6c499c951b9d69be1fe
   templatePackageId: 
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 1
+  useCustomMainManifest: 0
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
   useCustomLauncherGradleManifest: 0
@@ -252,8 +256,8 @@ PlayerSettings:
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: I-Eye.keystore'
-  AndroidKeyaliasName: i-eye
+  AndroidKeystoreName: '{inproject}: PNC.keystore'
+  AndroidKeyaliasName: pncsolution
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
