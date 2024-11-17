@@ -1,26 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Oven : MonoBehaviour
 {
-    private bool _isGameClear = false; 
 
     [SerializeField, Range(10f, 50f)] private float lineSize = 10f;
     [SerializeField] private Transform _playerGaze;
     [SerializeField] private AudioSource _shoveSound;
-    [SerializeField] private float _gazetime = 90f;
+    
+    [SerializeField] private AudioSource _firstDistract;
+    [SerializeField] private AudioSource _secondDistract;
+    [SerializeField] private AudioSource _thirdDistract;
+    
+    [SerializeField] private AudioSource _gameClearSound;
+    
+    [SerializeField] private float _gazetime = 90f; //오븐을 바라봐야 하는 시간
+    [SerializeField] private GameObject _clearUI;
     
     private bool _isShovelColliding = false;
+    private bool _isGameClear = false;
+    private bool _isCall = false;
+    private bool _wasDistractedWhenCallCountControl = false;
+    private int _distractedCount = 3;
 
-    private int _shovelOutCount = 0; //hyperactivityD
-
-    private bool _isCounted = false;
+    //InputData
+    public float _distractedTime = 0f; // inattentionB
+    public int _distractedWhenCall = 0; //inattentionH
+    public int _shovelOutCount = 0; // hyperactivityD
     
-    private float _distractedTime;
-    private bool _isDistracted;
-    public bool _isGameEnd;
+    private bool _isDistracted = false;
 
+    void Start()
+    {
+        if (_clearUI.activeSelf)
+        {
+            _clearUI.SetActive(false);
+        }
+    }
     void Update()
     {
         Debug.DrawRay(_playerGaze.position, _playerGaze.forward * lineSize, Color.yellow);
@@ -32,27 +50,49 @@ public class Oven : MonoBehaviour
             {
                 if (hit.collider.CompareTag("오븐"))
                 {
-                    _isCounted = false;
-                    Debug.Log("오븐을 응시 중");
                     _gazetime -= Time.deltaTime;
-                    Debug.Log(_gazetime);
+                    Debug.Log($"클리어까지 남은 시간:{_gazetime}");
+                    if (_gazetime < 70 && _distractedCount > 2)
+                    {
+                        DistractSoundPlay();
+                        _distractedCount -= 1;
+                    }
+                    if (_gazetime < 50 && _distractedCount > 1)
+                    {
+                        DistractSoundPlay();
+                        _distractedCount -= 1;
+                    }
+                    if (_gazetime < 30 && _distractedCount > 0)
+                    {
+                        DistractSoundPlay();
+                        _distractedCount -= 1;
+                    }
                     if (_gazetime < 0)
                     {
                         _gazetime = 0;
                         _isGameClear = true;
                         Debug.Log("GameClear!");
                     }
-                }
-                else
-                {
-                    if (!_isCounted)
-                    {
-                        _gazetime = 10f;
-                        Debug.Log("오븐을 바라보세요");
-                        _isCounted = true;
-                    }
+                    _wasDistractedWhenCallCountControl = false;
                 }
             }
+            else
+            { 
+                _distractedTime += Time.deltaTime;
+                Debug.Log($"집중하지 않은 시간: {_distractedTime}");
+
+                if (_isCall && !_wasDistractedWhenCallCountControl)
+                {
+                    _distractedWhenCall += 1; // 불렀을 때 산만해짐
+                    _wasDistractedWhenCallCountControl = true;
+                    Debug.Log($"방해했을 때 산만해진 횟수: {_distractedWhenCall}");
+                }
+            }
+        }
+
+        if (_isGameClear == true)
+        {
+            GameClear();
         }
     }
 
@@ -75,6 +115,34 @@ public class Oven : MonoBehaviour
             Debug.Log(_shovelOutCount);
             Debug.Log("삽이 벗어남");
         }
+    }
+
+    void DistractSoundPlay()
+    {
+        Debug.Log("방해");
+        if(_distractedCount == 3){
+            _firstDistract.Play();
+        }
+        else if(_distractedCount == 2){
+            _secondDistract.Play();
+        }
+        else if(_distractedCount == 1){
+            _thirdDistract.Play();
+        }
+        _isCall = true;
+        StartCoroutine(ResetCallAfterDelay(10f));
+    }
+    IEnumerator ResetCallAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // 지정된 시간 동안 대기
+        _isCall = false;
+    }
+    void GameClear()
+    {
+        GameManager.Inattention_b.Append(_distractedTime);
+        GameManager.Inattention_h.Append(_distractedWhenCall);
+        GameManager.HyperActivity_d.Append(_shovelOutCount);
+        _clearUI.SetActive(true);
     }
 }
  

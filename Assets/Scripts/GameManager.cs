@@ -14,15 +14,16 @@ public class GameManager : MonoBehaviour
     public static List<float> Inattention_c = new List<float>();
     public static List<float> Inattention_d = new List<float>();
     public static List<float> Inattention_e = new List<float>();
-    public static List<float> Inattention_f = new List<float>();
+    public static List<int> Inattention_f = new List<int>();
     public static List<float> Inattention_g = new List<float>();
+    public static List<int> Inattention_h = new List<int>();
     public static List<float> Inattention_i = new List<float>();
 
     // HyperActivity Parameter
     public static List<float> HyperActivity_a = new List<float>();
     public static List<float> HyperActivity_b = new List<float>();
     public static List<float> HyperActivity_c = new List<float>();
-    public static List<float> HyperActivity_d = new List<float>();
+    public static List<int> HyperActivity_d = new List<int>();
     public static List<float> HyperActivity_e = new List<float>();
     public static List<float> HyperActivity_f = new List<float>();
     public static List<float> HyperActivity_g = new List<float>();
