@@ -14,28 +14,31 @@ public class GameManager : MonoBehaviour
     public static List<float> Inattention_c = new List<float>();
     public static List<float> Inattention_d = new List<float>();
     public static List<float> Inattention_e = new List<float>();
-    public static List<float> Inattention_f = new List<float>();
+    public static List<int> Inattention_f = new List<int>();
     public static List<float> Inattention_g = new List<float>();
+    public static List<int> Inattention_h = new List<int>();
     public static List<float> Inattention_i = new List<float>();
 
     // HyperActivity Parameter
-    public static List<float> HyperActivity_a = new List<float>();
+    public static List<Vector3> HyperActivity_a = new List<Vector3>();
     public static List<float> HyperActivity_b = new List<float>();
     public static List<float> HyperActivity_c = new List<float>();
-    public static List<float> HyperActivity_d = new List<float>();
-    public static List<float> HyperActivity_e = new List<float>();
+    public static List<int> HyperActivity_d = new List<int>();
+    public static List<Vector3> HyperActivity_e = new List<Vector3>();
     public static List<float> HyperActivity_f = new List<float>();
-    public static List<float> HyperActivity_g = new List<float>();
+    public static List<Vector3> HyperActivity_g = new List<Vector3>();
     public static List<float> HyperActivity_i = new List<float>();
 
-
     public static GameManager instance;
+
+    [SerializeField] private GameObject VectorLogger;
 
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(VectorLogger);
         }
         else
         {
@@ -43,7 +46,15 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            MakeInputTensorCSV();
+        }
+    }
+    
     public static void MakeInputTensorCSV()
     {
         string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
@@ -74,7 +85,6 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-
         Debug.Log("CSV 파일 저장 완료: " + filePath);
     }
 }

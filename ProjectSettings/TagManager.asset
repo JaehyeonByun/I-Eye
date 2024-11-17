@@ -7,6 +7,9 @@ TagManager:
   - "\uBC14\uAD6C\uB2C8"
   - "\uC624\uBE10"
   - Oven
+  - pink
+  - purple
+  - blue
   - "\uC0BD"
   - "\uBE68\uAC04\uBCBD\uB3CC"
   - "\uD30C\uB780\uBCBD\uB3CC"
@@ -14,12 +17,7 @@ TagManager:
   - "\uBE68\uAC04\uBCBD\uB3CC\uC815\uB2F5"
   - "\uD30C\uB780\uBCBD\uB3CC\uC815\uB2F5"
   - "\uB178\uB780\uBCBD\uB3CC\uC815\uB2F5"
-  - red
-  - blue
-  - yellow
-  - wrongRed
-  - wrongBlue
-  - wrongYellow
+  - "\uB3FC\uC9C0"
   layers:
   - Default
   - TransparentFX
