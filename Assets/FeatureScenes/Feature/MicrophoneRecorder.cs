@@ -123,6 +123,7 @@ public class MicrophoneRecorder : MonoBehaviour
                     // TMP 텍스트에 표시
                     if (resultText != null)
                     {
+                        GlobalVariables.PlayerName  = $"{voiceRecognize.text} ";
                         resultText.text = $"만나서 반가워!\n 너의 이름은 {voiceRecognize.text} 이구나!";
                     }
 

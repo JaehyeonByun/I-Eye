@@ -6,7 +6,8 @@ using UnityEngine;
 public class SlideData
 {
     public float interval = 2f;        // 간격
-    public bool isStop;                // 멈춰야 하는지
+    public bool isStop;                // 멈춰야 하는지\
+    public bool haveToRecording;
     public GameObject slide;           // 슬라이드 오브젝트
     public AudioSource Voice;          // 음성 배열
     public int AnimatorCount;
@@ -24,7 +25,7 @@ public class UIScenario : MonoBehaviour
     private Animator animator; // Animator reference
 
     private int currentSlideIndex = 0;
-    private bool isPaused = false;
+    public bool isPaused = false;
     private Coroutine autoSlideCoroutine;
     
     public MicrophoneRecorder microphoneRecorder;
@@ -42,7 +43,7 @@ public class UIScenario : MonoBehaviour
             Debug.Log("AutoNextSlide - Current Slide: " + currentSlideIndex);
 
             // 특정 슬라이드에서 녹음 시작 및 중단 조건 처리
-            if (_slides[currentSlideIndex].isStop && !isPaused)
+            if (_slides[currentSlideIndex].isStop && !isPaused &&  _slides[currentSlideIndex].haveToRecording)
             {
                 isPaused = true;
                 Debug.Log($"Paused at Slide {currentSlideIndex + 1}, waiting for voice recognition.");
@@ -58,8 +59,19 @@ public class UIScenario : MonoBehaviour
                     // 음성 인식 완료 후 처리
                     StartCoroutine(WaitForVoiceRecognition());
                 }
+                
 
                 // 현재 슬라이드 상태를 유지하며 루프를 대기
+                while (isPaused)
+                {
+                    yield return null; // 음성 인식 완료를 기다림
+                }
+            }
+            
+            else if (_slides[currentSlideIndex].isStop)
+            {
+                isPaused = true;
+
                 while (isPaused)
                 {
                     yield return null; // 음성 인식 완료를 기다림
@@ -73,7 +85,47 @@ public class UIScenario : MonoBehaviour
             yield return StartCoroutine(FadeToNextSlide());
         }
     }
+    
+    public void TriggerFadeToNextSlide()
+    {
+        if (isPaused)
+        {
+            isPaused = false; // 버튼을 눌렀으므로 일시 정지를 해제
+            StartCoroutine(FadeToNextSlide());
+        }
+        else
+        {
+            Debug.LogWarning("Cannot trigger FadeToNextSlide. The scenario is not paused.");
+        }
+    }
+    
+    public void ReturnToSlide(int index)
+    {
+        if (index >= 0 && index < _slides.Count)
+        {
+            // 현재 슬라이드 인덱스를 설정
+            currentSlideIndex = index;
 
+            // 슬라이드 초기화 및 활성화
+            SetCurrentSlideIndex(index);
+
+            // isStop 상태를 true로 설정
+            _slides[index].isStop = true;
+
+            // AutoNextSlide 코루틴 다시 실행
+            if (autoSlideCoroutine != null)
+            {
+                StopCoroutine(autoSlideCoroutine); // 이전 슬라이드 진행 중단
+            }
+            autoSlideCoroutine = StartCoroutine(AutoNextSlide());
+
+            Debug.Log($"Returned to Slide {index} and restarted AutoNextSlide.");
+        }
+        else
+        {
+            Debug.LogError($"Invalid slide index: {index}. Cannot return to this slide.");
+        }
+    }
     
     private IEnumerator StopRecordingAfterDelay(float delay)
     {
@@ -138,22 +190,8 @@ public class UIScenario : MonoBehaviour
                 canvasGroup.alpha = Mathf.Lerp(0, 1, t / fadeDuration);
                 yield return null;
             }
-            canvasGroup.alpha = 1; 
-        }
-        _slides[index].Voice.Play();
-    }
 
-    public void ResumeAutoSlide()
-    {
-        if (isPaused)
-        {
-            isPaused = false;
-            Debug.Log("Resuming AutoSlide from Slide " + (currentSlideIndex + 1));
-            autoSlideCoroutine = StartCoroutine(AutoNextSlide());
-        }
-        else
-        {
-            Debug.LogWarning("Attempted to resume AutoSlide while it was not paused. Current slide index: " + currentSlideIndex);
+            canvasGroup.alpha = 1;
         }
     }
 

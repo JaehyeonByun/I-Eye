@@ -623,6 +623,7 @@ GameObject:
   - component: {fileID: 314152886}
   - component: {fileID: 314152885}
   - component: {fileID: 314152884}
+  - component: {fileID: 314152887}
   m_Layer: 5
   m_Name: UI2
   m_TagString: Untagged
@@ -713,6 +714,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &314152887
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314152882}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &324258668 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2351505566903569413, guid: f1ae3844662414f469f1fa12c888e838, type: 3}
@@ -1019,7 +1032,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -272, y: 268}
-  m_SizeDelta: {x: 300, y: 50}
+  m_SizeDelta: {x: 1600, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510744660
 MonoBehaviour:
@@ -1455,6 +1468,7 @@ GameObject:
   - component: {fileID: 702202614}
   - component: {fileID: 702202613}
   - component: {fileID: 702202612}
+  - component: {fileID: 702202615}
   m_Layer: 5
   m_Name: UI3
   m_TagString: Untagged
@@ -1545,6 +1559,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &702202615
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702202610}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &717970692
 GameObject:
   m_ObjectHideFlags: 0
@@ -2067,31 +2093,37 @@ MonoBehaviour:
   _slides:
   - interval: 4
     isStop: 0
+    haveToRecording: 0
     slide: {fileID: 2075230093}
     Voice: {fileID: 1508986828}
     AnimatorCount: 0
   - interval: 7
     isStop: 0
+    haveToRecording: 0
     slide: {fileID: 314152882}
     Voice: {fileID: 1723841119}
     AnimatorCount: 1
   - interval: 4
     isStop: 0
+    haveToRecording: 0
     slide: {fileID: 702202610}
     Voice: {fileID: 510923989}
     AnimatorCount: 2
   - interval: 4
     isStop: 1
+    haveToRecording: 1
     slide: {fileID: 1882424630}
     Voice: {fileID: 1446891589}
     AnimatorCount: 3
   - interval: 4
-    isStop: 0
+    isStop: 1
+    haveToRecording: 0
     slide: {fileID: 1664265835}
     Voice: {fileID: 162587111}
     AnimatorCount: 0
   fadeDuration: 1
   animator: {fileID: 720812862}
+  isPaused: 0
   microphoneRecorder: {fileID: 134134332}
 --- !u!1 &1160571082
 GameObject:
@@ -2407,7 +2439,7 @@ GameObject:
   - component: {fileID: 1301581667}
   - component: {fileID: 1301581669}
   m_Layer: 5
-  m_Name: button
+  m_Name: buttonYes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3030,7 +3062,7 @@ GameObject:
   - component: {fileID: 1577141662}
   - component: {fileID: 1577141664}
   m_Layer: 5
-  m_Name: button (1)
+  m_Name: buttonNo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3262,6 +3294,8 @@ GameObject:
   - component: {fileID: 1664265839}
   - component: {fileID: 1664265838}
   - component: {fileID: 1664265837}
+  - component: {fileID: 1664265840}
+  - component: {fileID: 1664265841}
   m_Layer: 5
   m_Name: UI5
   m_TagString: Untagged
@@ -3354,6 +3388,34 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1664265840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664265835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59e3c21eb449ba4684378d3bdb5bfbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiScenario: {fileID: 1119520228}
+  yesButton: {fileID: 1301581669}
+  noButton: {fileID: 1577141664}
+  nextSceneName: 1.Tutorial
+--- !u!225 &1664265841
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664265835}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1665249717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3783,6 +3845,7 @@ GameObject:
   - component: {fileID: 1882424634}
   - component: {fileID: 1882424633}
   - component: {fileID: 1882424632}
+  - component: {fileID: 1882424635}
   m_Layer: 5
   m_Name: UI4
   m_TagString: Untagged
@@ -3873,6 +3936,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1882424635
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1882424630}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1932978422
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,6 +4112,7 @@ GameObject:
   - component: {fileID: 2075230097}
   - component: {fileID: 2075230096}
   - component: {fileID: 2075230095}
+  - component: {fileID: 2075230098}
   m_Layer: 5
   m_Name: UI1
   m_TagString: Untagged
@@ -4127,6 +4203,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &2075230098
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075230093}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &2116083744
 PrefabInstance:
   m_ObjectHideFlags: 0
