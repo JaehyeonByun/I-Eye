@@ -11,12 +11,20 @@ public class House : MonoBehaviour
 
     [SerializeField] private GameObject _clearUI;
     [SerializeField] private AudioSource _clearSound;
+    [SerializeField] private AudioSource _clearVoice;
+    [SerializeField] private AudioSource _restartSound;
+    [SerializeField] private AudioSource _restartVoice;
+
 
     private List<Vector3> occupiedPositions = new List<Vector3>();
     private List<Vector3> incorrectPositions = new List<Vector3>();
 
+    private bool _restart = false;
+    private bool _isClear = false;
+
     void Start()
     {
+        _restart = false;
         if (_clearUI.activeSelf)
         {
             _clearUI.SetActive(false);
@@ -46,14 +54,36 @@ public class House : MonoBehaviour
     {
         if (BricksLeft == 0)
         {
-            _clearUI.SetActive(true);
-            _clearSound.Play();
+            if (!_isClear)
+            {
+                _isClear = true;
+                StartCoroutine(HandleClearSequence());
+            }
         }
 
         if (Incorrect == IncorrectTheshhold)
         {
-            StartCoroutine(RestartAfterDelay(6f));
+            if (_restart == false)
+            {
+                _restart = true;
+                Invoke("PlayRestartSound", 1f);
+
+                Invoke("PlayRestartVoice", 6f);
+
+                Invoke("Restart", 10f);
+            }
         }
+    }
+    
+    private IEnumerator HandleClearSequence()
+    {
+        _clearUI.SetActive(true);
+        
+        yield return new WaitForSeconds(1f);
+        _clearSound.Play();
+
+        yield return new WaitForSeconds(3f);
+        _clearVoice.Play();
     }
 
     public bool IsPositionOccupied(Vector3 position)
@@ -97,9 +127,13 @@ public class House : MonoBehaviour
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
     }
-    private IEnumerator RestartAfterDelay(float delay)
+    private void PlayRestartSound()
     {
-        yield return new WaitForSeconds(delay);
-        Restart();
+        _restartSound.Play();
+    }
+
+    private void PlayRestartVoice()
+    {
+        _restartVoice.Play();
     }
 }

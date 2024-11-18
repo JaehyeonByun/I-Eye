@@ -24,6 +24,7 @@ public class Oven : MonoBehaviour
     private bool _isCall = false;
     private bool _wasDistractedWhenCallCountControl = false;
     private int _distractedCount = 3;
+    private bool isClearPlayed = false;
 
     //InputData
     public float _distractedTime = 0f; // inattentionB
@@ -65,6 +66,12 @@ public class Oven : MonoBehaviour
             }
             if (_firingClayTime < 0)
             {
+                if (!isClearPlayed)
+                {
+                    _gameClearSound.Play();
+                    isClearPlayed = true;
+                }
+
                 _firingClayTime = 0;
                 _isGameClear = true;
                 _clearUI.SetActive(true);
