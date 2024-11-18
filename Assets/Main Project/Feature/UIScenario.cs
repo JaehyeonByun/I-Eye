@@ -10,7 +10,7 @@ public class SlideData
     public bool haveToRecording;
     public GameObject slide;           // 슬라이드 오브젝트
     public AudioSource Voice;          // 음성 배열
-    public int AnimatorCount;
+    public int AnimatorIndex;
     public bool triggersTutorial;
 }
 
@@ -244,7 +244,8 @@ public class UIScenario : MonoBehaviour
         {
             _slides[index].slide.SetActive(true);
             _slides[index].Voice.Play();
-            animator.SetInteger("Scenario", _slides[index].AnimatorCount); 
+            // animator.SetInteger("Scenario", _slides[index].AnimatorCount); // OLD
+            animator.SetTrigger(_slides[index].AnimatorIndex.ToString());
             Debug.Log("Showing Slide: " + index);
         }
         else
