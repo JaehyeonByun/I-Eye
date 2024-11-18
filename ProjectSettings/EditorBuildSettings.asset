@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Main Project/Feature/0. Information.unity
     guid: 997528f88125b134c9ec251d6b799e77
-  - enabled: 0
+  - enabled: 1
     path: Assets/Main Project/Feature/1.Tutorial.unity
     guid: 73a49551c32a17e4c8344f9d36501c7f
   - enabled: 0
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Main Project/Feature/3. Building House(Hard).unity
     guid: 4db96ad7b56e5fa48a568b82baa17051
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Project/Feature/1.Tutorial 30.unity
     guid: e1f7a8684c5a46f498b1c0c237ce7a26
   m_configObjects:

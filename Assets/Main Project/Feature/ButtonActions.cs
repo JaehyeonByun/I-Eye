@@ -1,25 +1,15 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // 씬 전환에 필요
-using UnityEngine.UI; // UI 버튼에 필요
+using UnityEngine.SceneManagement;
 
 public class ButtonActions : MonoBehaviour
 {
-    public UIScenario uiScenario;
-    public Button yesButton; // YES 버튼
-    public Button noButton; // NO 버튼
-
+    public UIScenario uiScenario; // UIScenario 스크립트 참조
     public string nextSceneName = "NextScene"; // 전환할 씬 이름
 
-    private void Start()
+    // Unity OnClick() 이벤트에 연결할 메서드
+    public void OnNextSceneButtonClicked()
     {
-        // 버튼 클릭 이벤트 등록
-        yesButton.onClick.AddListener(OnYesButtonClicked);
-        noButton.onClick.AddListener(OnNoButtonClicked);
-    }
-
-    private void OnYesButtonClicked()
-    {
-        // YES 버튼을 누르면 씬 전환
+        // NextScene 버튼을 누르면 씬 전환
         if (!string.IsNullOrEmpty(nextSceneName))
         {
             SceneManager.LoadScene(nextSceneName);
@@ -31,7 +21,8 @@ public class ButtonActions : MonoBehaviour
         }
     }
 
-    private void OnNoButtonClicked()
+    // Unity OnClick() 이벤트에 연결할 메서드
+    public void OnNoButtonClicked()
     {
         // NO 버튼을 누르면 Slide 3으로 돌아가고 녹음을 다시 시작
         if (uiScenario != null)
@@ -39,7 +30,7 @@ public class ButtonActions : MonoBehaviour
             Debug.Log("Returning to Slide 3 and restarting recording...");
 
             // UIScenario에서 Slide 3으로 이동하고 다시 시작
-            uiScenario.ReturnToSlide(3);
+            uiScenario.ReturnToSlide(2);
         }
         else
         {

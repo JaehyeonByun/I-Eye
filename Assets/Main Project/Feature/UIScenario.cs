@@ -52,10 +52,21 @@ public class UIScenario : MonoBehaviour
                 isPaused = true;
                 Debug.Log($"Paused at Slide {currentSlideIndex + 1}, waiting for voice recognition.");
 
-                if (currentSlideIndex == 3) // 예: 4번째 슬라이드에서 녹음 시작
+                if (currentSlideIndex == 6)
+                {
+                    Debug.Log("[UIScenario] Starting recording for Slide 6...");
+                    microphoneRecorder.StartRecording(true);
+
+                    StartCoroutine(StopRecordingAfterDelay(20f));
+
+                    // 피치 분석 결과 처리
+                    StartCoroutine(ProcessPitchAnalysis());
+                }
+
+                else if (currentSlideIndex == 3) // 예: 4번째 슬라이드에서 녹음 시작
                 {
                     Debug.Log("[UIScenario] Starting recording for Slide 3...");
-                    microphoneRecorder.StartRecording();
+                    microphoneRecorder.StartRecording(false);
 
                     // 일정 시간 뒤 자동으로 StopRecording 호출
                     StartCoroutine(StopRecordingAfterDelay(5f)); // 5초 뒤 녹음 중단
@@ -120,30 +131,51 @@ public class UIScenario : MonoBehaviour
     
     public void ReturnToSlide(int index)
     {
-        if (index >= 0 && index < _slides.Count)
-        {
-            // 현재 슬라이드 인덱스를 설정
-            currentSlideIndex = index;
-
-            // 슬라이드 초기화 및 활성화
-            SetCurrentSlideIndex(index);
-
-            // isStop 상태를 true로 설정
-            _slides[index].isStop = true;
-
-            // AutoNextSlide 코루틴 다시 실행
-            if (autoSlideCoroutine != null)
-            {
-                StopCoroutine(autoSlideCoroutine); // 이전 슬라이드 진행 중단
-            }
-            autoSlideCoroutine = StartCoroutine(AutoNextSlide());
-
-            Debug.Log($"Returned to Slide {index} and restarted AutoNextSlide.");
-        }
-        else
+        if (index < 0 || index >= _slides.Count)
         {
             Debug.LogError($"Invalid slide index: {index}. Cannot return to this slide.");
+            return;
         }
+
+        // 현재 진행 중인 AutoNextSlide 코루틴 중지
+        if (autoSlideCoroutine != null)
+        {
+            StopCoroutine(autoSlideCoroutine);
+        }
+
+        // 기존 슬라이드 페이드 아웃
+        StartCoroutine(TransitionToSlide(index));
+    }
+
+    private IEnumerator TransitionToSlide(int newIndex)
+    {
+        // 현재 슬라이드 페이드 아웃
+        if (currentSlideIndex >= 0 && currentSlideIndex < _slides.Count)
+        {
+            yield return StartCoroutine(FadeOutSlide(currentSlideIndex));
+        }
+
+        // 모든 슬라이드 비활성화 및 초기화
+        foreach (var slideData in _slides)
+        {
+            slideData.slide.SetActive(false);
+            if (slideData.Voice.isPlaying)
+            {
+                slideData.Voice.Stop();
+            }
+        }
+
+        // 새로운 슬라이드로 전환
+        currentSlideIndex = newIndex;
+        ShowSlide(currentSlideIndex);
+
+        // 새로운 슬라이드 페이드 인
+        yield return StartCoroutine(FadeInSlide(currentSlideIndex));
+
+        // AutoNextSlide 코루틴 다시 시작
+        autoSlideCoroutine = StartCoroutine(AutoNextSlide());
+
+        Debug.Log($"Successfully transitioned to Slide {newIndex} with fade effects.");
     }
     
     private IEnumerator StopRecordingAfterDelay(float delay)
@@ -172,6 +204,51 @@ public class UIScenario : MonoBehaviour
 
         Debug.Log("Voice recognition completed. Resuming auto slide...");
         isPaused = false; // 일시 정지 해제
+    }
+    
+    // 피치 분석 처리
+    private IEnumerator ProcessPitchAnalysis()
+    {
+        // 피치 분석 완료될 때까지 대기
+        yield return new WaitUntil(() => microphoneRecorder.IsPitchAnalyzeComplete);
+
+        // 피치 데이터 분석
+        List<float> pitchData = microphoneRecorder.AnalyzePitch(microphoneRecorder.GetLastRecording());
+
+        if (pitchData != null && pitchData.Count > 0)
+        {
+            Debug.Log("[UIScenario] Pitch analysis results:");
+            foreach (float pitch in pitchData)
+            {
+                Debug.Log($"Pitch: {pitch} Hz");
+            }
+
+            // 분석된 피치 데이터로 추가 동작 정의
+            HandlePitchAnalysisResults(pitchData);
+        }
+        else
+        {
+            Debug.LogWarning("[UIScenario] No pitch data found.");
+        }
+
+        // 피치 분석 완료 후 슬라이드 흐름 재개
+        isPaused = false;
+    }
+
+
+// 피치 분석 결과 처리
+    private void HandlePitchAnalysisResults(List<float> pitchData)
+    {
+        // 예: 평균 피치 계산
+        float averagePitch = 0;
+        foreach (float pitch in pitchData)
+        {
+            averagePitch += pitch;
+        }
+
+        averagePitch /= pitchData.Count;
+
+        Debug.Log($"[UIScenario] Average Pitch: {averagePitch} Hz");
     }
 
     private IEnumerator FadeToNextSlide()
