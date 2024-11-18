@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using TMPro; // TextMeshPro를 사용하기 위해 추가
+using TMPro;
 using System.IO;
 
 public class MicrophoneRecorder : MonoBehaviour
@@ -14,24 +15,25 @@ public class MicrophoneRecorder : MonoBehaviour
     [SerializeField]
     private string apiUrl = "https://naveropenapi.apigw.ntruss.com/recog/v1/stt?lang=Kor"; // Naver STT API URL
     [SerializeField]
-    private TextMeshProUGUI resultText; // TMP UI를 표시할 TextMeshProUGUI
+    private TextMeshProUGUI resultText; // 음성 인식 결과 표시용 TextMeshProUGUI
 
-    private string _microphoneID = null; // 사용할 마이크 ID
-    private AudioClip _recording = null; // 녹음된 오디오 클립
-    private int _recordingLengthSec = 5; // 녹음 길이 (초)
-    private int _recordingHZ = 16000; // 녹음 샘플링 레이트 (STT에 권장되는 값)
+    private string microphoneID = null; // 사용할 마이크 ID
+    private AudioClip recording = null; // 녹음된 오디오 클립
+    private int recordingLengthSec = 30; // 녹음 시간 (초)
+    private int recordingHZ = 16000;    // 샘플링 레이트
 
-    public bool IsRecognitionComplete { get; private set; } = false; // 음성 인식 완료 상태
-    public event Action<string> OnRecognitionComplete; // 음성 인식 완료 이벤트
+    private bool isForPitchAnalysis = false; // 피치 분석 플래그
+
+    public bool IsRecognitionComplete { get; private set; } = false; // 음성 인식 완료 상태 플래그
+    public bool IsPitchAnalyzeComplete { get; private set; } = false;
 
     private void Start()
     {
-        // 마이크 확인
+        // 마이크 확인 및 초기화
         if (Microphone.devices.Length > 0)
         {
-            _microphoneID = Microphone.devices[0];
-            Debug.Log($"[MicrophoneRecorder] Detected Microphone: {_microphoneID}");
-            IsRecognitionComplete = false;
+            microphoneID = Microphone.devices[0];
+            Debug.Log($"[MicrophoneRecorder] Detected Microphone: {microphoneID}");
         }
         else
         {
@@ -39,58 +41,66 @@ public class MicrophoneRecorder : MonoBehaviour
         }
     }
 
-    public void StartRecording()
+    /// <summary>
+    /// 녹음 시작 (음성 인식 또는 피치 분석 구분)
+    /// </summary>
+    /// <param name="forPitchAnalysis">피치 분석용인지 여부</param>
+    public void StartRecording(bool forPitchAnalysis = false)
     {
-        if (Microphone.devices.Length == 0 || string.IsNullOrEmpty(_microphoneID))
+        if (string.IsNullOrEmpty(microphoneID))
         {
             Debug.LogError("[MicrophoneRecorder] No microphone available for recording.");
             return;
         }
 
-        Debug.Log("[MicrophoneRecorder] Start recording...");
-        IsRecognitionComplete = false; // 플래그 초기화
-        _recording = Microphone.Start(_microphoneID, false, _recordingLengthSec, _recordingHZ);
+        isForPitchAnalysis = forPitchAnalysis;
+        IsPitchAnalyzeComplete = false; 
+        IsRecognitionComplete = false; // 음성 인식 상태 초기화
 
-        if (_recording != null)
-        {
-            Debug.Log("[MicrophoneRecorder] Recording started successfully.");
-        }
-        else
+        Debug.Log($"[MicrophoneRecorder] Start recording for {(isForPitchAnalysis ? "Pitch Analysis" : "Speech Recognition")}...");
+        recording = Microphone.Start(microphoneID, false, recordingLengthSec, recordingHZ);
+
+        if (recording == null)
         {
             Debug.LogError("[MicrophoneRecorder] Failed to start recording.");
         }
+        else
+        {
+            Debug.Log("[MicrophoneRecorder] Recording started successfully.");
+        }
     }
 
+    /// <summary>
+    /// 녹음 중지 및 처리
+    /// </summary>
     public void StopRecording()
     {
-        Debug.Log("[MicrophoneRecorder] StopRecording called.");
-
-        if (_recording == null)
+        if (recording == null || !Microphone.IsRecording(microphoneID))
         {
-            Debug.LogError("[MicrophoneRecorder] Recording has not started yet!");
+            Debug.LogError("[MicrophoneRecorder] Recording has not started or is already stopped.");
             return;
         }
 
-        if (Microphone.IsRecording(_microphoneID))
+        Microphone.End(microphoneID);
+        Debug.Log("[MicrophoneRecorder] Recording stopped.");
+
+        if (isForPitchAnalysis)
         {
-            Microphone.End(_microphoneID);
-            Debug.Log("[MicrophoneRecorder] Microphone recording stopped. Sending audio for recognition...");
-        
-            // 서버로 전송 시작
-            StartCoroutine(PostVoice(apiUrl, _recording));
+            AnalyzePitch(recording);
         }
         else
         {
-            Debug.LogError("[MicrophoneRecorder] Microphone is not recording.");
+            StartCoroutine(PostVoice(apiUrl, recording));
         }
     }
 
-
+    /// <summary>
+    /// 음성 데이터를 서버로 전송하여 음성 인식 수행
+    /// </summary>
     private IEnumerator PostVoice(string url, AudioClip audioClip)
     {
         Debug.Log("[MicrophoneRecorder] Preparing audio data for server...");
 
-        // AudioClip 데이터를 WAV로 변환
         byte[] wavData = GetWavData(audioClip);
         Debug.Log($"[MicrophoneRecorder] WAV data size: {wavData.Length} bytes.");
 
@@ -107,68 +117,67 @@ public class MicrophoneRecorder : MonoBehaviour
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError($"[MicrophoneRecorder] Error sending audio: {request.error}");
+                Debug.LogError($"[MicrophoneRecorder] Error: {request.error}");
             }
             else
             {
-                // JSON 응답 처리
-                string message = request.downloadHandler.text;
-                Debug.Log($"[MicrophoneRecorder] Server response: {message}");
-
-                try
-                {
-                    VoiceRecognize voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(message);
-                    Debug.Log($"[MicrophoneRecorder] Recognized text: {voiceRecognize.text}");
-
-                    // TMP 텍스트에 표시
-                    if (resultText != null)
-                    {
-                        GlobalVariables.PlayerName  = $"{voiceRecognize.text} ";
-                        resultText.text = $"만나서 반가워!\n 너의 이름은 {voiceRecognize.text} 이구나!";
-                    }
-
-                    // 음성 인식 완료 플래그 설정 및 이벤트 호출
-                    IsRecognitionComplete = true;
-                    OnRecognitionComplete?.Invoke(voiceRecognize.text);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError($"[MicrophoneRecorder] Failed to parse server response: {e.Message}");
-                }
+                string response = request.downloadHandler.text;
+                HandleServerResponse(response);
             }
         }
     }
 
-    private byte[] GetWavData(AudioClip audioClip)
+    /// <summary>
+    /// 서버 응답 처리
+    /// </summary>
+    private void HandleServerResponse(string jsonResponse)
     {
-        Debug.Log("[MicrophoneRecorder] Converting AudioClip to WAV format...");
-
-        MemoryStream stream = new MemoryStream();
-        int headerSize = 44; // WAV 헤더 크기
-        int sampleRate = audioClip.frequency;
-        int channels = audioClip.channels;
-        int bitDepth = 16;
-
-        // WAV 헤더 작성
-        WriteWavHeader(stream, audioClip.samples, sampleRate, channels, bitDepth);
-
-        // AudioClip 데이터를 가져와서 WAV 포맷으로 변환
-        float[] samples = new float[audioClip.samples];
-        audioClip.GetData(samples, 0);
-
-        foreach (float sample in samples)
+        try
         {
-            short intSample = (short)(Mathf.Clamp(sample, -1f, 1f) * short.MaxValue);
-            stream.Write(BitConverter.GetBytes(intSample), 0, 2);
-        }
+            var voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(jsonResponse);
+            Debug.Log($"[MicrophoneRecorder] Recognized text: {voiceRecognize.text}");
 
-        Debug.Log("[MicrophoneRecorder] WAV conversion complete.");
-        return stream.ToArray();
+            if (resultText != null)
+            {
+                resultText.text = $"만나서 반가워!\n 너의 이름은 {voiceRecognize.text}이구나!";
+            }
+
+            IsRecognitionComplete = true;
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[MicrophoneRecorder] Failed to parse server response: {e.Message}");
+        }
     }
 
+    /// <summary>
+    /// 오디오 데이터를 WAV 포맷으로 변환
+    /// </summary>
+    private byte[] GetWavData(AudioClip audioClip)
+    {
+        using (var stream = new MemoryStream())
+        {
+            int headerSize = 44;
+            WriteWavHeader(stream, audioClip.samples, recordingHZ, audioClip.channels, 16);
+
+            float[] samples = new float[audioClip.samples];
+            audioClip.GetData(samples, 0);
+
+            foreach (var sample in samples)
+            {
+                short intSample = (short)(Mathf.Clamp(sample, -1f, 1f) * short.MaxValue);
+                stream.Write(BitConverter.GetBytes(intSample), 0, 2);
+            }
+
+            return stream.ToArray();
+        }
+    }
+
+    /// <summary>
+    /// WAV 헤더 작성
+    /// </summary>
     private void WriteWavHeader(MemoryStream stream, int samples, int sampleRate, int channels, int bitDepth)
     {
-        Debug.Log("[MicrophoneRecorder] Writing WAV header...");
         int byteRate = sampleRate * channels * (bitDepth / 8);
         int blockAlign = channels * (bitDepth / 8);
 
@@ -185,8 +194,89 @@ public class MicrophoneRecorder : MonoBehaviour
         stream.Write(BitConverter.GetBytes((short)bitDepth), 0, 2);
         stream.Write(System.Text.Encoding.UTF8.GetBytes("data"), 0, 4);
         stream.Write(BitConverter.GetBytes(samples * blockAlign), 0, 4);
-        Debug.Log("[MicrophoneRecorder] WAV header written.");
     }
+
+    /// <summary>
+    /// 피치 분석
+    /// </summary>
+    public List<float> AnalyzePitch(AudioClip audioClip)
+    {
+        if (audioClip == null)
+        {
+            Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
+            return null;
+        }
+
+        List<float> pitchSequence = new List<float>();
+        int windowSize = 1024; // 한 번에 분석할 샘플 수
+        float[] samples = new float[audioClip.samples];
+        audioClip.GetData(samples, 0);
+
+        // 프레임 단위로 피치 분석
+        for (int i = 0; i < samples.Length; i += windowSize)
+        {
+            float[] frame = new float[windowSize];
+            for (int j = 0; j < windowSize && i + j < samples.Length; j++)
+            {
+                frame[j] = samples[i + j];
+            }
+
+            // FFT 수행 및 주요 주파수 추출
+            float[] spectrum = FFT(frame);
+            float dominantFrequency = GetDominantFrequency(spectrum);
+            pitchSequence.Add(dominantFrequency);
+        }
+
+        Debug.Log("[MicrophoneRecorder] Pitch analysis complete.");
+
+        // 피치 분석 완료 이벤트 호출
+        IsPitchAnalyzeComplete = true;
+        
+        return pitchSequence;
+    }
+
+// FFT 수행 (간단한 구현)
+    private float[] FFT(float[] data)
+    {
+        int n = data.Length;
+        float[] spectrum = new float[n / 2];
+
+        for (int i = 0; i < n / 2; i++)
+        {
+            spectrum[i] = Mathf.Abs(data[i]); // 단순 진폭 계산 (라이브러리 추천)
+        }
+
+        return spectrum;
+    }
+
+// 스펙트럼에서 주요 주파수 추출
+    private float GetDominantFrequency(float[] spectrum)
+    {
+        int index = 0;
+        float maxAmplitude = 0;
+
+        for (int i = 0; i < spectrum.Length; i++)
+        {
+            if (spectrum[i] > maxAmplitude)
+            {
+                maxAmplitude = spectrum[i];
+                index = i;
+            }
+        }
+
+        // 주요 주파수 계산
+        return index * (16000 / (float)spectrum.Length);
+    }
+    
+    public AudioClip GetLastRecording()
+    {
+        if (recording == null)
+        {
+            Debug.LogError("[MicrophoneRecorder] No recording available.");
+        }
+        return recording;
+    }
+
 
     [Serializable]
     public class VoiceRecognize
