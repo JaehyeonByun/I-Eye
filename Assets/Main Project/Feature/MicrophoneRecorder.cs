@@ -197,43 +197,77 @@ public class MicrophoneRecorder : MonoBehaviour
     }
 
     /// <summary>
-    /// 피치 분석
-    /// </summary>
-    public List<float> AnalyzePitch(AudioClip audioClip)
+/// 피치 분석 및 고주파 시간 구간 검출
+/// </summary>
+public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 1000f)
+{
+    if (audioClip == null)
     {
-        if (audioClip == null)
-        {
-            Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
-            return null;
-        }
-
-        List<float> pitchSequence = new List<float>();
-        int windowSize = 1024; // 한 번에 분석할 샘플 수
-        float[] samples = new float[audioClip.samples];
-        audioClip.GetData(samples, 0);
-
-        // 프레임 단위로 피치 분석
-        for (int i = 0; i < samples.Length; i += windowSize)
-        {
-            float[] frame = new float[windowSize];
-            for (int j = 0; j < windowSize && i + j < samples.Length; j++)
-            {
-                frame[j] = samples[i + j];
-            }
-
-            // FFT 수행 및 주요 주파수 추출
-            float[] spectrum = FFT(frame);
-            float dominantFrequency = GetDominantFrequency(spectrum);
-            pitchSequence.Add(dominantFrequency);
-        }
-
-        Debug.Log("[MicrophoneRecorder] Pitch analysis complete.");
-
-        // 피치 분석 완료 이벤트 호출
-        IsPitchAnalyzeComplete = true;
-        
-        return pitchSequence;
+        Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
+        return null;
     }
+
+    List<float> pitchSequence = new List<float>();
+    List<float> highFrequencyTimes = new List<float>(); // 고주파 구간 시간 기록
+    int windowSize = 1024; // 한 번에 분석할 샘플 수
+    float[] samples = new float[audioClip.samples];
+    audioClip.GetData(samples, 0);
+
+    int sampleRate = audioClip.frequency; // 샘플링 레이트
+    float timePerSample = 1f / sampleRate; // 샘플당 시간
+
+    // 프레임 단위로 피치 분석
+    for (int i = 0; i < samples.Length; i += windowSize)
+    {
+        float[] frame = new float[windowSize];
+        for (int j = 0; j < windowSize && i + j < samples.Length; j++)
+        {
+            frame[j] = samples[i + j];
+        }
+
+        // FFT 수행 및 주요 주파수 추출
+        float[] spectrum = FFT(frame);
+        float dominantFrequency = GetDominantFrequency(spectrum);
+
+        // 피치 기록
+        pitchSequence.Add(dominantFrequency);
+
+        // 고주파 검출
+        if (dominantFrequency >= thresholdFrequency)
+        {
+            float startTime = i * timePerSample;
+            float endTime = (i + windowSize) * timePerSample;
+
+            // 고주파 시간 기록
+            highFrequencyTimes.Add(startTime);
+            highFrequencyTimes.Add(endTime);
+
+            Debug.Log($"High frequency detected: {dominantFrequency} Hz from {startTime:F2}s to {endTime:F2}s");
+        }
+    }
+
+    Debug.Log("[MicrophoneRecorder] Pitch analysis complete.");
+    Debug.Log("[MicrophoneRecorder] High frequency detection complete.");
+
+    // 디버그 출력 (고주파 구간)
+    if (highFrequencyTimes.Count > 0)
+    {
+        Debug.Log("High Frequency Intervals:");
+        for (int i = 0; i < highFrequencyTimes.Count; i += 2)
+        {
+            Debug.Log($"Start: {highFrequencyTimes[i]}s, End: {highFrequencyTimes[i + 1]}s");
+        }
+    }
+    else
+    {
+        Debug.Log("No high frequency intervals detected.");
+    }
+    
+    IsPitchAnalyzeComplete = true;
+    // 피치 분석 결과 반환
+    return pitchSequence;
+}
+
 
 // FFT 수행 (간단한 구현)
     private float[] FFT(float[] data)
