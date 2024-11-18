@@ -546,6 +546,7 @@ MonoBehaviour:
   _gameClearSound: {fileID: 36510594}
   _firingClayTime: 90
   _clearUI: {fileID: 183541849}
+  _firstPigAnimator: {fileID: 181010520}
   _distractedTime: 0
   _distractedWhenCall: 0
   _shovelOutCount: 0
@@ -834,7 +835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5000002
+      value: 0.5000003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -878,7 +879,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_Name
-      value: FirstPig
+      value: FirstPigAimation
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
       propertyPath: m_Controller
@@ -886,6 +887,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 7ba9ac5d5e3d61c448f25a038eb5c5f7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
+--- !u!95 &181010520 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: eb4d186443b957b4488ec5a2e9cdf57a, type: 3}
+  m_PrefabInstance: {fileID: 181010519}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &183541849
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,7 +926,7 @@ RectTransform:
   - {fileID: 613519820}
   - {fileID: 1869372423}
   m_Father: {fileID: 1042948888}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 44.708, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1008,7 +1014,7 @@ RectTransform:
   - {fileID: 238616553}
   - {fileID: 1142403807}
   m_Father: {fileID: 1042948888}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1231,7 +1237,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8909f0acd04a85e43b6d20398ec8adc2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f88c6486767349f49a6b6e3e62ebd107, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2638,6 +2644,63 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.20323396, z: 1.4052942}
   m_Center: {x: 3.169559e-10, y: -0.026194453, z: 0.3513426}
+--- !u!1 &889297531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 889297532}
+  - component: {fileID: 889297533}
+  m_Layer: 0
+  m_Name: SlideManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &889297532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889297531}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -832.99994, y: -474.44986, z: 415.30008}
+  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1042948888}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &889297533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889297531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4921f9e4931e5fb4ca1b3fb342ccf5c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slides:
+  - interval: 0
+    isStop: 1
+    haveToRecording: 0
+    slide: {fileID: 228896078}
+    Voice: {fileID: 317316039}
+    AnimatorIndex: 0
+    triggersTutorial: 0
+  fadeDuration: 1
+  animator: {fileID: 1655052296}
+  tutorialManager: {fileID: 0}
+  isPaused: 0
+  microphoneRecorder: {fileID: 0}
 --- !u!1 &953560097
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,7 +2715,7 @@ GameObject:
   - component: {fileID: 953560101}
   - component: {fileID: 953560104}
   - component: {fileID: 953560103}
-  - component: {fileID: 953560102}
+  - component: {fileID: 953560105}
   m_Layer: 5
   m_Name: button
   m_TagString: Untagged
@@ -2762,20 +2825,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &953560102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953560097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70e04fa12164c0748854b8f885e8b894, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 228896078}
-  PigVoice: {fileID: 317316039}
 --- !u!65 &953560103
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2996,9 +3045,9 @@ MonoBehaviour:
   <OnClicked>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 953560102}
-        m_TargetAssemblyTypeName: StageTwoUI, Assembly-CSharp
-        m_MethodName: OnButtonClick
+      - m_Target: {fileID: 953560105}
+        m_TargetAssemblyTypeName: NextButtonAction, Assembly-CSharp
+        m_MethodName: OnActionButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3032,6 +3081,19 @@ MonoBehaviour:
     onExited:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &953560105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953560097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c75322d2eaf66f44bc55fc6d44a999d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiScenario: {fileID: 889297533}
 --- !u!1 &1042948884
 GameObject:
   m_ObjectHideFlags: 0
@@ -3124,6 +3186,7 @@ RectTransform:
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 889297532}
   - {fileID: 228896079}
   - {fileID: 183541850}
   m_Father: {fileID: 0}
@@ -4944,7 +5007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
       propertyPath: m_Name
-      value: SecondPig
+      value: SecondPigAnimation
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
       propertyPath: m_Controller
@@ -4952,6 +5015,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 46ca199a3db059f4486493e539ee2d69, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
+--- !u!95 &1655052296 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: b8623095b4862dd48950c87d8d62a2f8, type: 3}
+  m_PrefabInstance: {fileID: 1655052295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1731190835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3493013819197874656, guid: 64568f5fbde38f94db4ecd369a19bc8b, type: 3}

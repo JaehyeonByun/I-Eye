@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Main Project/Feature/1.Tutorial 30.unity
     guid: e1f7a8684c5a46f498b1c0c237ce7a26
   - enabled: 1
-    path: Assets/Main Project/Clear Scene.unity
+    path: Assets/Main Project/4. Clear Scene.unity
     guid: d07f5175a2890dd4aafd1ea6daa696f3
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 59434c10870f233449896f11841b388a, type: 2}
