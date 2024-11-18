@@ -2023,7 +2023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiScenario: {fileID: 1119520228}
-  nextSceneName: 1.Tutorial_Fix
+  nextSceneName: 1.Tutorial 30
 --- !u!1 &644374136
 GameObject:
   m_ObjectHideFlags: 0

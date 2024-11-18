@@ -11,7 +11,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Image redClayImagePrefab; // 빨간 클레이 이미지 프리팹
     [SerializeField] private Image yellowClayImagePrefab; // 노란 클레이 이미지 프리팹
     [SerializeField] private Image blueClayImagePrefab; // 파란 클레이 이미지 프리팹
-    [SerializeField] private Image wrongClayImagePrefab; // 함정 클레이 이미지 프리팹
+    
+    [SerializeField] private Image wrongRedClayImagePrefab; // 빨간 클레이 이미지 프리팹
+    [SerializeField] private Image wrongYellowClayImagePrefab; // 노란 클레이 이미지 프리팹
+    [SerializeField] private Image wrongBlueClayImagePrefab; // 파란 클레이 이미지 프리팹
 
     private List<Vector2> correctRelativePositions = new List<Vector2>(); // 정답 클레이의 상대적 위치 리스트
     private List<Vector2> wrongRelativePositions = new List<Vector2>(); // 함정 클레이의 상대적 위치 리스트
@@ -179,7 +182,15 @@ private void PlaceClayImagesInContainer(RectTransform container)
         }
         else
         {
-            return wrongClayImagePrefab;
+            switch (tag)
+            {
+                case "wrongRed":
+                    return wrongRedClayImagePrefab;
+                case "wrongYellow":
+                    return wrongYellowClayImagePrefab;
+                case "wrongBlue":
+                    return wrongBlueClayImagePrefab;
+            }
         }
 
         Debug.LogWarning($"Unknown clay tag: {tag}");
