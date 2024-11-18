@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class OthersBelonging : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int OtherBelongingTouch = 0;
+    private Dictionary<Transform, Vector3> childInitialPositions = new Dictionary<Transform, Vector3>();
+
     void Start()
     {
-        
+        foreach (Transform child in transform)
+        {
+            childInitialPositions[child] = child.position;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        foreach (Transform child in transform)
+        {
+            if (childInitialPositions.ContainsKey(child))
+            {
+                if (child.position != childInitialPositions[child])
+                {
+                    childInitialPositions.Remove(child); 
+                    OtherBelongingTouch++; 
+                }
+            }
+        }
     }
+    
+
 }

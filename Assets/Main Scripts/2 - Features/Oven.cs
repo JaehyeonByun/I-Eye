@@ -16,7 +16,7 @@ public class Oven : MonoBehaviour
     
     [SerializeField] private AudioSource _gameClearSound;
     
-    [SerializeField] private float _gazetime = 90f; //오븐을 바라봐야 하는 시간
+    [SerializeField] private float _firingClayTime = 90f; //오븐에 진흙을 구워야하는 시간
     [SerializeField] private GameObject _clearUI;
     
     private bool _isShovelColliding = false;
@@ -44,35 +44,39 @@ public class Oven : MonoBehaviour
         Debug.DrawRay(_playerGaze.position, _playerGaze.forward * lineSize, Color.yellow);
         RaycastHit hit;
 
+        if (_isShovelColliding)
+        {
+            _firingClayTime -= Time.deltaTime;
+            Debug.Log($"클리어까지 남은 시간:{_firingClayTime}");
+            if (_firingClayTime < 70 && _distractedCount > 2)
+            {
+                DistractSoundPlay();
+                _distractedCount -= 1;
+            }
+            if (_firingClayTime < 50 && _distractedCount > 1)
+            {
+                DistractSoundPlay();
+                _distractedCount -= 1;
+            }
+            if (_firingClayTime < 30 && _distractedCount > 0)
+            {
+                DistractSoundPlay();
+                _distractedCount -= 1;
+            }
+            if (_firingClayTime < 0)
+            {
+                _firingClayTime = 0;
+                _isGameClear = true;
+                _clearUI.SetActive(true);
+            }
+        }
+
         if (_isShovelColliding && _isGameClear == false)
         {
             if (Physics.Raycast(_playerGaze.position, _playerGaze.forward, out hit, lineSize))
             {
                 if (hit.collider.CompareTag("오븐"))
                 {
-                    _gazetime -= Time.deltaTime;
-                    Debug.Log($"클리어까지 남은 시간:{_gazetime}");
-                    if (_gazetime < 70 && _distractedCount > 2)
-                    {
-                        DistractSoundPlay();
-                        _distractedCount -= 1;
-                    }
-                    if (_gazetime < 50 && _distractedCount > 1)
-                    {
-                        DistractSoundPlay();
-                        _distractedCount -= 1;
-                    }
-                    if (_gazetime < 30 && _distractedCount > 0)
-                    {
-                        DistractSoundPlay();
-                        _distractedCount -= 1;
-                    }
-                    if (_gazetime < 0)
-                    {
-                        _gazetime = 0;
-                        _isGameClear = true;
-                        Debug.Log("GameClear!");
-                    }
                     _wasDistractedWhenCallCountControl = false;
                 }
             }
@@ -88,11 +92,6 @@ public class Oven : MonoBehaviour
                     Debug.Log($"방해했을 때 산만해진 횟수: {_distractedWhenCall}");
                 }
             }
-        }
-
-        if (_isGameClear == true)
-        {
-            GameClear();
         }
     }
 
@@ -136,13 +135,6 @@ public class Oven : MonoBehaviour
     {
         yield return new WaitForSeconds(delay); // 지정된 시간 동안 대기
         _isCall = false;
-    }
-    void GameClear()
-    {
-        GameManager.Inattention_b.Append(_distractedTime);
-        GameManager.Inattention_h.Append(_distractedWhenCall);
-        GameManager.HyperActivity_d.Append(_shovelOutCount);
-        _clearUI.SetActive(true);
     }
 }
  
