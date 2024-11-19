@@ -128,8 +128,8 @@ Material:
     - _RenderQueueOverride: -1
     - _RimLight: 0
     - _RimPower: 0.25
-    - _RoundCornerMargin: 0.02
-    - _RoundCornerRadius: 120
+    - _RoundCornerMargin: 0
+    - _RoundCornerRadius: 0
     - _RoundCorners: 1
     - _RoundCornersHideInterior: 0
     - _Smoothness: 0.5
