@@ -19,11 +19,14 @@ public class Oven : MonoBehaviour
     [SerializeField] private float _firingClayTime = 90f; //오븐에 진흙을 구워야하는 시간
     [SerializeField] private GameObject _clearUI;
     
+    [SerializeField] private Animator _firstPigAnimator;
+    
     private bool _isShovelColliding = false;
     private bool _isGameClear = false;
     private bool _isCall = false;
     private bool _wasDistractedWhenCallCountControl = false;
     private int _distractedCount = 3;
+    private bool isClearPlayed = false;
 
     //InputData
     public float _distractedTime = 0f; // inattentionB
@@ -50,6 +53,7 @@ public class Oven : MonoBehaviour
             Debug.Log($"클리어까지 남은 시간:{_firingClayTime}");
             if (_firingClayTime < 70 && _distractedCount > 2)
             {
+                _firstPigAnimator.SetTrigger("1");
                 DistractSoundPlay();
                 _distractedCount -= 1;
             }
@@ -60,11 +64,18 @@ public class Oven : MonoBehaviour
             }
             if (_firingClayTime < 30 && _distractedCount > 0)
             {
+                _firstPigAnimator.SetTrigger("2");
                 DistractSoundPlay();
                 _distractedCount -= 1;
             }
             if (_firingClayTime < 0)
             {
+                if (!isClearPlayed)
+                {
+                    _gameClearSound.Play();
+                    isClearPlayed = true;
+                }
+
                 _firingClayTime = 0;
                 _isGameClear = true;
                 _clearUI.SetActive(true);

@@ -40,6 +40,13 @@ public class Brick : MonoBehaviour
                 fixedRotation = other.transform.rotation;
                 LockBlockPosition();
                 house.AddOccupiedPosition(fixedPosition);
+
+                // 부딪힌 정답 위치의 콜라이더를 비활성화
+                if (other.TryGetComponent<Collider>(out Collider correctCollider))
+                {
+                    correctCollider.enabled = false;
+                }
+
                 _correctSound.Play();
             }
         }

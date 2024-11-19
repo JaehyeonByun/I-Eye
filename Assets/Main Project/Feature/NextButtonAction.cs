@@ -1,24 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NextButtonAction : MonoBehaviour
 {
     public UIScenario uiScenario; // UIScenario 참조
-    public Button actionButton; // 현재 슬라이드의 버튼
 
-    private void Start()
-    {
-        if (actionButton != null)
-        {
-            actionButton.onClick.AddListener(OnActionButtonClicked);
-        }
-        else
-        {
-            Debug.LogError("[NextButtonAction] Action button is not assigned.");
-        }
-    }
-
-    private void OnActionButtonClicked()
+    // Unity의 OnClick 이벤트에서 호출될 메서드
+    public void OnActionButtonClicked()
     {
         if (uiScenario != null)
         {

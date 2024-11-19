@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
     public static List<float> HyperActivity_i = new List<float>();
 
     [SerializeField] private GameObject VectorLogger;
+   
     
     public static GameManager instance;
 
