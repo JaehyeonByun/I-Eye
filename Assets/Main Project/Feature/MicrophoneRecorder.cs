@@ -136,6 +136,8 @@ public class MicrophoneRecorder : MonoBehaviour
         {
             var voiceRecognize = JsonUtility.FromJson<VoiceRecognize>(jsonResponse);
             Debug.Log($"[MicrophoneRecorder] Recognized text: {voiceRecognize.text}");
+            
+            GlobalVariables.PlayerName = voiceRecognize.text;
 
             if (resultText != null)
             {
