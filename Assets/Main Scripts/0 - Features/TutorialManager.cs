@@ -68,16 +68,17 @@ public class TutorialManager : MonoBehaviour
             {
                 Vector3 position = data.Position;
                 string tag = data.Tag;
+                Debug.Log(position.x + ", " + position.y + ", " + position.z);
 
-                // X와 Y를 변환
+                // X와 Z를 변환
                 float relativeX = Mathf.InverseLerp(minSpawnRange.x, maxSpawnRange.x, position.x) * 1200;
-                float relativeY = Mathf.InverseLerp(minSpawnRange.y, maxSpawnRange.y, position.y) * 720;
+                float relativeZ = Mathf.InverseLerp(minSpawnRange.z, maxSpawnRange.z, position.z) * 720;
 
                 // 상대적 위치와 태그 저장
-                correctRelativePositions.Add(new Vector2(relativeX, relativeY));
+                correctRelativePositions.Add(new Vector2(relativeX, relativeZ));
                 correctClayTags.Add(tag);
 
-                Debug.Log($"Correct Clay - X: {relativeX}, Y: {relativeY}, Tag: {tag}");
+                Debug.Log($"Correct Clay - X: {relativeX}, Z: {relativeZ}, Tag: {tag}");
             }
 
             // 함정 클레이 데이터 처리
@@ -86,15 +87,15 @@ public class TutorialManager : MonoBehaviour
                 Vector3 position = data.Position;
                 string tag = data.Tag;
 
-                // X와 Y를 변환
+                // X와 Z를 변환
                 float relativeX = Mathf.InverseLerp(minSpawnRange.x, maxSpawnRange.x, position.x) * 1200;
-                float relativeY = Mathf.InverseLerp(minSpawnRange.y, maxSpawnRange.y, position.y) * 720;
+                float relativeZ = Mathf.InverseLerp(minSpawnRange.z, maxSpawnRange.z, position.z) * 720;
 
                 // 상대적 위치와 태그 저장
-                wrongRelativePositions.Add(new Vector2(relativeX, relativeY));
+                wrongRelativePositions.Add(new Vector2(relativeX, relativeZ));
                 wrongClayTags.Add(tag);
 
-                Debug.Log($"Wrong Clay - X: {relativeX}, Y: {relativeY}, Tag: {tag}");
+                Debug.Log($"Wrong Clay - X: {relativeX}, Z: {relativeZ}, Tag: {tag}");
             }
         }
         else

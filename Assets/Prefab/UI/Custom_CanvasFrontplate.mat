@@ -63,7 +63,7 @@ Material:
     - _Proximity_Far_Distance_: 0.16
     - _Proximity_Max_Intensity_: 0.45
     - _Proximity_Near_Radius_: 0.03
-    - _Radius_: 90
+    - _Radius_: 117
     - _Relative_To_Height_: 0
     - _Selected_: 0
     - _Selected_Distance_: 0.08

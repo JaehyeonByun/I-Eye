@@ -60,7 +60,7 @@ public class ClayPickupManager : MonoBehaviour
         gameStartTime = Time.time;
         lastPlayerPosition = transform.position;
 
-        SpawnClayPrefabs();
+       // SpawnClayPrefabs();
         TriggerAction.action.performed += OnTriggerAction;
         
         if (uiCanvas != null)

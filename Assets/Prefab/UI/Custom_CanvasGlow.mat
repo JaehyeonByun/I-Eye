@@ -27,7 +27,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Bevel_Radius_: 90
+    - _Bevel_Radius_: 117
     - _Bias_: 0.5
     - _Blend_Exponent_: 1
     - _DstBlend: 1
