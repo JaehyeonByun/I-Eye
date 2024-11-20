@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Project/Feature/0. Information.unity
     guid: 997528f88125b134c9ec251d6b799e77
   - enabled: 0
@@ -17,12 +17,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Main Project/Feature/3. Building House(Hard).unity
     guid: 4db96ad7b56e5fa48a568b82baa17051
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Project/Feature/1.Tutorial 30.unity
     guid: e1f7a8684c5a46f498b1c0c237ce7a26
   - enabled: 0
     path: Assets/Main Project/Feature/1.Tutorial_Fix.unity
     guid: 295444ea5197b2d4db648934a2c64231
+  - enabled: 1
+    path: Assets/Main Project/2. Firing Clay.unity
+    guid: f35e525904a80f44c819434ccef4d5fd
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 59434c10870f233449896f11841b388a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: efada534aafe3b849b6a348789da54d5, type: 2}
