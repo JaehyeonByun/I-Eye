@@ -27,12 +27,15 @@ public class ClayPickupManager : MonoBehaviour
     [SerializeField] private AudioClip wrongSound; // 오답 사운드 클립
     
     [SerializeField] private GameObject clearUI; // 클리어 UI 오브젝트
-    [SerializeField] private GameObject tutorialUI;
+    [SerializeField] private GameObject clayNumberUI; // 클레이 개수 맞추는 UI 오브젝트
     [SerializeField] private AudioClip clearSound; // 클리어 효과음
-
+    [SerializeField] private AudioClip clearAudio;
+    
     private List<GameObject> clayObjects = new List<GameObject>();
     private List<ClayData> clayDataList = new List<ClayData>();
     private List<ClayData> wrongClayDataList = new List<ClayData>();
+    
+    public UIScenario uiScenario;
 
     private int currentPickupIndex = 0;
     private int correctClayCount = 0;
@@ -40,6 +43,8 @@ public class ClayPickupManager : MonoBehaviour
     private float gameStartTime;
     private float totalDistanceTraveled = 0f;
     private int hintUsageCount = 0;
+    public int returnToExplanation = 0;
+    public int clayNumberTry = 0;
 
     private Vector3 lastPlayerPosition;
 
@@ -155,6 +160,19 @@ public class ClayPickupManager : MonoBehaviour
 
         Debug.Log("All clays activated.");
     }
+    
+    private void DeactivateAllClays()
+    {
+        foreach (GameObject clay in clayObjects)
+        {
+            if (clay != null)
+            {
+                clay.SetActive(false);
+            }
+        }
+
+        Debug.Log("All clays have been deactivated.");
+    }
 
     public void AttemptPickup(GameObject clay)
     {
@@ -178,8 +196,10 @@ public class ClayPickupManager : MonoBehaviour
             {
                 float elapsedTime = Time.time - gameStartTime;
                 Debug.Log($"All correct clays collected! Time: {elapsedTime:F2} seconds.");
-                ShowClearUI(elapsedTime); // 클리어 UI 표시
                 
+                
+                DeactivateAllClays();
+                uiScenario.TriggerFadeToNextSlide(); 
             }
         }
         else
@@ -188,21 +208,15 @@ public class ClayPickupManager : MonoBehaviour
         }
     }
     
-    private void ShowClearUI(float elapsedTime)
+    public void ShowClearUI()
     {
         if (clearUI != null)
         {
-            // 클리어 메시지 업데이트 (필요 시)
-            if (clearUI.GetComponentInChildren<TMPro.TextMeshProUGUI>() != null)
-            {
-                var messageText = clearUI.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-                messageText.text = $"축하합니다! 모든 진흙을 모았습니다.\n소요 시간: {elapsedTime:F2}초";
-            }
-
             clearUI.SetActive(true); // UI 활성화
-            tutorialUI.SetActive(false);
+            clayNumberUI.SetActive(false);
             StartCoroutine(FadeCanvasGroup(clearUI.GetComponent<CanvasGroup>(), 0f, 1f, 0.5f)); // 페이드인
             PlayClearSound(); // 클리어 효과음 재생
+            PlayClearAudio(); // 클리어 오디오 재생
         }
     }
 
@@ -211,6 +225,15 @@ public class ClayPickupManager : MonoBehaviour
         if (audioSource != null && clearSound != null)
         {
             audioSource.clip = clearSound;
+            audioSource.Play();
+        }
+    }
+    
+    private void PlayClearAudio()
+    {
+        if (audioSource != null && clearAudio != null)
+        {
+            audioSource.clip = clearAudio;
             audioSource.Play();
         }
     }
@@ -410,7 +433,7 @@ public class ClayPickupManager : MonoBehaviour
         }
     }
 
-    private void PlayCorrectPickupSound()
+    public void PlayCorrectPickupSound()
     {
         if (audioSource != null && correctSound != null)
         {
@@ -423,7 +446,7 @@ public class ClayPickupManager : MonoBehaviour
         }
     }
 
-    private void PlayWrongPickupSound()
+    public void PlayWrongPickupSound()
     {
         if (audioSource != null && wrongSound != null)
         {

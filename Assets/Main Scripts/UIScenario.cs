@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
 
 [System.Serializable]
 public class SlideData
@@ -109,6 +110,9 @@ public class UIScenario : MonoBehaviour
     
     public void TriggerFadeToNextSlide()
     {
+        Debug.Log("TriggerFeadeToNextSlide");
+        Debug.Log(isPaused);
+        
         if (isPaused)
         {
             isPaused = false;
@@ -117,6 +121,7 @@ public class UIScenario : MonoBehaviour
             // 버튼을 눌렀으므로 일시 정지를 해제
             if (autoSlideCoroutine != null)
             {
+                Debug.Log("TriggerFeadeToNextSlide");
                 StopCoroutine(autoSlideCoroutine); 
             }
 
@@ -319,16 +324,33 @@ public class UIScenario : MonoBehaviour
 
         if (index >= 0 && index < _slides.Count)
         {
-            _slides[index].slide.SetActive(true);
-            _slides[index].Voice.Play();
-            // animator.SetInteger("Scenario", _slides[index].AnimatorCount); // OLD
-            animator.SetTrigger(_slides[index].AnimatorIndex.ToString());
-            Debug.Log("Showing Slide: " + index);
+            SlideData currentSlide = _slides[index];
+            currentSlide.slide.SetActive(true);
+
+            if (currentSlide.Voice != null)
+            {
+                if (currentSlide.Voice.clip != null) // AudioClip이 null인지 확인
+                {
+                    currentSlide.Voice.Play(); // AudioClip이 있으면 재생
+                }
+                else
+                {
+                    Debug.Log($"[ShowSlide] Slide {index} has no AudioClip. Skipping audio playback.");
+                }
+            }
+            else
+            {
+                Debug.Log($"[ShowSlide] Slide {index} has no AudioSource. Skipping audio playback.");
+            }
+
+            animator.SetTrigger(currentSlide.AnimatorIndex.ToString());
+            Debug.Log($"Showing Slide: {index}");
         }
         else
         {
-            Debug.LogWarning("Slide index out of range: " + index);
+            Debug.LogWarning($"[ShowSlide] Slide index {index} is out of range.");
         }
     }
+
 }
 
