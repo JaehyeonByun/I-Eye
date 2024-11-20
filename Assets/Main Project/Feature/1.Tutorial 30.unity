@@ -3074,7 +3074,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2142, y: 2106.4395}
+  m_SizeDelta: {x: 2400, y: 2400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &865036028
 MonoBehaviour:
@@ -4290,7 +4290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1101146775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5578,8 +5578,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -272, y: 616}
-  m_SizeDelta: {x: 1500, y: 50}
+  m_AnchoredPosition: {x: -272, y: 675}
+  m_SizeDelta: {x: 2400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1437721365
 MonoBehaviour:
@@ -5602,7 +5602,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "\uC798 \uAE30\uC5B5\uD574\uC918\n\uC9C4\uD759\uC740 \uBE68\uAC15, \uB178\uB791,
-    \uD30C\uB791 \uC21C\uC11C\uB85C \uC8FC\uC6CC\uC57C\uD574 "
+    \uD30C\uB791 \uC21C\uC11C\uB85C \uC8FC\uC6CC\uC57C\uD574 \n\uD558\uC9C0\uB9CC
+    \uC5B4\uB450\uC6B4 \uC0C9\uC73C\uB85C \uD45C\uC2DC\uB41C \uD568\uC815 \uC9C4\uD759\uC740
+    \uC8FC\uC6B0\uBA74 \uC548\uB3FC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 38342c993c94b4198a588ad8adbc44ce, type: 2}
   m_sharedMaterial: {fileID: 6622038815901849940, guid: 38342c993c94b4198a588ad8adbc44ce, type: 2}
@@ -5917,7 +5919,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1190f4dbc94a8d84982f6857722aa610, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1439080d7a76cdc45978a515f49b6b1c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -7343,27 +7345,27 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 193ef83e9888540978ea8771dcfb330f, type: 3}
     - target: {fileID: 1678676010862019826, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678676010862019826, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678676010862019826, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678676010862019826, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 204
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678676010862019826, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 232.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678676010862019826, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -102
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1678676011001155206, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_Size.x
@@ -7383,7 +7385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1678676011001155320, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1678676011001155320, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_AnchorMax.x
@@ -7443,7 +7445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1678676011001155320, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 836
+      value: 979
       objectReference: {fileID: 0}
     - target: {fileID: 1678676011001155320, guid: b849bb78ff526dc448a94f7f87021dd7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
