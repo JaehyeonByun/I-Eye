@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: a860118faedea8442807c371713d88e7, type: 2}
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.7865269, g: 0.6652815, b: 0.580772, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4081,7 +4081,7 @@ GameObject:
   - component: {fileID: 1263285458}
   - component: {fileID: 1263285460}
   m_Layer: 5
-  m_Name: button
+  m_Name: ClearButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4157,6 +4157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f37edb8a73543488e9b797b6c6481a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _AdhdLevel: 2
   _oven: {fileID: 82075483}
   _othersBelonging: {fileID: 844088220}
 --- !u!114 &1263285459
@@ -4367,8 +4368,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1263285458}
-        m_TargetAssemblyTypeName: StageTwoClear, Assembly-CSharp
-        m_MethodName: SaveData
+        m_TargetAssemblyTypeName: DiagnosisLevelEnd, Assembly-CSharp
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
