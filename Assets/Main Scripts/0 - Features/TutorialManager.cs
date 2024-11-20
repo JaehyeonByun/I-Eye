@@ -33,6 +33,8 @@ public class TutorialManager : MonoBehaviour
         // 클레이 픽업 매니저 초기화
         if (clayPickupManager != null)
         {
+            clayPickupManager.ClayPickupEvent += OnClayPickedUp;
+                
             clayPickupManager.gameObject.SetActive(true); // 활성화
             clayPickupManager.SpawnClayPrefabs(); // 클레이 생성
 
@@ -49,49 +51,74 @@ public class TutorialManager : MonoBehaviour
             PlaceClayImagesInContainer(container);
         }
     }
+    // 클레이 삭제 이벤트 처리
+    private void OnClayPickedUp(string clayTag, bool isCorrect, Vector3 position)
+    {
+        Debug.Log($"Received pickup event: {clayTag}, Correct: {isCorrect}");
+        
+        RemoveClayImageFromContainers(clayTag, isCorrect);
+    }
+    
+    private void RemoveClayImageFromContainers(string clayTag, bool isCorrect)
+    {
+        string prefix = isCorrect ? clayTag : $"wrong{char.ToUpper(clayTag[0]) + clayTag.Substring(1)}";
+        bool imageFound = false; 
+        foreach (var container in containers)
+        {
+            foreach (Transform child in container)
+            {
+                if (child.name.StartsWith(prefix)) 
+                {
+                    Debug.Log($"Removing clay image: {child.name} from container: {container.name}");
+                    Destroy(child.gameObject); //  한개의 이미지만 삭제
+                    imageFound = true; 
+                    break; 
+                }
+            }
+        }
 
-    /// <summary>
-    /// 클레이 픽업 매니저를 초기화하고 정답 및 함정 클레이의 위치와 태그를 저장합니다.
-    /// </summary>
+        if (!imageFound)
+        {
+            Debug.LogWarning($"No clay image found for tag: {prefix} in any container.");
+        }
+    }
+
+
+
+    // Initialize Clay Positions
     private void InitializeClayPositions()
     {
         if (clayPickupManager != null)
         {
-            var correctClayData = clayPickupManager.GetClayData(); // 정답 클레이 데이터
-            var wrongClayData = clayPickupManager.GetWrongClayData(); // 함정 클레이 데이터
+            var correctClayData = clayPickupManager.GetClayData(); 
+            var wrongClayData = clayPickupManager.GetWrongClayData(); 
 
             Debug.Log($"Initialized {correctClayData.Count} correct clay positions.");
             Debug.Log($"Initialized {wrongClayData.Count} wrong clay positions.");
-
-            // 정답 클레이 데이터 처리
+            
             foreach (var data in correctClayData)
             {
                 Vector3 position = data.Position;
                 string tag = data.Tag;
                 Debug.Log(position.x + ", " + position.y + ", " + position.z);
-
-                // X와 Z를 변환
+                
                 float relativeX = Mathf.InverseLerp(minSpawnRange.x, maxSpawnRange.x, position.x) * 1200;
                 float relativeZ = Mathf.InverseLerp(minSpawnRange.z, maxSpawnRange.z, position.z) * 720;
-
-                // 상대적 위치와 태그 저장
+                
                 correctRelativePositions.Add(new Vector2(relativeX, relativeZ));
                 correctClayTags.Add(tag);
 
                 Debug.Log($"Correct Clay - X: {relativeX}, Z: {relativeZ}, Tag: {tag}");
             }
-
-            // 함정 클레이 데이터 처리
+            
             foreach (var data in wrongClayData)
             {
                 Vector3 position = data.Position;
                 string tag = data.Tag;
-
-                // X와 Z를 변환
+                
                 float relativeX = Mathf.InverseLerp(minSpawnRange.x, maxSpawnRange.x, position.x) * 1200;
                 float relativeZ = Mathf.InverseLerp(minSpawnRange.z, maxSpawnRange.z, position.z) * 720;
-
-                // 상대적 위치와 태그 저장
+                
                 wrongRelativePositions.Add(new Vector2(relativeX, relativeZ));
                 wrongClayTags.Add(tag);
 
@@ -104,9 +131,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-/// 주어진 컨테이너에 정답 및 함정 클레이 이미지를 배치합니다.
-/// </summary>
+// Place Clay
 private void PlaceClayImagesInContainer(RectTransform container)
 {
     if (container == null)
@@ -114,59 +139,52 @@ private void PlaceClayImagesInContainer(RectTransform container)
         Debug.LogError("Container is null!");
         return;
     }
-
-    // 컨테이너의 중심 좌표 계산
+    
     float containerWidth = 1300;
     float containerHeight = 800;
 
-    // 정답 클레이 배치
+    // Place Clay
     for (int i = 0; i < correctRelativePositions.Count; i++)
     {
         Image clayImagePrefab = GetClayImagePrefab(correctClayTags[i], true);
         if (clayImagePrefab == null) continue;
 
         Image clayImage = Instantiate(clayImagePrefab, container);
+        clayImage.name = $"{correctClayTags[i]}_Image_{i}";
 
-        // 앵커와 피벗 설정 (중앙 기준)
         clayImage.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
         clayImage.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
         clayImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
 
-        // 배치 계산 (컨테이너 중심 기준)
         clayImage.rectTransform.anchoredPosition = new Vector2(
             correctRelativePositions[i].x - containerWidth / 2,
             correctRelativePositions[i].y - containerHeight / 2
         );
-
         Debug.Log($"Placed correct clay image at: {clayImage.rectTransform.anchoredPosition} in container {container.name}");
     }
 
-    // 함정 클레이 배치
+    // Place wrong Clay
     for (int i = 0; i < wrongRelativePositions.Count; i++)
     {
         Image clayImagePrefab = GetClayImagePrefab(wrongClayTags[i], false);
         if (clayImagePrefab == null) continue;
 
         Image clayImage = Instantiate(clayImagePrefab, container);
+        clayImage.name = $"{wrongClayTags[i]}_Image_{i}";
 
-        // 앵커와 피벗 설정 (중앙 기준)
         clayImage.rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
         clayImage.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
         clayImage.rectTransform.pivot = new Vector2(0.5f, 0.5f);
 
-        // 배치 계산 (컨테이너 중심 기준)
         clayImage.rectTransform.anchoredPosition = new Vector2(
             wrongRelativePositions[i].x - containerWidth / 2,
             wrongRelativePositions[i].y - containerHeight / 2
         );
-
         Debug.Log($"Placed wrong clay image at: {clayImage.rectTransform.anchoredPosition} in container {container.name}");
     }
 }
 
-    /// <summary>
-    /// 클레이 태그에 따라 적절한 이미지 프리팹 반환
-    /// </summary>
+    // Get Image Prefab 
     private Image GetClayImagePrefab(string tag, bool isCorrect)
     {
         if (isCorrect)
@@ -197,10 +215,8 @@ private void PlaceClayImagesInContainer(RectTransform container)
         Debug.LogWarning($"Unknown clay tag: {tag}");
         return null;
     }
-
-    /// <summary>
-    /// 튜토리얼 모드를 활성화합니다.
-    /// </summary>
+    
+    // Tutorial Activate
     public void ActivateTutorialCanvas()
     {
         Debug.Log("Activating Tutorial Canvas...");

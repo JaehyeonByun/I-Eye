@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c0e5db8fb412a3149882bab473b8a8fe, type: 3}
       propertyPath: m_Name
-      value: red clay
+      value: red clay Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0e5db8fb412a3149882bab473b8a8fe, type: 3}
