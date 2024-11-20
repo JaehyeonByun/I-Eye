@@ -27,7 +27,7 @@ public class ClayPickupManager : MonoBehaviour
     [SerializeField] private AudioClip wrongSound; // 오답 사운드 클립
     
     [SerializeField] private GameObject clearUI; // 클리어 UI 오브젝트
-    [SerializeField] private GameObject hintUI;
+    [SerializeField] private GameObject tutorialUI;
     [SerializeField] private AudioClip clearSound; // 클리어 효과음
 
     private List<GameObject> clayObjects = new List<GameObject>();
@@ -200,7 +200,7 @@ public class ClayPickupManager : MonoBehaviour
             }
 
             clearUI.SetActive(true); // UI 활성화
-            hintUI.SetActive(false);
+            tutorialUI.SetActive(false);
             StartCoroutine(FadeCanvasGroup(clearUI.GetComponent<CanvasGroup>(), 0f, 1f, 0.5f)); // 페이드인
             PlayClearSound(); // 클리어 효과음 재생
         }
