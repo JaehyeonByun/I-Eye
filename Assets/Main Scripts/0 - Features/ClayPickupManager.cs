@@ -120,12 +120,6 @@ public class ClayPickupManager : MonoBehaviour
         clay.SetActive(false);
         clay.transform.localScale *= 0.1f;
 
-        Rigidbody rb = clay.AddComponent<Rigidbody>();
-        rb.useGravity = false;
-
-        SphereCollider collider = clay.AddComponent<SphereCollider>();
-        collider.isTrigger = true;
-
         clayObjects.Add(clay);
 
         if (isCorrect)
