@@ -7,7 +7,8 @@ public class GameClearUI : MonoBehaviour
 {
     public void onbuttonClick()
     {
-        LoadScene("Clear Scene");
+        Debug.Log("Go to Clear Scene");
+        LoadScene("4. Clear Scene");
     }
     
     public void LoadScene(string sceneName)
