@@ -232,6 +232,18 @@ public class ClayPickupManager : MonoBehaviour
         hintUsageCount++;
         Debug.Log($"Hint used! Total hints: {hintUsageCount}");
     }
+    
+    public string GetNextClayColor()
+    {
+        if (currentPickupIndex < pickupOrder.Length)
+        {
+            // 태그에 해당하는 한국어 색상 이름 반환
+            Debug.Log(tagToKoreanColor[pickupOrder[currentPickupIndex]]);
+            return tagToKoreanColor[pickupOrder[currentPickupIndex]];
+
+        }
+        return "알 수 없음";
+    }
 }
 
 public struct ClayData
