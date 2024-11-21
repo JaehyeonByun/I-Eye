@@ -51,7 +51,6 @@ public class ClayPickupManager : MonoBehaviour
     public int incorrectClayCount = 0; // 함정 진흙 주운 횟수
     private float gameStartTime;
     public float totalDistanceTraveled = 0f;
-    private int hintUsageCount = 0;
     
     public int SayAgainCount = 0; // 다시말해줘횟수
     public int WrongButtonClicked = 0; // 잘못된 버튼 누른 횟수
@@ -348,8 +347,8 @@ public class ClayPickupManager : MonoBehaviour
 
     public void UseHint()
     {
-        hintUsageCount++;
-        Debug.Log($"Hint used! Total hints: {hintUsageCount}");
+        HintClicekdCount++;
+        Debug.Log($"Hint used! Total hints: {HintClicekdCount}");
     }
 
     public string GetNextClayColor()
@@ -379,12 +378,14 @@ public class ClayPickupManager : MonoBehaviour
         // 함정 클레이 처리
         if (clayTag == "wrongRed" || clayTag == "wrongBlue" || clayTag == "wrongYellow")
         {
+            incorrectClayCount++;
             ShowMessage("함정이야! 다시 한번 생각해보자.");
             TriggerWrongClayEffect(clay);
             Debug.LogWarning($"Wrong clay detected: {clayTag}");
             return false; // Grab 불가능
         }
 
+        incorrectSequenceClayCount++;
         // 순서가 잘못된 경우 처리
         ShowMessage($"지금은 {tagToKoreanColor[pickupOrder[currentPickupIndex]]} 진흙을 주울 차례야.");
         TriggerWrongClayEffect(clay);
