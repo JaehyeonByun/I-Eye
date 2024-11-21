@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     public static List<int> HyperActivity_d = new List<int>();
     public static List<int> HyperActivity_e = new List<int>();
     public static List<int> HyperActivity_f = new List<int>();
+    public static List<int> HyperActivity_h = new List<int>();
     public static List<int> HyperActivity_g = new List<int>();
     public static List<int> HyperActivity_i = new List<int>();
     
