@@ -67,18 +67,18 @@ public class DatabaseManager : MonoBehaviour
         inputArray[7] = GameManager.Inattention_h[0];
         inputArray[8] = GameManager.Inattention_i[0];
 
-        inputArray[0] = GameManager.HyperActivity_a[0];
+        inputArray[9] = GameManager.HyperActivity_a[0];
         // inputArray[0] = distances[0];
-        inputArray[1] = GameManager.HyperActivity_b[0];
-        inputArray[2] = GameManager.HyperActivity_c[0];
-        inputArray[3] = GameManager.HyperActivity_d[0];
-        inputArray[4] = GameManager.HyperActivity_e[0];
+        inputArray[10] = GameManager.HyperActivity_b[0];
+        inputArray[11] = GameManager.HyperActivity_c[0];
+        inputArray[12] = GameManager.HyperActivity_d[0];
+        inputArray[13] = GameManager.HyperActivity_e[0];
         // inputArray[4] = distances[1];
-        inputArray[5] = GameManager.HyperActivity_f[0];
-        inputArray[6] = GameManager.HyperActivity_g[0];
+        inputArray[14] = GameManager.HyperActivity_f[0];
+        inputArray[15] = GameManager.HyperActivity_g[0];
         // inputArray[7] = GameManager.HyperActivity_h[0];
-        inputArray[7] = 0;
-        inputArray[8] = GameManager.HyperActivity_i[0];
+        inputArray[16] = 0;
+        inputArray[17] = GameManager.HyperActivity_i[0];
         
         // Construct the JSON body manually
         string jsonData = "{"
