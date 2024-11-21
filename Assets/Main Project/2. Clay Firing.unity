@@ -2208,6 +2208,7 @@ MonoBehaviour:
   _othersBelonging: {fileID: 844088220}
   _isHyperActivityG: {fileID: 1124013198}
   clearUI: {fileID: 183541849}
+  databaseManager: {fileID: 1378707086}
 --- !u!4 &737477159
 Transform:
   m_ObjectHideFlags: 0
@@ -4022,6 +4023,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 01c84d94af7605543b78c7d4dfee651c, type: 3}
   m_PrefabInstance: {fileID: 1260201106}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1378707086
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1378707088}
+  - component: {fileID: 1378707087}
+  m_Layer: 0
+  m_Name: DatabaseManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1378707087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378707086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa44f91efe130104aa2e25413300ba91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1378707088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378707086}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.027083337, y: 3.3397088, z: 4.239965}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1405776673
 GameObject:
   m_ObjectHideFlags: 0
