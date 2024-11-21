@@ -22,7 +22,7 @@ public class DiagnosisDataManger1 : MonoBehaviour
         
         GameManager.Inattention_a.Add(_clayPickupManager.GetComponent<ClayPickupManager>().incorrectClayCount); // 함정 진흙을 주운 횟수 --
         GameManager.Inattention_c.Add(_clayPickupManager.GetComponent<ClayPickupManager>().SayAgainCount); // 다시 들은 횟수
-        GameManager.Inattention_d.Add(_clayPickupManager.GetComponent<ClayPickupManager>().HintClicekdCount); // 힌트 누른 횟수
+        GameManager.Inattention_d.Add(_clayPickupManager.GetComponent<ClayPickupManager>().HintClicekdCount/2); // 힌트 누른 횟수
         GameManager.Inattention_e.Add(_clayPickupManager.GetComponent<ClayPickupManager>().incorrectSequenceClayCount); // 잘못된 순서로 진흙을 주운 횟수 --
         GameManager.Inattention_g.Add(_clayPickupManager.GetComponent<ClayPickupManager>().WrongButtonClicked); // 진흙 횟수를 기억 못함
         GameManager.Inattention_f.Add(_hyperActivityChecker.GetComponent<UIHyperactivity>().isHyperActivity); // 성급하게 안읽고 넘긴 횟수
@@ -30,9 +30,34 @@ public class DiagnosisDataManger1 : MonoBehaviour
         
         GameManager.HyperActivity_b.Add(resultTotalDistance); // 총 이동거리
         GameManager.HyperActivity_c.Add(_clayPickupManager.GetComponent<ClayPickupManager>().jumpCount); // 점프 횟수
-        
-        
-        
-        
+    }
+    public void DebugSavedData()
+    {
+        Debug.Log("----------------------------------------------------");
+        Debug.Log($"Incorrect Clay Count: {_clayPickupManager.GetComponent<ClayPickupManager>().incorrectClayCount}");
+        Debug.Log($"Say Again Count: {_clayPickupManager.GetComponent<ClayPickupManager>().SayAgainCount}");
+        Debug.Log($"Hint Clicked Count: {_clayPickupManager.GetComponent<ClayPickupManager>().HintClicekdCount}");
+        Debug.Log($"Incorrect Sequence Clay Count: {_clayPickupManager.GetComponent<ClayPickupManager>().incorrectSequenceClayCount}");
+        Debug.Log($"Wrong Button Clicked: {_clayPickupManager.GetComponent<ClayPickupManager>().WrongButtonClicked}");
+        Debug.Log($"Is Hyper Activity: {_hyperActivityChecker.GetComponent<UIHyperactivity>().isHyperActivity}");
+
+        float clearTime = _distanceAndTime.GetComponent<DistanceAndTime>().gamingTime;
+        int resultClearTime = Mathf.RoundToInt(clearTime * 100f);
+        Debug.Log($"Clear Time (Rounded): {resultClearTime}");
+
+        float totalDistance = _distanceAndTime.GetComponent<DistanceAndTime>().totalDistance;
+        int resultTotalDistance = Mathf.RoundToInt(totalDistance * 100f);
+        Debug.Log($"Total Distance (Rounded): {resultTotalDistance}");
+
+        Debug.Log($"Jump Count: {_clayPickupManager.GetComponent<ClayPickupManager>().jumpCount}");
+        Debug.Log("----------------------------------------------------");
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            DebugSavedData();
+        }
     }
 }

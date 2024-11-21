@@ -50,7 +50,6 @@ public class UIScenario : MonoBehaviour
         if (!TutorialCanvas.activeSelf) // targetObject가 비활성화되었을 때
         {
             GameManager._onIntroducing = false;
-            Debug.Log("Object is disabled, setting _onIntroducing to false.");
         }
     }
 
