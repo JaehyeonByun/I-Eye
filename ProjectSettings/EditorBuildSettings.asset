@@ -16,13 +16,10 @@ EditorBuildSettings:
     guid: f35e525904a80f44c819434ccef4d5fd
   - enabled: 1
     path: Assets/Main Project/3. Building House (H).unity
-    guid: 94bd278044a6ac5469ab19eb1236ad1e
+    guid: eeb62242ed1813d4b95a4d4dcbb46afe
   - enabled: 1
     path: Assets/Main Project/3. Building House (M).unity
     guid: ef367fad778801845ac289d529812d91
-  - enabled: 1
-    path: Assets/Main Project/3. Building House(L).unity
-    guid: c0bd1474ac8d2cd41b17330002e271e3
   - enabled: 1
     path: Assets/Main Project/4. Clear Scene.unity
     guid: d07f5175a2890dd4aafd1ea6daa696f3

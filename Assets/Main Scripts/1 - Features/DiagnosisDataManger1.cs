@@ -32,8 +32,10 @@ public class DiagnosisDataManger1 : MonoBehaviour
         GameManager.Inattention_f.Add(_hyperActivityChecker.GetComponent<UIHyperactivity>().isHyperActivity); // 성급하게 안읽고 넘긴 횟수
         GameManager.Inattention_i.Add(resultClearTime); // 클리어하는데 걸린 시간
         
+        GameManager.HyperActivity_a.Add(WristMovementSum()); //
         GameManager.HyperActivity_b.Add(resultTotalDistance); // 총 이동거리
         GameManager.HyperActivity_c.Add(_clayPickupManager.GetComponent<ClayPickupManager>().jumpCount); // 점프 횟수
+        GameManager.HyperActivity_e.Add(BodyMovementSum());
         
         hasSavedData = true; // Mark that data has been saved
     }
@@ -69,5 +71,36 @@ public class DiagnosisDataManger1 : MonoBehaviour
         {
             DebugSavedData();
         }
+    }
+    
+    public int WristMovementSum()
+    {
+        float totalDisplacement = 0f;
+
+        for (int i = 1; i < GameManager.HyperActivity_a_List.Count; i++)
+        {
+            Vector3 currentPosition = GameManager.HyperActivity_a_List[i].position;
+            Vector3 previousPosition = GameManager.HyperActivity_a_List[i - 1].position;
+
+            float displacement = Vector3.Distance(currentPosition, previousPosition);
+
+            totalDisplacement += displacement;
+        }
+        return Mathf.RoundToInt(totalDisplacement * 100);
+    }
+    public int BodyMovementSum()
+    {
+        float totalDisplacement = 0f;
+
+        for (int i = 1; i < GameManager.HyperActivity_e_List.Count; i++)
+        {
+            Vector3 currentPosition = GameManager.HyperActivity_e_List[i].position;
+            Vector3 previousPosition = GameManager.HyperActivity_e_List[i - 1].position;
+
+            float displacement = Vector3.Distance(currentPosition, previousPosition);
+
+            totalDisplacement += displacement;
+        }
+        return Mathf.RoundToInt(totalDisplacement * 100);
     }
 }

@@ -80,16 +80,19 @@ public class GameManager : MonoBehaviour
     public static List<int> Inattention_i = new List<int>();
 
     // HyperActivity Parameter
-    public static List<(float time, Vector3 position)> HyperActivity_a = new List<(float, Vector3)>();
+    public static List<int> HyperActivity_a = new List<int>();
     public static List<int> HyperActivity_b = new List<int>();
     public static List<int> HyperActivity_c = new List<int>();
     public static List<int> HyperActivity_d = new List<int>();
-    public static List<(float time, Vector3 position)> HyperActivity_e = new List<(float, Vector3)>();
+    public static List<int> HyperActivity_e = new List<int>();
     public static List<int> HyperActivity_f = new List<int>();
     public static List<int> HyperActivity_g = new List<int>();
     public static List<int> HyperActivity_i = new List<int>();
     
     public static bool _onIntroducing = false;
+    
+    public static List<(float time, Vector3 position)> HyperActivity_a_List = new List<(float, Vector3)>();
+    public static List<(float time, Vector3 position)> HyperActivity_e_List = new List<(float, Vector3)>();
     
     public static GameManager instance;
 

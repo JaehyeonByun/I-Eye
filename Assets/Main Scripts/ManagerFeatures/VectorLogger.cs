@@ -24,14 +24,14 @@ public class VectorLogger : MonoBehaviour
                 {
                     // Round the time to 1 decimal place
                     float roundedTime = Mathf.Round(Time.time * 10f) / 10f;
-                    GameManager.HyperActivity_a.Add((roundedTime, (wristLeft.position + wristRight.position) / 2));
+                    GameManager.HyperActivity_a_List.Add((roundedTime, (wristLeft.position + wristRight.position) / 2));
                 }
 
                 if (bodyposition != null)
                 {
                     // Round the time to 1 decimal place
                     float roundedTime = Mathf.Round(Time.time * 10f) / 10f;
-                    GameManager.HyperActivity_e.Add((roundedTime, bodyposition.position));
+                    GameManager.HyperActivity_e_List.Add((roundedTime, bodyposition.position));
                 }
 
                 timeSinceLastLog = 0f; 
@@ -40,24 +40,9 @@ public class VectorLogger : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            PrintPositionHistory();
         }
     }
-
-    public void PrintPositionHistory()
-    {
-        Debug.Log("Wrist Positions:");
-        foreach (var wristPos in GameManager.HyperActivity_a)
-        {
-            Debug.Log("Time: " + wristPos.Item1.ToString("F1") + ", Position: " + wristPos.Item2);
-        }
-
-        Debug.Log("Body Positions:");
-        foreach (var pos in GameManager.HyperActivity_e)
-        {
-            Debug.Log("Time: " + pos.Item1.ToString("F1") + ", Position: " + pos.Item2);
-        }
-    }
+    
     
     public void StartIntroducing()
     {
@@ -68,4 +53,5 @@ public class VectorLogger : MonoBehaviour
     {
         GameManager._onIntroducing = false;
     }
+   
 }
