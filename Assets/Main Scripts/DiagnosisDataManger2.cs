@@ -11,6 +11,7 @@ public class DiagnosisDataManger2 : MonoBehaviour
     [SerializeField] private GameObject databaseManager;
     [SerializeField] private GameObject dataPreprocessor;
     [SerializeField] private GameObject adhdModelRunner;
+    private bool dbDone = false;
 
     private bool hasSavedData = false; // Flag to ensure SaveData only runs once
 
@@ -45,10 +46,11 @@ public class DiagnosisDataManger2 : MonoBehaviour
             
         }
 
-        if(dataPreprocessor.GetComponent<DataPreprocessor>().isOver)
+        if(dataPreprocessor.GetComponent<DataPreprocessor>().isOver && !dbDone)
         {
             adhdModelRunner.GetComponent<ADHDModelRunner>().RunModel(dataPreprocessor.GetComponent<DataPreprocessor>().normalizedArray);
             StartCoroutine(databaseManager.GetComponent<DatabaseManager>().PostData());
+            dbDone = true;
         }
     }
 
