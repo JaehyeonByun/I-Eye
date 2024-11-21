@@ -9,6 +9,8 @@ public class DiagnosisDataManger2 : MonoBehaviour
     [SerializeField] private GameObject _isHyperActivityG;
     [SerializeField] private GameObject clearUI; // Reference to the clearUI object
     [SerializeField] private GameObject databaseManager;
+    [SerializeField] private GameObject dataPreprocessor;
+    [SerializeField] private GameObject adhdModelRunner;
 
     private bool hasSavedData = false; // Flag to ensure SaveData only runs once
 
@@ -38,8 +40,15 @@ public class DiagnosisDataManger2 : MonoBehaviour
         // Save data when clearUI is active and only once
         if (clearUI.activeSelf && !hasSavedData)
         {
-            StartCoroutine(databaseManager.GetComponent<DatabaseManager>().PostData());
             SaveData();
+            StartCoroutine(dataPreprocessor.GetComponent<DataPreprocessor>().HandleStatistics());
+            
+        }
+
+        if(dataPreprocessor.GetComponent<DataPreprocessor>().isOver)
+        {
+            adhdModelRunner.GetComponent<ADHDModelRunner>().RunModel(dataPreprocessor.GetComponent<DataPreprocessor>().normalizedArray);
+            StartCoroutine(databaseManager.GetComponent<DatabaseManager>().PostData());
         }
     }
 
