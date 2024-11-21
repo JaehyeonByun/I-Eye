@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class DiagnosisDataManger2 : MonoBehaviour
 {
-    [SerializeField] private GameObject _oven;
+   [SerializeField] private GameObject _oven;
     [SerializeField] private GameObject _othersBelonging;
     [SerializeField] private GameObject _isHyperActivityG;
-    
-    public void OnButtonClicked() 
-    { 
-        SaveData();
-    }
-    private void SaveData()
+    [SerializeField] private GameObject clearUI; // Reference to the clearUI object
+
+    private bool hasSavedData = false; // Flag to ensure SaveData only runs once
+
+    public void SaveData()
     {
+        if (hasSavedData || clearUI.activeSelf == false) // If data has already been saved or clearUI is not active
+            return;
+
         float distractedTime = _oven.GetComponent<Oven>()._distractedTime;
         int result = Mathf.RoundToInt(distractedTime * 100f);
         GameManager.Inattention_b.Add(result);
@@ -21,14 +23,24 @@ public class DiagnosisDataManger2 : MonoBehaviour
         GameManager.HyperActivity_d.Add(_oven.GetComponent<Oven>()._shovelOutCount);
         GameManager.HyperActivity_i.Add(_othersBelonging.GetComponent<OthersBelonging>().OtherBelongingTouch);
         GameManager.HyperActivity_g.Add(_isHyperActivityG.GetComponent<IsHyperActivityG>().isHyperActivity);
+
+        hasSavedData = true; // Mark that data has been saved
     }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
             DebugSaveData();
         }
+
+        // Save data when clearUI is active and only once
+        if (clearUI.activeSelf && !hasSavedData)
+        {
+            SaveData();
+        }
     }
+
     private void DebugSaveData()
     {
         Debug.Log("_____________________________________________");

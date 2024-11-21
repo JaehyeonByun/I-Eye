@@ -21,13 +21,13 @@ public class DiagnosisLevelEnd : MonoBehaviour
         switch (_AdhdLevel)
         {
             case ADHDLevel.Low:
-                SceneManager.LoadScene("3. Building House(L)");
+                SceneManager.LoadScene("3. Building House (L)");
                 break;
             case ADHDLevel.Middle:
-                SceneManager.LoadScene("3. Building House(M)");
+                SceneManager.LoadScene("3. Building House (M)");
                 break;
             case ADHDLevel.High:
-                SceneManager.LoadScene("3. Building House(H)"); 
+                SceneManager.LoadScene("3. Building House (H)"); 
                 break;
             default:
                 Debug.LogWarning("Unknown SceneState");

@@ -6607,7 +6607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1411162875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9223,7 +9223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2233760244533470650, guid: 34f15b5c197dda8439cb9006f4ba1b8a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2233760244533470650, guid: 34f15b5c197dda8439cb9006f4ba1b8a, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -9704,6 +9704,7 @@ MonoBehaviour:
   _tutorialManager: {fileID: 1309497709}
   _hyperActivityChecker: {fileID: 1867154827}
   _distanceAndTime: {fileID: 222279741}
+  clearUI: {fileID: 1179498999}
 --- !u!1 &2073118235
 GameObject:
   m_ObjectHideFlags: 0

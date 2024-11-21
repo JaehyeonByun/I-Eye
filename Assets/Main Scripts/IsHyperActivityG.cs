@@ -6,10 +6,12 @@ public class IsHyperActivityG : MonoBehaviour
 {
     public GameObject targetObject;      
     public bool _isCount = false;   
-    public float movementThreshold = 0.1f; 
+    public int isHyperActivity = 0; 
+    
+    // Specific GameObject to check if it is active
+    public GameObject conditionObject;
 
     private Vector3 previousPosition;     
-    public int isHyperActivity = 0; 
 
     void Start()
     {
@@ -18,9 +20,10 @@ public class IsHyperActivityG : MonoBehaviour
 
     void Update()
     {
-        if (GameManager._onIntroducing)
+        if (conditionObject != null && conditionObject.activeInHierarchy)
         {
-            if (Vector3.Distance(targetObject.transform.position, previousPosition) > movementThreshold)
+            // Check if the target object has moved
+            if (targetObject.transform.position != previousPosition)
             {
                 if (!_isCount)
                 {

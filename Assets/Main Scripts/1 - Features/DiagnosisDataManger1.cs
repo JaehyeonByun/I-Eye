@@ -12,6 +12,10 @@ public class DiagnosisDataManger1 : MonoBehaviour
     [SerializeField] private UIHyperactivity _hyperActivityChecker ;
     [SerializeField] private DistanceAndTime _distanceAndTime ;
     
+    [SerializeField] private GameObject clearUI; // Reference to the clearUI object
+
+    private bool hasSavedData = false; // Flag to ensure SaveData only runs once
+    
     public void SaveData()
     {
         float clearTime = _distanceAndTime.GetComponent<DistanceAndTime>().gamingTime;
@@ -30,6 +34,8 @@ public class DiagnosisDataManger1 : MonoBehaviour
         
         GameManager.HyperActivity_b.Add(resultTotalDistance); // 총 이동거리
         GameManager.HyperActivity_c.Add(_clayPickupManager.GetComponent<ClayPickupManager>().jumpCount); // 점프 횟수
+        
+        hasSavedData = true; // Mark that data has been saved
     }
     public void DebugSavedData()
     {
@@ -54,7 +60,11 @@ public class DiagnosisDataManger1 : MonoBehaviour
     }
 
     void Update()
-    {
+    
+    {  if (clearUI.activeSelf && !hasSavedData)
+        {
+            SaveData();
+        }
         if (Input.GetKeyDown(KeyCode.O))
         {
             DebugSavedData();
