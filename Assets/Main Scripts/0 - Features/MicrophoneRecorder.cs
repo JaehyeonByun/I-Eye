@@ -198,10 +198,10 @@ public class MicrophoneRecorder : MonoBehaviour
         stream.Write(BitConverter.GetBytes(samples * blockAlign), 0, 4);
     }
 
-    /// <summary>
-/// 피치 분석 및 고주파 시간 구간 검출
+/// <summary>
+/// 피치 분석 및 평균 피치 기반 고주파 시간 구간 검출
 /// </summary>
-public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 1000f)
+public List<float> AnalyzePitch(AudioClip audioClip)
 {
     if (audioClip == null)
     {
@@ -215,7 +215,6 @@ public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 
     audioClip.GetData(samples, 0);
 
     int sampleRate = audioClip.frequency; // 샘플링 레이트
-    float maxFreq = sampleRate / 2f; // 최대 주파수
     float minFreq = 100f; // 필터 최소 주파수
     float maxValidFreq = 600f; // 필터 최대 주파수
     float timePerFrame = (float)windowSize / sampleRate; // 프레임당 시간
@@ -243,16 +242,31 @@ public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 
 
         // 피치 기록
         pitchSequence.Add(peakFrequency);
+    }
 
-        // 하이피치 구간 누적 시간 계산
-        if (peakFrequency >= thresholdFrequency)
+    // 평균 피치 계산
+    float averagePitch = 0f;
+    foreach (float pitch in pitchSequence)
+    {
+        averagePitch += pitch;
+    }
+    averagePitch /= pitchSequence.Count;
+
+    // 하이피치 기준: 평균 피치의 1.5배
+    float highPitchThreshold = averagePitch * 1.5f;
+    Debug.Log($"[AnalyzePitch] Average Pitch: {averagePitch:F2} Hz, High Pitch Threshold: {highPitchThreshold:F2} Hz");
+
+    // 하이피치 구간 누적 시간 계산
+    foreach (float pitch in pitchSequence)
+    {
+        if (pitch >= highPitchThreshold)
         {
             totalHighPitchDuration += timePerFrame;
         }
     }
 
     Debug.Log($"[MicrophoneRecorder] Total High Pitch Duration: {totalHighPitchDuration:F2} seconds.");
-    
+
     // GameManager에 값 저장
     totalHighPitchDuration = Mathf.Round(totalHighPitchDuration * 100f) / 100f;
     GameManager.HyperActivity_f.Add(Mathf.RoundToInt(totalHighPitchDuration * 100));
