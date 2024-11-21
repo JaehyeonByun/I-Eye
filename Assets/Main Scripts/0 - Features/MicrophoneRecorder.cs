@@ -199,68 +199,188 @@ public class MicrophoneRecorder : MonoBehaviour
     }
 
     /// <summary>
-/// 피치 분석 및 고주파 시간 구간 검출
-/// </summary>
-public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 1000f)
-{
-    if (audioClip == null)
+    /// 피치 분석 및 고주파 시간 구간 검출
+    /// </summary>
+    public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 1000f)
     {
-        Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
-        return null;
-    }
-
-    List<float> pitchSequence = new List<float>();
-    int windowSize = 1024; // 한 번에 분석할 샘플 수
-    float[] samples = new float[audioClip.samples];
-    audioClip.GetData(samples, 0);
-
-    int sampleRate = audioClip.frequency; // 샘플링 레이트
-    float timePerFrame = (float)windowSize / sampleRate; // 프레임당 시간
-    float totalHighPitchDuration = 0f; // 하이피치 누적 시간
-
-    // 프레임 단위로 피치 분석
-    for (int i = 0; i < samples.Length; i += windowSize)
-    {
-        float[] frame = new float[windowSize];
-        for (int j = 0; j < windowSize && i + j < samples.Length; j++)
+        if (audioClip == null)
         {
-            frame[j] = samples[i + j];
+            Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
+            return null;
         }
 
-        // FFT 수행 및 주요 주파수 추출
-        float[] spectrum = FFT(frame);
-        float dominantFrequency = GetDominantFrequency(spectrum);
+        List<float> pitchSequence = new List<float>();
+        int windowSize = 4096; // 샘플 크기를 2의 제곱으로 설정 (FFT 정확도 향상)
+        float[] samples = new float[audioClip.samples];
+        audioClip.GetData(samples, 0);
 
-        // 피치 기록
-        pitchSequence.Add(dominantFrequency);
+        int sampleRate = audioClip.frequency; // 샘플링 레이트
+        float maxFreq = sampleRate / 2f; // 최대 주파수
+        float minFreq = 100f; // 필터 최소 주파수
+        float maxValidFreq = 600f; // 필터 최대 주파수
+        float timePerFrame = (float)windowSize / sampleRate; // 프레임당 시간
+        float totalHighPitchDuration = 0f; // 하이피치 누적 시간
 
-        // 하이피치 구간 누적 시간 계산
-        if (dominantFrequency >= thresholdFrequency)
+        // 프레임 단위로 피치 분석
+        for (int i = 0; i < samples.Length; i += windowSize)
         {
-            totalHighPitchDuration += timePerFrame;
-        }
-    }
+            float[] frame = new float[windowSize];
+            for (int j = 0; j < windowSize && i + j < samples.Length; j++)
+            {
+                frame[j] = samples[i + j];
+            }
 
-    Debug.Log($"[MicrophoneRecorder] Total High Pitch Duration: {totalHighPitchDuration:F2} seconds.");
+            // FFT 수행 및 주요 주파수 추출
+            float[] spectrum = PerformFFT(frame);
+            float peakFrequency = GetPeakFrequency(spectrum, sampleRate);
+
+            // 필터: 비정상적으로 낮거나 높은 주파수 제외
+            if (peakFrequency < minFreq || peakFrequency > maxValidFreq)
+            {
+                Debug.Log($"[AnalyzePitch] Ignored frequency: {peakFrequency} Hz (out of valid range).");
+                continue;
+            }
+
+            // 피치 기록
+            pitchSequence.Add(peakFrequency);
+
+            // 하이피치 구간 누적 시간 계산
+            if (peakFrequency >= thresholdFrequency)
+            {
+                totalHighPitchDuration += timePerFrame;
+            }
+        }
+
+        Debug.Log($"[MicrophoneRecorder] Total High Pitch Duration: {totalHighPitchDuration:F2} seconds.");
     
-    IsPitchAnalyzeComplete = true;
-    return pitchSequence; // 분석된 피치 데이터 반환
+        IsPitchAnalyzeComplete = true;
+        return pitchSequence; // 분석된 피치 데이터 반환
+    }
+
+/// <summary>
+/// FFT 수행
+/// </summary>
+private float[] PerformFFT(float[] frame)
+{
+    int n = frame.Length;
+    float[] real = new float[n];
+    float[] imag = new float[n];
+
+    // 실수 부분 복사 (허수 부분은 0으로 초기화)
+    Array.Copy(frame, real, n);
+
+    // FFT 계산
+    FFT(real, imag);
+
+    // 진폭 계산
+    float[] spectrum = new float[n / 2];
+    for (int i = 0; i < n / 2; i++)
+    {
+        spectrum[i] = Mathf.Sqrt(real[i] * real[i] + imag[i] * imag[i]);
+    }
+
+    return spectrum;
 }
 
+/// <summary>
+/// FFT 알고리즘 수행
+/// </summary>
+private void FFT(float[] real, float[] imag)
+{
+    int n = real.Length;
+    int m = (int)Math.Log(n, 2);
 
-// FFT 수행 (간단한 구현)
-    private float[] FFT(float[] data)
+    // 비트 반전으로 데이터 정렬
+    for (int i = 0; i < n; i++)
     {
-        int n = data.Length;
-        float[] spectrum = new float[n / 2];
-
-        for (int i = 0; i < n / 2; i++)
+        int j = BitReverse(i, m);
+        if (j > i)
         {
-            spectrum[i] = Mathf.Abs(data[i]); // 단순 진폭 계산 (라이브러리 추천)
+            Swap(ref real[i], ref real[j]);
+            Swap(ref imag[i], ref imag[j]);
         }
-
-        return spectrum;
     }
+
+    // 버터플라이 연산
+    for (int s = 1; s <= m; s++)
+    {
+        int mValue = 1 << s;
+        float angle = -2 * Mathf.PI / mValue;
+        float cos = Mathf.Cos(angle);
+        float sin = Mathf.Sin(angle);
+
+        for (int k = 0; k < n; k += mValue)
+        {
+            float wr = 1.0f;
+            float wi = 0.0f;
+
+            for (int j = 0; j < mValue / 2; j++)
+            {
+                int index1 = k + j;
+                int index2 = k + j + mValue / 2;
+
+                float tr = wr * real[index2] - wi * imag[index2];
+                float ti = wr * imag[index2] + wi * real[index2];
+
+                real[index2] = real[index1] - tr;
+                imag[index2] = imag[index1] - ti;
+                real[index1] += tr;
+                imag[index1] += ti;
+
+                float tempWr = wr;
+                wr = tempWr * cos - wi * sin;
+                wi = tempWr * sin + wi * cos;
+            }
+        }
+    }
+}
+
+/// <summary>
+/// 비트 반전 계산
+/// </summary>
+private int BitReverse(int x, int bits)
+{
+    int reversed = 0;
+    for (int i = 0; i < bits; i++)
+    {
+        reversed = (reversed << 1) | (x & 1);
+        x >>= 1;
+    }
+    return reversed;
+}
+
+/// <summary>
+/// 주파수 피크 추출
+/// </summary>
+private float GetPeakFrequency(float[] spectrum, int sampleRate)
+{
+    int maxIndex = 0;
+    float maxAmplitude = 0;
+
+    for (int i = 0; i < spectrum.Length; i++)
+    {
+        if (spectrum[i] > maxAmplitude)
+        {
+            maxAmplitude = spectrum[i];
+            maxIndex = i;
+        }
+    }
+
+    // 피크 주파수 계산
+    float maxFreq = sampleRate / 2f;
+    return (maxIndex / (float)spectrum.Length) * maxFreq;
+}
+
+/// <summary>
+/// 두 값 교환
+/// </summary>
+private void Swap(ref float a, ref float b)
+{
+    float temp = a;
+    a = b;
+    b = temp;
+}
+
 
 // 스펙트럼에서 주요 주파수 추출
     private float GetDominantFrequency(float[] spectrum)
