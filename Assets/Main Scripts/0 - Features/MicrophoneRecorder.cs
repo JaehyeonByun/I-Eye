@@ -210,13 +210,13 @@ public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 
     }
 
     List<float> pitchSequence = new List<float>();
-    List<float> highFrequencyTimes = new List<float>(); // 고주파 구간 시간 기록
     int windowSize = 1024; // 한 번에 분석할 샘플 수
     float[] samples = new float[audioClip.samples];
     audioClip.GetData(samples, 0);
 
     int sampleRate = audioClip.frequency; // 샘플링 레이트
-    float timePerSample = 1f / sampleRate; // 샘플당 시간
+    float timePerFrame = (float)windowSize / sampleRate; // 프레임당 시간
+    float totalHighPitchDuration = 0f; // 하이피치 누적 시간
 
     // 프레임 단위로 피치 분석
     for (int i = 0; i < samples.Length; i += windowSize)
@@ -234,40 +234,17 @@ public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 
         // 피치 기록
         pitchSequence.Add(dominantFrequency);
 
-        // 고주파 검출
+        // 하이피치 구간 누적 시간 계산
         if (dominantFrequency >= thresholdFrequency)
         {
-            float startTime = i * timePerSample;
-            float endTime = (i + windowSize) * timePerSample;
-
-            // 고주파 시간 기록
-            highFrequencyTimes.Add(startTime);
-            highFrequencyTimes.Add(endTime);
-
-            Debug.Log($"High frequency detected: {dominantFrequency} Hz from {startTime:F2}s to {endTime:F2}s");
+            totalHighPitchDuration += timePerFrame;
         }
     }
 
-    Debug.Log("[MicrophoneRecorder] Pitch analysis complete.");
-    Debug.Log("[MicrophoneRecorder] High frequency detection complete.");
-
-    // 디버그 출력 (고주파 구간)
-    if (highFrequencyTimes.Count > 0)
-    {
-        Debug.Log("High Frequency Intervals:");
-        for (int i = 0; i < highFrequencyTimes.Count; i += 2)
-        {
-            Debug.Log($"Start: {highFrequencyTimes[i]}s, End: {highFrequencyTimes[i + 1]}s");
-        }
-    }
-    else
-    {
-        Debug.Log("No high frequency intervals detected.");
-    }
+    Debug.Log($"[MicrophoneRecorder] Total High Pitch Duration: {totalHighPitchDuration:F2} seconds.");
     
     IsPitchAnalyzeComplete = true;
-    // 피치 분석 결과 반환
-    return pitchSequence;
+    return pitchSequence; // 분석된 피치 데이터 반환
 }
 
 
