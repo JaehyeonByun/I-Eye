@@ -43,7 +43,6 @@ public class DiagnosisDataManger2 : MonoBehaviour
         {
             SaveData();
             StartCoroutine(dataPreprocessor.GetComponent<DataPreprocessor>().HandleStatistics());
-            
         }
 
         if(dataPreprocessor.GetComponent<DataPreprocessor>().isOver && !dbDone)
