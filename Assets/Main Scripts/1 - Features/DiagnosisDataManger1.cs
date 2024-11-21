@@ -73,20 +73,29 @@ public class DiagnosisDataManger1 : MonoBehaviour
         }
     }
     
-    public int WristMovementSum()
-    {
-        float totalDisplacement = 0f;
+    public int WristMovementSum() 
+    { 
+        float totalDisplacement = 0f; 
+        
+        for (int i = 1; i < GameManager.HyperActivity_a_List.Count; i++) 
+        { 
+            Vector3 currentPosition = GameManager.HyperActivity_a_List[i].position; 
+            Vector3 previousPosition = GameManager.HyperActivity_a_List[i - 1].position; 
 
-        for (int i = 1; i < GameManager.HyperActivity_a_List.Count; i++)
-        {
-            Vector3 currentPosition = GameManager.HyperActivity_a_List[i].position;
-            Vector3 previousPosition = GameManager.HyperActivity_a_List[i - 1].position;
-
-            float displacement = Vector3.Distance(currentPosition, previousPosition);
-
-            totalDisplacement += displacement;
+            float displacement = Vector3.Distance(currentPosition, previousPosition); 
+            totalDisplacement += displacement; 
         }
-        return Mathf.RoundToInt(totalDisplacement * 100);
+        
+        float lastTime = GameManager.HyperActivity_a_List[GameManager.HyperActivity_a_List.Count - 1].time;
+
+        if (lastTime != 0)
+        {
+       
+            float result = (totalDisplacement / lastTime) * 100;
+            return Mathf.RoundToInt(result); 
+        }
+
+        return 0;
     }
     public int BodyMovementSum()
     {
@@ -101,6 +110,16 @@ public class DiagnosisDataManger1 : MonoBehaviour
 
             totalDisplacement += displacement;
         }
-        return Mathf.RoundToInt(totalDisplacement * 100);
+
+        float lastTime = GameManager.HyperActivity_e_List[GameManager.HyperActivity_e_List.Count - 1].time;
+
+        if (lastTime != 0)
+        {
+            float result = (totalDisplacement / lastTime) * 100;
+            return Mathf.RoundToInt(result);
+        }
+
+      
+        return 0;
     }
 }

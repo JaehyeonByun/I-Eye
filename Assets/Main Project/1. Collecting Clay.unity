@@ -8771,6 +8771,7 @@ MonoBehaviour:
   wristLeft: {fileID: 1211285982}
   wristRight: {fileID: 1211285981}
   bodyposition: {fileID: 1211285983}
+  targetObject: {fileID: 1217793712}
   logInterval: 0.1
 --- !u!4 &1733895196
 Transform:
