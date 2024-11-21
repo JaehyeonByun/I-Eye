@@ -1164,6 +1164,55 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2233760244533470653, guid: 34f15b5c197dda8439cb9006f4ba1b8a, type: 3}
   m_PrefabInstance: {fileID: 496015991}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &222279740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222279742}
+  - component: {fileID: 222279741}
+  m_Layer: 0
+  m_Name: ClearDistanceAndTime
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &222279741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222279740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1771d085a40efae49b3de050091a0b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeObject: {fileID: 1217793712}
+  inactiveObject: {fileID: 282543094}
+  playerObject: {fileID: 1364710852}
+  gamingTime: 0
+  totalDistance: 0
+--- !u!4 &222279742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222279740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.671444, y: -6.8225956, z: 16.281511}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &234537120
 GameObject:
   m_ObjectHideFlags: 0
@@ -9654,6 +9703,7 @@ MonoBehaviour:
   _slideManager: {fileID: 1119520228}
   _tutorialManager: {fileID: 1309497709}
   _hyperActivityChecker: {fileID: 1867154827}
+  _distanceAndTime: {fileID: 222279741}
 --- !u!1 &2073118235
 GameObject:
   m_ObjectHideFlags: 0

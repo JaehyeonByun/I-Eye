@@ -10,13 +10,14 @@ public class DiagnosisDataManger1 : MonoBehaviour
     [SerializeField] private UIScenario _slideManager;
     [SerializeField] private TutorialManager _tutorialManager ;
     [SerializeField] private UIHyperactivity _hyperActivityChecker ;
-
+    [SerializeField] private DistanceAndTime _distanceAndTime ;
+    
     public void SaveData()
     {
-        float clearTime = _clayPickupManager.GetComponent<ClayPickupManager>().ClearTime;
+        float clearTime = _distanceAndTime.GetComponent<DistanceAndTime>().gamingTime;
         int resultClearTime = Mathf.RoundToInt(clearTime * 100f); // 소수점 두 자리까지 반올림 후 정수형으로 변환
         
-        float totalDistance = _clayPickupManager.GetComponent<ClayPickupManager>().totalDistanceTraveled;
+        float totalDistance = _distanceAndTime.GetComponent<DistanceAndTime>().totalDistance;
         int resultTotalDistance = Mathf.RoundToInt(totalDistance * 100f);
         
         GameManager.Inattention_a.Add(_clayPickupManager.GetComponent<ClayPickupManager>().incorrectClayCount); // 함정 진흙을 주운 횟수 --
