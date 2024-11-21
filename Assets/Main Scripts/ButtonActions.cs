@@ -6,7 +6,7 @@ public class ButtonActions : MonoBehaviour
     public UIScenario uiScenario; // UIScenario 스크립트 참조
     public string nextSceneName = "NextScene"; // 전환할 씬 이름
     public ClayPickupManager clayPickupManager;
-
+    
     // Unity OnClick() 이벤트에 연결할 메서드
     public void OnNextSceneButtonClicked()
     {
@@ -29,8 +29,8 @@ public class ButtonActions : MonoBehaviour
         if (uiScenario != null)
         {
             Debug.Log("Returning to Slide 3");
-            clayPickupManager.returnToExplanation++;
-            Debug.Log("returnToexplanation number " + clayPickupManager.returnToExplanation);
+            clayPickupManager.SayAgainCount++;
+            Debug.Log("returnToexplanation number " + clayPickupManager.SayAgainCount);
             // UIScenario에서 Slide 3으로 이동하고 다시 시작
             uiScenario.ReturnToSlide(2);
         }
@@ -42,8 +42,8 @@ public class ButtonActions : MonoBehaviour
 
     public void onWrongNumberButtonClicked()
     {
-        clayPickupManager.clayNumberTry++;
-        Debug.Log("onWrongNumberButtonClicked number " + clayPickupManager.clayNumberTry);
+        clayPickupManager.WrongButtonClicked++;
+        Debug.Log("onWrongNumberButtonClicked number " + clayPickupManager.WrongButtonClicked);
         clayPickupManager.PlayWrongPickupSound();
     }
     

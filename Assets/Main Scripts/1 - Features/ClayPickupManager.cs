@@ -6,6 +6,11 @@ using System.Collections;
 
 public class ClayPickupManager : MonoBehaviour
 {
+    [SerializeField] private Transform  Player;
+    private float previousY;
+    public float checkInterval = 2f; // 점프 체크 간격 (초 단위)
+    public float jumpThreshold = 0.3f; // y 위치 점프 임계값
+    
     [SerializeField] private GameObject redClayPrefab;
     [SerializeField] private GameObject yellowClayPrefab;
     [SerializeField] private GameObject blueClayPrefab;
@@ -42,17 +47,27 @@ public class ClayPickupManager : MonoBehaviour
 
     private int currentPickupIndex = 0;
     private int correctClayCount = 0;
-    private int incorrectClayCount = 0; // 잘못 주운 진흙 횟수
+    public int incorrectSequenceClayCount = 0; // 순서가 잘못된 주운 진흙 횟수
+    public int incorrectClayCount = 0; // 함정 진흙 주운 횟수
     private float gameStartTime;
-    private float totalDistanceTraveled = 0f;
+    public float totalDistanceTraveled = 0f;
     private int hintUsageCount = 0;
-    public int returnToExplanation = 0;
-    public int clayNumberTry = 0;
+    
+    public int SayAgainCount = 0; // 다시말해줘횟수
+    public int WrongButtonClicked = 0; // 잘못된 버튼 누른 횟수
+    public int HintClicekdCount = 0; // 힌트 누른 횟수
+    public int jumpCount = 0; 
+
 
     private Vector3 lastPlayerPosition;
 
     private readonly string[] pickupOrder = { "red", "yellow", "blue" };
     private Coroutine messageCoroutine;
+
+    private bool _isGaming = false;
+    
+    public float ClearTime = 0f;
+    
 
     public Vector3 GetMinSpawnRange() => minSpawnRange;
     public Vector3 GetMaxSpawnRange() => maxSpawnRange;
@@ -75,8 +90,24 @@ public class ClayPickupManager : MonoBehaviour
         { "blue", "파란색" }
     };
 
+    void CheckJump()
+    {
+        float currentY = Player.position.y; 
+        
+        if (currentY > jumpThreshold)
+        {
+            jumpCount++; 
+            Debug.Log("Jump Count: " + jumpCount);
+        }
+
+        previousY = currentY;
+    }
+    
     void Start()
     {
+        previousY = Player.position.y; // 초기 y 위치 저장
+        InvokeRepeating(nameof(CheckJump), 0f, checkInterval); // 일정 주기로 점프 체크
+        
         gameStartTime = Time.time;
         lastPlayerPosition = transform.position;
 
@@ -198,8 +229,8 @@ public class ClayPickupManager : MonoBehaviour
 
             if (correctClayCount >= 9)
             {
-                float elapsedTime = Time.time - gameStartTime;
-                Debug.Log($"All correct clays collected! Time: {elapsedTime:F2} seconds.");
+                ClearTime = Time.time - gameStartTime;
+                Debug.Log($"All correct clays collected! Time: {ClearTime:F2} seconds.");
                 
                 
                 DeactivateAllClays();

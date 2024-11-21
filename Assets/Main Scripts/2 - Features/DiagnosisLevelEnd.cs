@@ -18,19 +18,20 @@ public class DiagnosisLevelEnd : MonoBehaviour
     
     [SerializeField] private GameObject _oven;
     [SerializeField] private GameObject _othersBelonging;
+    [SerializeField] private GameObject _isHyperActivityG;
     
     private void LoadSceneBasedOnADHDLevel()
     {
         switch (_AdhdLevel)
         {
             case ADHDLevel.Low:
-                SceneManager.LoadScene("3. Building House(Low)");
+                SceneManager.LoadScene("3. Building House(L)");
                 break;
             case ADHDLevel.Middle:
-                SceneManager.LoadScene("3. Building House(Middle)");
+                SceneManager.LoadScene("3. Building House(M)");
                 break;
             case ADHDLevel.High:
-                SceneManager.LoadScene("3. Building House(High)"); 
+                SceneManager.LoadScene("3. Building House(H)"); 
                 break;
             default:
                 Debug.LogWarning("Unknown SceneState");
@@ -47,10 +48,13 @@ public class DiagnosisLevelEnd : MonoBehaviour
     
     private void SaveData()
     {
-        GameManager.Inattention_b.Append(_oven.GetComponent<Oven>()._distractedTime);
-        GameManager.Inattention_h.Append(_oven.GetComponent<Oven>()._distractedWhenCall);
-        GameManager.HyperActivity_d.Append(_oven.GetComponent<Oven>()._shovelOutCount);
-        GameManager.HyperActivity_i.Append(_othersBelonging.GetComponent<OthersBelonging>().OtherBelongingTouch);
+        float distractedTime = _oven.GetComponent<Oven>()._distractedTime;
+        int result = Mathf.RoundToInt(distractedTime * 100f); // 소수점 두 자리까지 반올림 후 정수형으로 변환
+        GameManager.Inattention_b.Add(result);
+        GameManager.Inattention_h.Add(_oven.GetComponent<Oven>()._distractedWhenCall);
+        GameManager.HyperActivity_d.Add(_oven.GetComponent<Oven>()._shovelOutCount);
+        GameManager.HyperActivity_i.Add(_othersBelonging.GetComponent<OthersBelonging>().OtherBelongingTouch);
+        GameManager.HyperActivity_g.Add(_isHyperActivityG.GetComponent<IsHyperActivityG>().isHyperActivity);
 
         foreach (var item in GameManager.Inattention_b)
         {

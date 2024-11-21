@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,30 +66,30 @@ public class GameManager : MonoBehaviour
     /// 
     /// </summary>
 
-
+// 시간초 b,i b(거리),f
+    
     // Inattention Parameter
-    public static List<float> Inattention_a = new List<float>();
-    public static List<float> Inattention_b = new List<float>();
-    public static List<float> Inattention_c = new List<float>();
-    public static List<float> Inattention_d = new List<float>();
-    public static List<float> Inattention_e = new List<float>();
+    public static List<int> Inattention_a = new List<int>();
+    public static List<int> Inattention_b = new List<int>();
+    public static List<int> Inattention_c = new List<int>();
+    public static List<int> Inattention_d = new List<int>();
+    public static List<int> Inattention_e = new List<int>();
     public static List<int> Inattention_f = new List<int>();
-    public static List<float> Inattention_g = new List<float>();
+    public static List<int> Inattention_g = new List<int>();
     public static List<int> Inattention_h = new List<int>();
-    public static List<float> Inattention_i = new List<float>();
+    public static List<int> Inattention_i = new List<int>();
 
     // HyperActivity Parameter
-    public static List<Vector3> HyperActivity_a = new List<Vector3>();
-    public static List<float> HyperActivity_b = new List<float>();
-    public static List<float> HyperActivity_c = new List<float>();
+    public static List<(float time, Vector3 position)> HyperActivity_a = new List<(float, Vector3)>();
+    public static List<int> HyperActivity_b = new List<int>();
+    public static List<int> HyperActivity_c = new List<int>();
     public static List<int> HyperActivity_d = new List<int>();
-    public static List<Vector3> HyperActivity_e = new List<Vector3>();
-    public static List<float> HyperActivity_f = new List<float>();
-    public static List<Vector3> HyperActivity_g = new List<Vector3>();
-    public static List<float> HyperActivity_i = new List<float>();
-
-    [SerializeField] private GameObject VectorLogger;
-   
+    public static List<(float time, Vector3 position)> HyperActivity_e = new List<(float, Vector3)>();
+    public static List<int> HyperActivity_f = new List<int>();
+    public static List<int> HyperActivity_g = new List<int>();
+    public static List<int> HyperActivity_i = new List<int>();
+    
+    public static bool _onIntroducing = false;
     
     public static GameManager instance;
 
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(VectorLogger);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -110,8 +111,43 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            MakeInputTensorCSV();
+            PrintAllArrays();
         }
+    }
+    
+    public static void PrintAllArrays()
+    {
+        // Get the GameManager type
+        Type gameManagerType = typeof(GameManager);
+
+        // Create a stream to write the output
+        string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        string fileName = "ArrayDataOutput_" + timestamp + ".txt";
+        string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        using (StreamWriter writer = new StreamWriter(filePath))
+        {
+            // Iterate over all public static fields
+            foreach (FieldInfo field in gameManagerType.GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                // Only process List or array types
+                if (field.FieldType.IsGenericType && field.FieldType.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    writer.WriteLine("List: " + field.Name);
+
+                    // Get the list and its elements
+                    var list = (IList)field.GetValue(null);
+
+                    // Write the list's elements to the file
+                    foreach (var item in list)
+                    {
+                        writer.WriteLine(item.ToString());
+                    }
+                    writer.WriteLine(); // Add a blank line for separation
+                }
+            }
+        }
+
+        Debug.Log("Array data saved to: " + filePath);
     }
     
     public static void MakeInputTensorCSV()

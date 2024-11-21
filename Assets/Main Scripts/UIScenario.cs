@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,9 @@ public class SlideData
 
 public class UIScenario : MonoBehaviour
 {
- [SerializeField]
+    [SerializeField] private GameObject TutorialCanvas;
+    
+    [SerializeField]
     private List<SlideData> _slides;
 
     [SerializeField]
@@ -37,8 +40,18 @@ public class UIScenario : MonoBehaviour
 
     private void Start()
     {
+        GameManager._onIntroducing = true;
         ShowSlide(currentSlideIndex); // 첫 슬라이드 활성화
         autoSlideCoroutine = StartCoroutine(AutoNextSlide()); // 자동 슬라이드 시작
+    }
+
+    private void Update()
+    {
+        if (!TutorialCanvas.activeSelf) // targetObject가 비활성화되었을 때
+        {
+            GameManager._onIntroducing = false;
+            Debug.Log("Object is disabled, setting _onIntroducing to false.");
+        }
     }
 
     private IEnumerator AutoNextSlide()

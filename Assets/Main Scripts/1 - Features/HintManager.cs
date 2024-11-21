@@ -7,7 +7,7 @@ public class HintManager : MonoBehaviour
     [SerializeField] private GameObject hintUI; // 힌트 UI 오브젝트
     [SerializeField] private ClayPickupManager clayPickupManager; // ClayPickupManager 참조
     [SerializeField] private TextMeshProUGUI hintText; // 힌트 텍스트를 표시할 TextMeshProUGUI
-
+    
     private Coroutine fadeCoroutine; // 페이드 코루틴 저장
 
     /// <summary>
@@ -19,11 +19,13 @@ public class HintManager : MonoBehaviour
         {
             // ClayPickupManager의 UseHint 메서드 호출
             clayPickupManager.UseHint();
+            
 
             // 힌트 UI를 업데이트하고 표시
             UpdateHintUI();
             ShowHintUI();
-            Debug.LogWarning("Use Hint!");
+            clayPickupManager.HintClicekdCount += 1;
+            Debug.LogWarning(clayPickupManager.HintClicekdCount);
         }
         else
         {

@@ -6,29 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Main Project/Feature/0. Information.unity
-    guid: 997528f88125b134c9ec251d6b799e77
-  - enabled: 0
-    path: Assets/Main Project/Feature/1.Tutorial.unity
-    guid: 73a49551c32a17e4c8344f9d36501c7f
-  - enabled: 0
-    path: Assets/Main Project/Feature/2. Firing Clay.unity
-    guid: f9556a9e12d962a4f98ce4699a79f17a
-  - enabled: 0
-    path: Assets/Main Project/Feature/3. Building House(Hard).unity
-    guid: 4db96ad7b56e5fa48a568b82baa17051
+    path: Assets/Main Project/0. Introduce.unity
+    guid: dcb4e3cb3802bfd40915d95a90f164ca
   - enabled: 1
-    path: Assets/Main Project/Feature/1.Tutorial 30.unity
-    guid: e1f7a8684c5a46f498b1c0c237ce7a26
-  - enabled: 0
-    path: Assets/Main Project/Feature/1.Tutorial_Fix.unity
-    guid: 295444ea5197b2d4db648934a2c64231
+    path: Assets/Main Project/1. Collecting Clay.unity
+    guid: 4a4f4785d5558c845b1e7090049fb12e
   - enabled: 1
-    path: Assets/Main Project/2. Firing Clay.unity
+    path: Assets/Main Project/2. Clay Firing.unity
     guid: f35e525904a80f44c819434ccef4d5fd
   - enabled: 1
-    path: Assets/Main Project/3. Building House(Middle).unity
+    path: Assets/Main Project/3. Building House (H).unity
+    guid: 94bd278044a6ac5469ab19eb1236ad1e
+  - enabled: 1
+    path: Assets/Main Project/3. Building House (M).unity
     guid: ef367fad778801845ac289d529812d91
+  - enabled: 1
+    path: Assets/Main Project/3. Building House(L).unity
+    guid: c0bd1474ac8d2cd41b17330002e271e3
+  - enabled: 1
+    path: Assets/Main Project/4. Clear Scene.unity
+    guid: d07f5175a2890dd4aafd1ea6daa696f3
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 59434c10870f233449896f11841b388a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: efada534aafe3b849b6a348789da54d5, type: 2}
