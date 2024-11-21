@@ -9,7 +9,7 @@ public class DatabaseManager : MonoBehaviour
     private int[] inputArray;
 
     // URL for the POST request
-    private string url = "http://127.0.0.1:8000/users/1/trials/";
+    private string url = "http://124.5.166.85:8000/users/1/trials/";
 
     void Start()
     {
