@@ -79,6 +79,7 @@ public class DatabaseManager : MonoBehaviour
         // inputArray[7] = GameManager.HyperActivity_h[0];
         inputArray[16] = 0;
         inputArray[17] = GameManager.HyperActivity_i[0];
+
         
         // Construct the JSON body manually
         string jsonData = "{"
@@ -99,7 +100,11 @@ public class DatabaseManager : MonoBehaviour
             + "\"hyperactivity_f\":" + inputArray[14] + ","
             + "\"hyperactivity_g\":" + inputArray[15] + ","
             + "\"hyperactivity_h\":" + inputArray[16] + ","
-            + "\"hyperactivity_i\":" + inputArray[17] + "}";
+            + "\"hyperactivity_i\":" + inputArray[17] + ","
+            + "\"predict_0\":\"" + ADHDModelRunner.resultArray[0].ToString() + "\","
+            + "\"predict_1\":\"" + ADHDModelRunner.resultArray[1].ToString() + "\","
+            + "\"predict_2\":\"" + ADHDModelRunner.resultArray[2].ToString() + "\","
+            + "\"predict_3\":\"" + ADHDModelRunner.resultArray[3].ToString() +"}";
 
         Debug.Log("JSON Payload: " + jsonData);
 

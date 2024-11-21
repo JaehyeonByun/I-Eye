@@ -4,7 +4,7 @@ using UnityEngine;
 public class ADHDModelRunner : MonoBehaviour
 {
     // Dummy input
-    public float[] dummyArray = {0.2639f, 0.3876f, 0.0653f, 0.9278f, 0.8771f, 0.4289f, 0.9481f, 0.4997f, 0.3194f, 0.6469f, 0.3467f, 0.5099f, 0.2347f, 0.2203f, 0.0713f, 0.2943f, 0.7185f, 0.1079f};
+    // public float[] dummyArray = {0.2639f, 0.3876f, 0.0653f, 0.9278f, 0.8771f, 0.4289f, 0.9481f, 0.4997f, 0.3194f, 0.6469f, 0.3467f, 0.5099f, 0.2347f, 0.2203f, 0.0713f, 0.2943f, 0.7185f, 0.1079f};
 
     public NNModel modelAsset; // Drag your .onnx file here in the inspector
     private IWorker worker;
@@ -13,6 +13,8 @@ public class ADHDModelRunner : MonoBehaviour
     private int channel = 1;
     private int height = 6;
     private int width = 3;
+
+    public static float[] resultArray = new float[4] {0f, 0f, 0f, 0f};
 
     void Start()
     {
@@ -60,6 +62,8 @@ public class ADHDModelRunner : MonoBehaviour
         inputTensor.Dispose();
         outputTensor.Dispose();
 
+        resultArray = outputArray;
+
         return outputArray;
     }
 
@@ -70,13 +74,13 @@ public class ADHDModelRunner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            var outputA = RunModel(dummyArray);
-            Debug.Log(outputA[0]);
-            Debug.Log(outputA[1]);
-            Debug.Log(outputA[2]);
-            Debug.Log(outputA[3]);
-        }
+        // if (Input.GetKeyDown(KeyCode.T))
+        // {
+        //     var outputA = RunModel(dummyArray);
+        //     Debug.Log(outputA[0]);
+        //     Debug.Log(outputA[1]);
+        //     Debug.Log(outputA[2]);
+        //     Debug.Log(outputA[3]);
+        // }
     }
 }
