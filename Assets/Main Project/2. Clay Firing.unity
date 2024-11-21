@@ -2209,7 +2209,8 @@ MonoBehaviour:
   _isHyperActivityG: {fileID: 1124013198}
   clearUI: {fileID: 183541849}
   databaseManager: {fileID: 1378707086}
-  dataPreprocessor: {fileID: 0}
+  dataPreprocessor: {fileID: 780156711}
+  adhdModelRunner: {fileID: 1804234414}
 --- !u!4 &737477159
 Transform:
   m_ObjectHideFlags: 0
@@ -2616,6 +2617,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0248ac8a293c2274fa379fbd8c373d51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalizedArray:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   isOver: 0
 --- !u!4 &780156713
 Transform:
