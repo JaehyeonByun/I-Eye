@@ -199,63 +199,69 @@ public class MicrophoneRecorder : MonoBehaviour
     }
 
     /// <summary>
-    /// 피치 분석 및 고주파 시간 구간 검출
-    /// </summary>
-    public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 1000f)
+/// 피치 분석 및 고주파 시간 구간 검출
+/// </summary>
+public List<float> AnalyzePitch(AudioClip audioClip, float thresholdFrequency = 1000f)
+{
+    if (audioClip == null)
     {
-        if (audioClip == null)
-        {
-            Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
-            return null;
-        }
-
-        List<float> pitchSequence = new List<float>();
-        int windowSize = 4096; // 샘플 크기를 2의 제곱으로 설정 (FFT 정확도 향상)
-        float[] samples = new float[audioClip.samples];
-        audioClip.GetData(samples, 0);
-
-        int sampleRate = audioClip.frequency; // 샘플링 레이트
-        float maxFreq = sampleRate / 2f; // 최대 주파수
-        float minFreq = 100f; // 필터 최소 주파수
-        float maxValidFreq = 600f; // 필터 최대 주파수
-        float timePerFrame = (float)windowSize / sampleRate; // 프레임당 시간
-        float totalHighPitchDuration = 0f; // 하이피치 누적 시간
-
-        // 프레임 단위로 피치 분석
-        for (int i = 0; i < samples.Length; i += windowSize)
-        {
-            float[] frame = new float[windowSize];
-            for (int j = 0; j < windowSize && i + j < samples.Length; j++)
-            {
-                frame[j] = samples[i + j];
-            }
-
-            // FFT 수행 및 주요 주파수 추출
-            float[] spectrum = PerformFFT(frame);
-            float peakFrequency = GetPeakFrequency(spectrum, sampleRate);
-
-            // 필터: 비정상적으로 낮거나 높은 주파수 제외
-            if (peakFrequency < minFreq || peakFrequency > maxValidFreq)
-            {
-                Debug.Log($"[AnalyzePitch] Ignored frequency: {peakFrequency} Hz (out of valid range).");
-                continue;
-            }
-
-            // 피치 기록
-            pitchSequence.Add(peakFrequency);
-
-            // 하이피치 구간 누적 시간 계산
-            if (peakFrequency >= thresholdFrequency)
-            {
-                totalHighPitchDuration += timePerFrame;
-            }
-        }
-
-        Debug.Log($"[MicrophoneRecorder] Total High Pitch Duration: {totalHighPitchDuration:F2} seconds.");
-    
-        IsPitchAnalyzeComplete = true;
-        return pitchSequence; // 분석된 피치 데이터 반환
+        Debug.LogError("[MicrophoneRecorder] AudioClip is null. Cannot analyze pitch.");
+        return null;
     }
+
+    List<float> pitchSequence = new List<float>();
+    int windowSize = 4096; // 샘플 크기를 2의 제곱으로 설정 (FFT 정확도 향상)
+    float[] samples = new float[audioClip.samples];
+    audioClip.GetData(samples, 0);
+
+    int sampleRate = audioClip.frequency; // 샘플링 레이트
+    float maxFreq = sampleRate / 2f; // 최대 주파수
+    float minFreq = 100f; // 필터 최소 주파수
+    float maxValidFreq = 600f; // 필터 최대 주파수
+    float timePerFrame = (float)windowSize / sampleRate; // 프레임당 시간
+    float totalHighPitchDuration = 0f; // 하이피치 누적 시간
+
+    // 프레임 단위로 피치 분석
+    for (int i = 0; i < samples.Length; i += windowSize)
+    {
+        float[] frame = new float[windowSize];
+        for (int j = 0; j < windowSize && i + j < samples.Length; j++)
+        {
+            frame[j] = samples[i + j];
+        }
+
+        // FFT 수행 및 주요 주파수 추출
+        float[] spectrum = PerformFFT(frame);
+        float peakFrequency = GetPeakFrequency(spectrum, sampleRate);
+
+        // 필터: 비정상적으로 낮거나 높은 주파수 제외
+        if (peakFrequency < minFreq || peakFrequency > maxValidFreq)
+        {
+            Debug.Log($"[AnalyzePitch] Ignored frequency: {peakFrequency} Hz (out of valid range).");
+            continue;
+        }
+
+        // 피치 기록
+        pitchSequence.Add(peakFrequency);
+
+        // 하이피치 구간 누적 시간 계산
+        if (peakFrequency >= thresholdFrequency)
+        {
+            totalHighPitchDuration += timePerFrame;
+        }
+    }
+
+    Debug.Log($"[MicrophoneRecorder] Total High Pitch Duration: {totalHighPitchDuration:F2} seconds.");
+    
+    // GameManager에 값 저장
+    totalHighPitchDuration = Mathf.Round(totalHighPitchDuration * 100f) / 100f;
+    GameManager.HyperActivity_f.Add(Mathf.RoundToInt(totalHighPitchDuration * 100));
+    Debug.Log($"[MicrophoneRecorder] HyperActivity_f set to: {GameManager.HyperActivity_f}");
+
+    IsPitchAnalyzeComplete = true;
+    return pitchSequence; // 분석된 피치 데이터 반환
+}
+
 
 /// <summary>
 /// FFT 수행
