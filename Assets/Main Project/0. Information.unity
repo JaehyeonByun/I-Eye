@@ -500,6 +500,7 @@ MonoBehaviour:
   wristLeft: {fileID: 2107520274}
   wristRight: {fileID: 74312208}
   bodyposition: {fileID: 675946879}
+  targetObject: {fileID: 0}
   logInterval: 0.1
 --- !u!1 &134134331
 GameObject:
@@ -727,7 +728,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d20631b3f156c245aa42ab00150a6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vectorLogger: {fileID: 119687405}
 --- !u!1 &179620587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,7 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiScenario: {fileID: 1119520228}
-  nextSceneName: 1.Tutorial 30
+  nextSceneName: 1. Collecting Clay
   clayPickupManager: {fileID: 0}
 --- !u!1 &644374136
 GameObject:
@@ -3284,6 +3284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4921f9e4931e5fb4ca1b3fb342ccf5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TutorialCanvas: {fileID: 0}
   _slides:
   - interval: 4
     isStop: 0

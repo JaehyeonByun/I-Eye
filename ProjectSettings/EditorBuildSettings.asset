@@ -5,22 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Project/0. Introduce.unity
     guid: dcb4e3cb3802bfd40915d95a90f164ca
+  - enabled: 1
+    path: Assets/Main Project/0. Information.unity
+    guid: 997528f88125b134c9ec251d6b799e77
   - enabled: 1
     path: Assets/Main Project/1. Collecting Clay.unity
     guid: 4a4f4785d5558c845b1e7090049fb12e
   - enabled: 1
     path: Assets/Main Project/2. Clay Firing.unity
     guid: f35e525904a80f44c819434ccef4d5fd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Project/3. Building House (H).unity
     guid: eeb62242ed1813d4b95a4d4dcbb46afe
   - enabled: 1
     path: Assets/Main Project/3. Building House (M).unity
     guid: ef367fad778801845ac289d529812d91
-  - enabled: 1
+  - enabled: 0
     path: Assets/Main Project/4. Clear Scene.unity
     guid: d07f5175a2890dd4aafd1ea6daa696f3
   m_configObjects:
