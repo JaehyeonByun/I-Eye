@@ -6,104 +6,55 @@ using SimpleJSON;
 
 public class DatabaseManager : MonoBehaviour
 {
-    // Random integer array of size 18
+    public ADHDParameters adhdParameters;
+    
     private int[] inputArray = new int[18];
-    // private int[] distances = new int[2];
-
-    // URL for the POST request
     private string url = "http://124.5.166.85:8000/users/1/trials/";
     private static string statisticsUrl = "http://124.5.166.85:8000/statistics/";
 
-    void Start()
-    {
-        // Initialize the inputArray with random integers
-        // inputArray = GenerateRandomArray(18, 1, 10000); // 18 random integers between 1 and 10,000
-    }
-
-    void Update()
-    {
-        // // Listen for 'P' key press
-        // if (Input.GetKeyDown(KeyCode.P))
-        // {
-        //     // StartCoroutine(PostData());
-        //     // Fetch statistics and log mean of inattention_a
-        //     StartCoroutine(GetStatistics((statistics) =>
-        //     {
-        //         if (statistics != null)
-        //         {
-        //             Debug.Log("Statistics fetched successfully!");
-                    
-        //             // Access mean of inattention_a
-        //             if (statistics.ContainsKey("mean") && statistics["mean"].ContainsKey("inattention_a"))
-        //             {
-        //                 float inattentionAMean = statistics["mean"]["inattention_a"];
-        //                 Debug.Log($"Mean of inattention_a: {inattentionAMean}");
-        //             }
-        //             else
-        //             {
-        //                 Debug.LogError("Key 'inattention_a' not found in 'mean'.");
-        //             }
-        //         }
-        //         else
-        //         {
-        //             Debug.LogError("Failed to fetch statistics.");
-        //         }
-        //     }));
-        // }
-        
-    }
-
     public IEnumerator PostData()
     {
-        // distances = DistanceCalculator.Calculate();
+        for (int i = 0; i < adhdParameters.inattentionMetrics.Length; i++)
+        {
+            inputArray[i] = adhdParameters.inattentionMetrics[i].value;
+        }
         
-        inputArray[0] = GameManager.Inattention_a[0];
-        inputArray[1] = GameManager.Inattention_b[0];
-        inputArray[2] = GameManager.Inattention_c[0];
-        inputArray[3] = GameManager.Inattention_d[0];
-        inputArray[4] = GameManager.Inattention_e[0];
-        inputArray[5] = GameManager.Inattention_f[0];
-        inputArray[6] = GameManager.Inattention_g[0];
-        inputArray[7] = GameManager.Inattention_h[0];
-        inputArray[8] = GameManager.Inattention_i[0];
+        for (int i = 0; i < adhdParameters.hyperActivityMetric.Length; i++)
+        {
+            inputArray[i + 9] = adhdParameters.hyperActivityMetric[i].value;
+        }
+        string[] inattentionKeys = new string[] {
+            "inattention_a", "inattention_b", "inattention_c", "inattention_d", "inattention_e",
+            "inattention_f", "inattention_g", "inattention_h", "inattention_i"
+        };
 
-        inputArray[9] = GameManager.HyperActivity_a[0];
-        // inputArray[0] = distances[0];
-        inputArray[10] = GameManager.HyperActivity_b[0];
-        inputArray[11] = GameManager.HyperActivity_c[0];
-        inputArray[12] = GameManager.HyperActivity_d[0];
-        inputArray[13] = GameManager.HyperActivity_e[0];
-        // inputArray[4] = distances[1];
-        inputArray[14] = GameManager.HyperActivity_f[0];
-        inputArray[15] = GameManager.HyperActivity_g[0];
-        // inputArray[7] = GameManager.HyperActivity_h[0];
-        inputArray[16] = 0;
-        inputArray[17] = GameManager.HyperActivity_i[0];
+        string[] hyperactivityKeys = new string[] {
+            "hyperactivity_a", "hyperactivity_b", "hyperactivity_c", "hyperactivity_d", "hyperactivity_e",
+            "hyperactivity_f", "hyperactivity_g", "hyperactivity_h", "hyperactivity_i"
+        };
 
-        // Construct the JSON body manually
-        string jsonData = "{"
-            + "\"inattention_a\":" + inputArray[0] + ","
-            + "\"inattention_b\":" + inputArray[1] + ","
-            + "\"inattention_c\":" + inputArray[2] + ","
-            + "\"inattention_d\":" + inputArray[3] + ","
-            + "\"inattention_e\":" + inputArray[4] + ","
-            + "\"inattention_f\":" + inputArray[5] + ","
-            + "\"inattention_g\":" + inputArray[6] + ","
-            + "\"inattention_h\":" + inputArray[7] + ","
-            + "\"inattention_i\":" + inputArray[8] + ","
-            + "\"hyperactivity_a\":" + inputArray[9] + ","
-            + "\"hyperactivity_b\":" + inputArray[10] + ","
-            + "\"hyperactivity_c\":" + inputArray[11] + ","
-            + "\"hyperactivity_d\":" + inputArray[12] + ","
-            + "\"hyperactivity_e\":" + inputArray[13] + ","
-            + "\"hyperactivity_f\":" + inputArray[14] + ","
-            + "\"hyperactivity_g\":" + inputArray[15] + ","
-            + "\"hyperactivity_h\":" + inputArray[16] + ","
-            + "\"hyperactivity_i\":" + inputArray[17] + ","
-            + "\"predict_a\":\"" + ADHDModelRunner.resultArray[0].ToString() + "\","
-            + "\"predict_b\":\"" + ADHDModelRunner.resultArray[1].ToString() + "\","
-            + "\"predict_c\":\"" + ADHDModelRunner.resultArray[2].ToString() + "\","
-            + "\"predict_d\":\"" + ADHDModelRunner.resultArray[3].ToString() +"\"}";
+        string jsonData = "{";
+
+// Add inattention values
+        for (int i = 0; i < inattentionKeys.Length; i++)
+        {
+            jsonData += $"\"{inattentionKeys[i]}\":{inputArray[i]},";
+        }
+
+// Add hyperactivity values
+        for (int i = 0; i < hyperactivityKeys.Length; i++)
+        {
+            jsonData += $"\"{hyperactivityKeys[i]}\":{inputArray[i + inattentionKeys.Length]},";
+        }
+
+// Add prediction values
+        jsonData += $"\"predict_a\":\"{ADHDModelRunner.resultArray[0]}\",";
+        jsonData += $"\"predict_b\":\"{ADHDModelRunner.resultArray[1]}\",";
+        jsonData += $"\"predict_c\":\"{ADHDModelRunner.resultArray[2]}\",";
+        jsonData += $"\"predict_d\":\"{ADHDModelRunner.resultArray[3]}\"";
+
+// Close JSON string
+        jsonData += "}";
 
         Debug.Log("JSON Payload: " + jsonData);
 
@@ -130,7 +81,6 @@ public class DatabaseManager : MonoBehaviour
             }
         }
     }
-
     // Wrapper for serializing dictionary to JSON
     [System.Serializable]
     private class JsonWrapper

@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class ADHDModelRunner : MonoBehaviour
 {
-    // Dummy input
-    // public float[] dummyArray = {0.2639f, 0.3876f, 0.0653f, 0.9278f, 0.8771f, 0.4289f, 0.9481f, 0.4997f, 0.3194f, 0.6469f, 0.3467f, 0.5099f, 0.2347f, 0.2203f, 0.0713f, 0.2943f, 0.7185f, 0.1079f};
-
-    public NNModel modelAsset; // Drag your .onnx file here in the inspector
+    public NNModel modelAsset; 
     private IWorker worker;
     private Model model;
     private int batch = 1;
@@ -18,7 +15,6 @@ public class ADHDModelRunner : MonoBehaviour
 
     void Start()
     {
-        // Load the model and create a worker for inference
         model = ModelLoader.Load(modelAsset);
         worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, model);
     }
@@ -36,7 +32,6 @@ public class ADHDModelRunner : MonoBehaviour
             {
                 for (int c = 0; c < channels; c++)
                 {
-                    // Reorder data: NHWC
                     reorderedInput[h * width * channels + w * channels + c] =
                         inputArray[c * height * width + h * width + w];
                 }
@@ -48,17 +43,13 @@ public class ADHDModelRunner : MonoBehaviour
 
     public float[] RunModel(float[] inputArray)
     {
-        // Prepare the input tensor
         Tensor inputTensor = new Tensor(batch, height, width, channel, ReorderInput(inputArray));
-
-        // Execute the model
+        
         worker.Execute(inputTensor);
 
-        // Get the output tensor
         Tensor outputTensor = worker.PeekOutput();
         float[] outputArray = outputTensor.ToReadOnlyArray();
-
-        // Dispose tensors to avoid memory leaks
+        
         inputTensor.Dispose();
         outputTensor.Dispose();
 
@@ -70,17 +61,5 @@ public class ADHDModelRunner : MonoBehaviour
     void OnDestroy()
     {
         worker.Dispose();
-    }
-
-    void Update()
-    {
-        // if (Input.GetKeyDown(KeyCode.T))
-        // {
-        //     var outputA = RunModel(dummyArray);
-        //     Debug.Log(outputA[0]);
-        //     Debug.Log(outputA[1]);
-        //     Debug.Log(outputA[2]);
-        //     Debug.Log(outputA[3]);
-        // }
     }
 }
